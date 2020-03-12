@@ -34,7 +34,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     })
   },
   createMeeting: (meeting: OnlineMeetingInput) => {
-    console.log('DISPATCH MEETING', JSON.stringify(meeting));
     dispatch({
       type: CREATE_MEETING_COMMAND,
       meeting
@@ -87,7 +86,6 @@ const timeSuggestions = _.range(0, 1440, 30)
 
 function DateTimePicker(props: DateTimePickerProps) {
   function onDayPicked(date: Date | null | undefined) {
-    console.log(date);
     const nextDateTime = date ?? props.dateTime?.clone()
     // get the delta of minutes from the start of the day
     const offset = moment.duration(moment(props.dateTime?.clone()).diff(moment(props.dateTime?.clone()).startOf('day')));
@@ -99,7 +97,6 @@ function DateTimePicker(props: DateTimePickerProps) {
     const offset = moment.duration(option?.key, 'minutes');
     
     const nextTime = moment(props.dateTime?.clone())?.startOf('day').add(offset);
-    console.log('OFFSET', offset, nextTime);
     props.onTimeUpdated(nextTime)
   }
 
@@ -114,7 +111,6 @@ function DateTimePicker(props: DateTimePickerProps) {
 }
 
 function MeetingPageComponent(props: Partial<MeetingPageProps>) {
-  console.log('RENDER', JSON.stringify(props));
   const setMeeting = props.setMeeting || ((meeting) => {});
   function onSubjectChanged(evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue: string | undefined)
   {
@@ -178,7 +174,6 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
 
   function createMeeing(meeting?: OnlineMeetingInput)
   {
-    console.log('PROPS????', JSON.stringify(meeting));
     if (!meeting) {
       console.warn("Meeting is undefined, ignoring input");
       return;
@@ -227,8 +222,6 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
         <Toggle label="All day" inlineLabel onChanged={onAllDayToggle}/>
       </Stack>
       <Text variant="medium">We will create an event which includes a Microsoft Teams meeting link on your course calendar.</Text>
-      {/* TODO: remove the following once publishing / pushing. */}
-      <Text>{JSON.stringify(props.meeting, null, 2)}</Text>
   </Stack>
   );
 }

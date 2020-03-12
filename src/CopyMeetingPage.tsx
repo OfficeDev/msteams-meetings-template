@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Text, FontWeights, PrimaryButton } from 'office-ui-fabric-react';
+import { Stack, Text, FontWeights, PrimaryButton, Link, StackItem } from 'office-ui-fabric-react';
 import { msalApp } from './auth';
 import { AuthResponse } from 'msal';
 import { AppState } from './RootReducer'
@@ -31,7 +31,7 @@ function CopyMeetingPageComponent(props: Partial<CopyMeetingPageProps>) {
   
   return (
     <Stack
-    horizontalAlign="center"
+    horizontalAlign="start"
     verticalAlign="center"
     verticalFill
     styles={{
@@ -45,10 +45,25 @@ function CopyMeetingPageComponent(props: Partial<CopyMeetingPageProps>) {
     tokens={{
       childrenGap: 35
     }}>
-    <Text variant="xxLarge" styles={boldStyle}>
-      Copy the meeting!
+    <Text variant="medium" styles={boldStyle}>
+      You're invited to join a Microsoft Teams meeting
     </Text>
-    <Text variant="large">Sign in to Microsoft Teams using your school account to get started.</Text>
+    <Stack verticalFill horizontalAlign="start">
+      <Link href={props.meeting?.joinWebUrl}><Text variant="xLargePlus">Join online now</Text></Link>
+      <Text variant="medium">Video conferencing, screen sharing and more.</Text>
+    </Stack>
+    <Stack verticalFill horizontalAlign="start">
+      <Text variant="medium" styles={boldStyle}>Join by phone (audio only)</Text>
+      <Link href={props.meeting?.dialinUrl}><Text>{props.meeting?.tollNumber}</Text></Link>
+      <Text>Phone conference ID: {props.meeting?.conferenceId}</Text>
+    </Stack>
+    <Stack horizontal horizontalAlign="start" tokens={{
+      childrenGap: 12
+    }}>
+      <Link href="help">Help</Link> 
+      <Text> | </Text>
+      <Link href="meetingOptions">Meeting Options</Link>
+    </Stack>
   <Text>{JSON.stringify(props.meeting, null, 2)}</Text>
     <PrimaryButton text="Copy to clipboard" onClick={() => onCopyToClipboard(props.meeting)}/>
   </Stack>
