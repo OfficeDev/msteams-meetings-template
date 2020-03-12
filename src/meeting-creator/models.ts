@@ -14,5 +14,9 @@ export interface OnlineMeeting {
     videoTeleconferenceId: string
     creationDateTime: Moment
     startDateTime: Moment
-    endDateTime: Moment
+    endDateTime: Moment,
+    dialinUrl: string,
+    conferenceId: string,
+    tollNumber: string,
+    tollFreeNumber: string
 }

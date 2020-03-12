@@ -1,4 +1,4 @@
-import { OnlineMeetingInput } from "./models"
+import { OnlineMeetingInput, OnlineMeeting } from "./models"
 
 export const SET_MEETING_COMMAND = "SetMeetingCommand"
 export interface SetMeetingCommand {
@@ -12,4 +12,10 @@ export interface CreateMeetingCommand {
     meeting: OnlineMeetingInput
 }
 
-export type MeetingAction = SetMeetingCommand
+export const MEETING_CREATED_EVENT = "MeetingCreatedEvent"
+export interface MeetingCreatedEvent {
+    type: typeof MEETING_CREATED_EVENT,
+    meeting: OnlineMeeting
+}
+
+export type MeetingAction = SetMeetingCommand | CreateMeetingCommand | MeetingCreatedEvent

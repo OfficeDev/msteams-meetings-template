@@ -9,6 +9,7 @@ import { createAuthMiddleware } from './auth/middleware';
 import MeetingPage from './MeetingPage';
 import { createRootReducer } from './RootReducer'
 import { createMeetingMiddleware } from './meeting-creator/middleware';
+import CopyMeetingPage from './CopyMeetingPage';
 
 const hist = createBrowserHistory();
 
@@ -30,6 +31,7 @@ function App() {
       <ConnectedRouter history={hist}>
         <Switch>
           <Route exact path="/createEvent" component={MeetingPage} />
+          <Route exact path="/copyMeeting" component={CopyMeetingPage} />
           <Route component={LandingPage} />
         </Switch>
       </ConnectedRouter>

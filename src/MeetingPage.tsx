@@ -28,7 +28,6 @@ const mapStateToProps = (state : AppState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   setMeeting: (meeting: OnlineMeetingInput) => {
-    console.log('NEXT MEETING', JSON.stringify(meeting));
     dispatch({
       type: SET_MEETING_COMMAND,
       meeting
@@ -88,9 +87,10 @@ const timeSuggestions = _.range(0, 1440, 30)
 
 function DateTimePicker(props: DateTimePickerProps) {
   function onDayPicked(date: Date | null | undefined) {
-    const nextDateTime = date ?? props.dateTime
+    console.log(date);
+    const nextDateTime = date ?? props.dateTime?.clone()
     // get the delta of minutes from the start of the day
-    const offset = moment.duration(moment(props.dateTime).diff(moment(props.dateTime).startOf('day')));
+    const offset = moment.duration(moment(props.dateTime?.clone()).diff(moment(props.dateTime?.clone()).startOf('day')));
     const updatedNextDateTime = moment(nextDateTime).startOf('day').add(offset);
     props.onTimeUpdated(updatedNextDateTime);
   }
@@ -98,7 +98,7 @@ function DateTimePicker(props: DateTimePickerProps) {
   function onTimePicked(event: React.FormEvent<IComboBox>, option?: IComboBoxOption | undefined) {
     const offset = moment.duration(option?.key, 'minutes');
     
-    const nextTime = moment(props.dateTime)?.startOf('day').add(offset);
+    const nextTime = moment(props.dateTime?.clone())?.startOf('day').add(offset);
     console.log('OFFSET', offset, nextTime);
     props.onTimeUpdated(nextTime)
   }
@@ -140,7 +140,7 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
     // The meeting objects are small, cloning is cheap enough
     // Normally would use immutable records or similar to avoid overhead.
     const nextMeeting = _.cloneDeep(props.meeting);
-    nextMeeting.startDateTime = date ?? props.meeting.startDateTime
+    nextMeeting.startDateTime = date ?? props.meeting.startDateTime?.clone();
     setMeeting(nextMeeting);
   }
 
@@ -155,7 +155,7 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
     // The meeting objects are small, cloning is cheap enough
     // Normally would use immutable records or similar to avoid overhead.
     const nextMeeting = _.cloneDeep(props.meeting);
-    nextMeeting.endDateTime = date ?? props.meeting.endDateTime
+    nextMeeting.endDateTime = date ?? props.meeting.endDateTime?.clone()
     console.log('next meeting', nextMeeting.endDateTime);
     setMeeting(nextMeeting);
   }
@@ -171,14 +171,14 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
     // Normally would use immutable records or similar to avoid overhead.
     const nextMeeting = _.cloneDeep(props.meeting);
     nextMeeting.allDay = nextValue;
-    nextMeeting.startDateTime = moment(props.meeting.startDateTime)?.startOf('day');
-    nextMeeting.endDateTime = moment(props.meeting.endDateTime)?.endOf('day')
+    nextMeeting.startDateTime = props.meeting.startDateTime?.clone()?.startOf('day');
+    nextMeeting.endDateTime = props.meeting.endDateTime?.clone()?.endOf('day')
     setMeeting(nextMeeting);
   }
 
   function createMeeing(meeting?: OnlineMeetingInput)
   {
-    console.log('PROPS????', JSON.stringify(props));
+    console.log('PROPS????', JSON.stringify(meeting));
     if (!meeting) {
       console.warn("Meeting is undefined, ignoring input");
       return;
@@ -220,8 +220,8 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
 
       <Stack horizontal tokens={{childrenGap: 15}}>
         <FontIcon iconName="Clock" className={inputIconClass} />
-        <DateTimePicker dayBoundry={props?.meeting?.allDay ?? false} dateTime={props?.meeting?.startDateTime} onTimeUpdated={onStartDateSelected} />
-        <DateTimePicker dayBoundry={props?.meeting?.allDay ?? false} dateTime={props?.meeting?.endDateTime} onTimeUpdated={onEndDateSelected} />
+        <DateTimePicker dayBoundry={props?.meeting?.allDay ?? false} dateTime={props?.meeting?.startDateTime?.clone()} onTimeUpdated={onStartDateSelected} />
+        <DateTimePicker dayBoundry={props?.meeting?.allDay ?? false} dateTime={props?.meeting?.endDateTime?.clone()} onTimeUpdated={onEndDateSelected} />
         <Toggle label="All day" inlineLabel onChanged={onAllDayToggle}/>
       </Stack>
       <Text variant="medium">We will create an event which includes a Microsoft Teams meeting link on your course calendar.</Text>
