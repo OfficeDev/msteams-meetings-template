@@ -196,7 +196,9 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
         color: '#605e5c'
       }
     }}
-    gap={35}>
+    tokens={{
+      childrenGap: 35
+    }}>
       <Stack horizontal tokens={{childrenGap: 15}}>
         <StackItem grow>
           <FontIcon iconName="Calendar" className={meetingIconClass} />

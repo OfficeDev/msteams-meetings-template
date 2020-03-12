@@ -40,7 +40,9 @@ function LandingPageComponent(props: Partial<LandingPageProps>) {
         color: '#605e5c'
       }
     }}
-    gap={35}>
+    tokens={{
+      childrenGap: 35
+    }}>
     <img
       src="https://statics.teams.microsoft.com/hashedassets-launcher/launcher_meetings_new.b2c45282207c2dff1f96b89f128a7e31.svg"
       alt="logo"

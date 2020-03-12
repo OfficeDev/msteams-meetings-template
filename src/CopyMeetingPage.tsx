@@ -42,7 +42,9 @@ function CopyMeetingPageComponent(props: Partial<CopyMeetingPageProps>) {
         color: '#605e5c'
       }
     }}
-    gap={35}>
+    tokens={{
+      childrenGap: 35
+    }}>
     <Text variant="xxLarge" styles={boldStyle}>
       Copy the meeting!
     </Text>
