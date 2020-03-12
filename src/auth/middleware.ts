@@ -25,7 +25,7 @@ export function createAuthMiddleware() : Middleware
         }
 
         if (action.type == SIGNIN_COMPLETE_EVENT) {
-            store.dispatch(push("/createEvent"))
+            store.dispatch(push("/createLanding"))
         }
 
         next(action);
