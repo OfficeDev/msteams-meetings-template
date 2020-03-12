@@ -8,7 +8,6 @@ import { OPEN_SIGNIN_DIALOG_COMMAND } from './auth/actions';
 import { connect } from 'react-redux';
 import { OnlineMeeting } from './meeting-creator/models';
 
-const boldStyle = { root: { fontWeight: FontWeights.semibold } };
 
 interface CopyMeetingPageProps {
   meeting: OnlineMeeting,
@@ -43,17 +42,10 @@ function CopyMeetingPageComponent(props: Partial<CopyMeetingPageProps>) {
   
   return (
     <Stack
+    className="container"
     horizontalAlign="start"
     verticalAlign="center"
     verticalFill
-    styles={{
-      root: {
-        width: '960px',
-        margin: '0 auto',
-        textAlign: 'center',
-        color: '#605e5c'
-      }
-    }}
     tokens={{
       childrenGap: 35
     }}>
@@ -80,7 +72,7 @@ function CopyMeetingPageComponent(props: Partial<CopyMeetingPageProps>) {
       <Link href="meetingOptions">Meeting Options</Link>
     </Stack>
   <Text>{JSON.stringify(props.meeting, null, 2)}</Text> */}
-    <PrimaryButton text="Copy to clipboard" onClick={() => onCopyToClipboard(props.meeting)}/>
+    <PrimaryButton className="teamsButton" text="Copy to clipboard" onClick={() => onCopyToClipboard(props.meeting)}/>
   </Stack>
   );
 }

@@ -167,13 +167,8 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
 
   return (
     <Stack
+    className="container"
     verticalFill
-    styles={{
-      root: {
-        width: '960px',
-        color: '#605e5c'
-      }
-    }}
     tokens={{
       childrenGap: 35
     }} >
@@ -186,8 +181,8 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
         </StackItem>
         <StackItem align="end">
           <Stack horizontal tokens={{childrenGap: 10}}>
-            <PrimaryButton primary text="Save" onClick={() => createMeeing(props.meeting)} />
-            <DefaultButton text="Close" />
+            <PrimaryButton className="teamsButton" primary text="Save" onClick={() => createMeeing(props.meeting)} />
+            <DefaultButton className="teamsButtonInverted" text="Close" />
           </Stack>
         </StackItem>
       </Stack>

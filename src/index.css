@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  padding: 3rem 1.5rem 2rem 1.5rem;
+  width: 100%;
+}
+
+.teamsButton,
+.teamsButtonInverted {
+  border-radius: 3px;
+  height: 2.25rem;
+  font-size: .875rem;
+  font-weight: 600;
+  padding: 0 1.25rem;
+  text-decoration: none;
+}
+
+.teamsButton {
+  background-color: #6264a7;
+  border: 1px solid hsla(0,0%,100%,.04);
+  box-shadow: 1px 1px 3px 0 rgba(0,0,0,.15);
+}
+
+.teamsButton:hover {
+  background: #464775;
+  border-color: transparent;
+}
+
+.teamsButton:active {
+  background: #33344A;
+  border-color: transparent;
+}
+
+.teamsButtonInverted {
+  border: 1px solid #e3e5e9;
+  background-color: #fff;
+  box-shadow: 1px 1px 3px 0 rgba(0,0,0,.075);
+}
+
+.teamsButtonInverted:hover {
+  background-color: #f3f2f1;
+}
+
+.splashImage {
+  max-width: 650px;
+}
+
+.uTextCenter {
+  text-align: center;
+}
+
+div[class*="wrapper-108"]:after {
+  border-bottom: 2px solid #6264a7;
+}
