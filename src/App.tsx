@@ -7,20 +7,18 @@ import { ConnectedRouter, connectRouter, routerMiddleware } from 'connected-reac
 import LandingPage from './LandingPage'
 import { createAuthMiddleware } from './auth/middleware';
 import MeetingPage from './MeetingPage';
+import { createRootReducer } from './RootReducer'
+import { createMeetingMiddleware } from './meeting-creator/middleware';
 
 const hist = createBrowserHistory();
 
-const createRootReducer = (history : History<History.PoorMansUnknown>) => combineReducers({
-  router: connectRouter(history),
-});
-
 const store = createStore(
   createRootReducer(hist),
-  {},
   compose(
     applyMiddleware(
       routerMiddleware(hist),
-      createAuthMiddleware()
+      createAuthMiddleware(),
+      createMeetingMiddleware()
     )
   )
 )

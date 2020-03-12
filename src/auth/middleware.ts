@@ -6,8 +6,8 @@ import { push } from "connected-react-router";
 export function createAuthMiddleware() : Middleware
 {
     return store => next => action => {
-        console.log('ACTION', action);
         if (action.type == OPEN_SIGNIN_DIALOG_COMMAND) {
+            // TODO: handle multiple logins
             msalApp
                 .loginPopup({
                     scopes: [
@@ -15,16 +15,19 @@ export function createAuthMiddleware() : Middleware
                     ]
                 })
                 .then((response) => {
+                    console.log('AUTH RESPONSE', response);
                     store.dispatch({
                         type: SIGNIN_COMPLETE_EVENT,
                         idToken: response.idToken
                     } as SigninCompleteEvent)
                 })
+                // TODO: handle auth failures
         }
 
         if (action.type == SIGNIN_COMPLETE_EVENT) {
-            console.log('Create event!', action);
             store.dispatch(push("/createEvent"))
         }
+
+        next(action);
     }
 }
