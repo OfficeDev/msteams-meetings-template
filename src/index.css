@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: #f9f9f9;
 }
 
 .container {
@@ -52,6 +53,53 @@ body {
   text-align: center;
 }
 
-div[class*="wrapper-108"]:after {
+div[class*="ms-TextField-wrapper"]:after {
   border-bottom: 2px solid #6264a7;
+}
+
+/*
+*  New Meeting Styles
+*/
+
+.newMeetingInput input {
+  background-color: #f9f9f9;
+}
+
+
+/*
+*  Meeting Card Styles
+*/
+
+.teamsLink {
+  color: #6264a7;
+}
+
+.meetingCardContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  box-shadow: 0px 9px 10px 1px #00000014;
+}
+
+.meetingCardBody {
+  border: 1px solid #cccccc6b;
+  border-radius: 3px;
+  padding: 1.3rem 1rem 1.1rem 1rem;
+}
+
+.meetingCardHeader {
+  margin-bottom: 1.4rem;
+  text-align: center;
+}
+
+.meetingCardDialInfo,
+.meetingCardUrl {
+  margin-bottom: 1rem;
+  display: block;
+  font-size: 1rem;
+}
+
+.copyButton {
+  align-self: flex-end;
+  margin-top: 1.6rem;
 }

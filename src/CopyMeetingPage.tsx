@@ -43,36 +43,28 @@ function CopyMeetingPageComponent(props: Partial<CopyMeetingPageProps>) {
   return (
     <Stack
     className="container"
-    horizontalAlign="start"
-    verticalAlign="center"
     verticalFill
     tokens={{
       childrenGap: 35
     }}>
-      <div id="copy">
-        {JSON.stringify(props.meeting, null, 2)}
-      </div>
-    {/* <Text variant="medium" styles={boldStyle}>
-      You're invited to join a Microsoft Teams meeting
-    </Text>
-    <Stack verticalFill horizontalAlign="start">
-      <Link href={props.meeting?.joinWebUrl}><Text variant="xLargePlus">Join online now</Text></Link>
-      <Text variant="medium">Video conferencing, screen sharing and more.</Text>
-    </Stack>
-    <Stack verticalFill horizontalAlign="start">
-      <Text variant="medium" styles={boldStyle}>Join by phone (audio only)</Text>
-      <Link href={props.meeting?.dialinUrl}><Text>{props.meeting?.tollNumber}</Text></Link>
-      <Text>Phone conference ID: {props.meeting?.conferenceId}</Text>
-    </Stack>
-    <Stack horizontal horizontalAlign="start" tokens={{
-      childrenGap: 12
-    }}>
-      <Link href="help">Help</Link> 
-      <Text> | </Text>
-      <Link href="meetingOptions">Meeting Options</Link>
-    </Stack>
-  <Text>{JSON.stringify(props.meeting, null, 2)}</Text> */}
-    <PrimaryButton className="teamsButton" text="Copy to clipboard" onClick={() => onCopyToClipboard(props.meeting)}/>
+      <Stack.Item align="center" className="meetingCardContainer">
+        <Text block variant="xLarge" className="meetingCardHeader">New Meeting link created & copied</Text>
+        <div className="meetingCardBody">
+          <Link href={props.meeting?.joinWebUrl} className="teamsLink meetingCardUrl">Join Microsoft Teams Meeting</Link>
+          
+          <div className="meetingCardDialInfo">
+            <Link href={props.meeting?.dialinUrl} className="teamsLink">
+              <Text variant="medium">{props.meeting?.tollNumber}</Text>
+            </Link>
+          </div>
+
+          <div className="meetingCardID">
+            <Text>Conference ID: {props.meeting?.conferenceId}</Text>
+          </div>
+
+        </div>
+    <PrimaryButton className="teamsButton copyButton" text="Copy" onClick={() => onCopyToClipboard(props.meeting)}/>
+      </Stack.Item>
   </Stack>
   );
 }

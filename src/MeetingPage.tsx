@@ -189,7 +189,7 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
       <Stack horizontal>
         <StackItem><FontIcon iconName="Edit" className={inputIconClass} /></StackItem>
         <StackItem grow>
-          <TextField placeholder="Event Name" value={props?.meeting?.subject} underlined onChange={onSubjectChanged}/>
+          <TextField className="newMeetingInput" placeholder="Event Name" value={props?.meeting?.subject} underlined onChange={onSubjectChanged}/>
         </StackItem>
       </Stack>
 
