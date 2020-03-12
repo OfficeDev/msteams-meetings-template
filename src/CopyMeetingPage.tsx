@@ -21,7 +21,19 @@ const mapStateToProps = (state : AppState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onCopyToClipboard: (meeting?: OnlineMeeting) => {
-    console.log('COPY THIS', meeting)
+    const str = document.getElementById('copy')?.innerHTML || 'Failed to copy'
+    function listener(e : ClipboardEvent) {
+      if (!e || !e.clipboardData) { 
+        return
+      }
+      e.clipboardData.setData("text/html", str);
+      e.clipboardData.setData("text/plain", str);
+      e.preventDefault();
+    }
+    document.addEventListener("copy", listener);
+    document.execCommand("copy");
+    document.removeEventListener("copy", listener);
+
   },
 
 }) as Partial<CopyMeetingPageProps>;
@@ -45,7 +57,10 @@ function CopyMeetingPageComponent(props: Partial<CopyMeetingPageProps>) {
     tokens={{
       childrenGap: 35
     }}>
-    <Text variant="medium" styles={boldStyle}>
+      <div id="copy">
+        {JSON.stringify(props.meeting, null, 2)}
+      </div>
+    {/* <Text variant="medium" styles={boldStyle}>
       You're invited to join a Microsoft Teams meeting
     </Text>
     <Stack verticalFill horizontalAlign="start">
@@ -64,7 +79,7 @@ function CopyMeetingPageComponent(props: Partial<CopyMeetingPageProps>) {
       <Text> | </Text>
       <Link href="meetingOptions">Meeting Options</Link>
     </Stack>
-  <Text>{JSON.stringify(props.meeting, null, 2)}</Text>
+  <Text>{JSON.stringify(props.meeting, null, 2)}</Text> */}
     <PrimaryButton text="Copy to clipboard" onClick={() => onCopyToClipboard(props.meeting)}/>
   </Stack>
   );

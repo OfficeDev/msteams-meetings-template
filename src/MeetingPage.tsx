@@ -193,7 +193,7 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
     }}
     tokens={{
       childrenGap: 35
-    }}>
+    }} id="copy">
       <Stack horizontal tokens={{childrenGap: 15}}>
         <StackItem grow>
           <FontIcon iconName="Calendar" className={meetingIconClass} />
