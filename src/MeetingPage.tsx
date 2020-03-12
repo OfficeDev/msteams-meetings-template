@@ -75,7 +75,6 @@ const inputIconClass = mergeStyles({
 interface DateTimePickerProps {
   dateTime?: Moment
   onTimeUpdated: (date?: Moment) => void
-  dayBoundry: boolean
 }
 
 const timeSuggestions = _.range(0, 1440, 30)
@@ -105,7 +104,7 @@ function DateTimePicker(props: DateTimePickerProps) {
   return (
     <Stack horizontal>
       <DatePicker firstDayOfWeek={DayOfWeek.Sunday} strings={DayPickerStrings} ariaLabel="Select a date" value={props.dateTime?.toDate()} onSelectDate={onDayPicked}/>
-      {props.dayBoundry ? null : <ComboBox allowFreeform={true} autoComplete="on" options={timeSuggestions} onChange={onTimePicked} defaultSelectedKey={defaultMinuteKey} />}
+      <ComboBox allowFreeform={true} autoComplete="on" options={timeSuggestions} onChange={onTimePicked} defaultSelectedKey={defaultMinuteKey} />
     </Stack>
   )
 }
@@ -156,22 +155,6 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
     setMeeting(nextMeeting);
   }
 
-  function onAllDayToggle(nextValue: boolean)
-  {
-    if (!props.meeting) {
-      console.warn("Meeting is undefined, ignoring input");
-      return;
-    }
-
-    // The meeting objects are small, cloning is cheap enough
-    // Normally would use immutable records or similar to avoid overhead.
-    const nextMeeting = _.cloneDeep(props.meeting);
-    nextMeeting.allDay = nextValue;
-    nextMeeting.startDateTime = props.meeting.startDateTime?.clone()?.startOf('day');
-    nextMeeting.endDateTime = props.meeting.endDateTime?.clone()?.endOf('day')
-    setMeeting(nextMeeting);
-  }
-
   function createMeeing(meeting?: OnlineMeetingInput)
   {
     if (!meeting) {
@@ -193,7 +176,7 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
     }}
     tokens={{
       childrenGap: 35
-    }} id="copy">
+    }} >
       <Stack horizontal tokens={{childrenGap: 15}}>
         <StackItem grow>
           <FontIcon iconName="Calendar" className={meetingIconClass} />
@@ -217,9 +200,8 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
 
       <Stack horizontal tokens={{childrenGap: 15}}>
         <FontIcon iconName="Clock" className={inputIconClass} />
-        <DateTimePicker dayBoundry={props?.meeting?.allDay ?? false} dateTime={props?.meeting?.startDateTime?.clone()} onTimeUpdated={onStartDateSelected} />
-        <DateTimePicker dayBoundry={props?.meeting?.allDay ?? false} dateTime={props?.meeting?.endDateTime?.clone()} onTimeUpdated={onEndDateSelected} />
-        <Toggle label="All day" inlineLabel onChanged={onAllDayToggle}/>
+        <DateTimePicker dateTime={props?.meeting?.startDateTime?.clone()} onTimeUpdated={onStartDateSelected} />
+        <DateTimePicker dateTime={props?.meeting?.endDateTime?.clone()} onTimeUpdated={onEndDateSelected} />
       </Stack>
       <Text variant="medium">We will create an event which includes a Microsoft Teams meeting link on your course calendar.</Text>
   </Stack>

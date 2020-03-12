@@ -3,8 +3,7 @@ import { Moment } from "moment";
 export interface OnlineMeetingInput {
     subject?: string
     startDateTime?: Moment
-    endDateTime?: Moment,
-    allDay: boolean
+    endDateTime?: Moment
 }
 
 export interface OnlineMeeting {
