@@ -71,6 +71,7 @@ const inputIconClass = mergeStyles({
 interface DateTimePickerProps {
   dateTime?: Moment,
   minDate?: Moment,
+  iconName?: string
   onTimeUpdated: (date?: Moment) => void,
   includeDuration: boolean
 }
@@ -126,7 +127,7 @@ function DateTimePicker(props: DateTimePickerProps) {
   };
 
   const timeSuggestions = _.range(0, 1440, 30)
-    .map(minutes => {
+    .map((minutes) => {
       // if the selection is before the min value
       const projectedEndTime = moment(props.dateTime).startOf('day').add(moment.duration(minutes, 'minutes'));
       const isDisabled = moment(props.minDate).isAfter(projectedEndTime);
@@ -140,7 +141,6 @@ function DateTimePicker(props: DateTimePickerProps) {
       }) 
     });
 
-    console.log(props.dateTime?.format('l'));
   return (
     <Stack horizontal>
       <DatePicker
@@ -156,6 +156,7 @@ function DateTimePicker(props: DateTimePickerProps) {
         minDate={props.minDate?.toDate()}
       />
       <ComboBox
+        className="newMeetingComboBox"
         styles={{ root: { maxHeight: '500px' }}}
         useComboBoxAsMenuWidth={true}
         scrollSelectedToTop={true}
@@ -163,8 +164,13 @@ function DateTimePicker(props: DateTimePickerProps) {
         autoComplete="on" 
         options={timeSuggestions} 
         onChange={onTimePicked} 
-        text={props.dateTime?.format(timePickerFormat)} 
+        text={props.dateTime?.format(timePickerFormat)}
       />
+      {props.iconName === "ReplyAlt" ?
+        <FontIcon className="newMeetingPickerIcon" iconName={props.iconName} />
+        :
+        <Text className="newMeetingPickerIncrement" variant="smallPlus">1hr</Text>
+      }
     </Stack>
   );
 }
@@ -275,64 +281,88 @@ function MeetingPageComponent(props: MeetingPageProps) {
   }
 
   return (
-    <Stack
-      className="container"
-      verticalFill
-      tokens={{
-        childrenGap: 35
-      }} >
-      <Stack horizontal tokens={{childrenGap: 15}}>
-        <StackItem grow>
-          <FontIcon iconName="Calendar" className={meetingIconClass} />
-          <Text variant="xLarge" styles={boldStyle}>
-            New meeting
-          </Text>
-        </StackItem>
-        <StackItem align="end">
-          <Stack horizontal tokens={{childrenGap: 10}}>
-            <PrimaryButton
-              className="teamsButton"
-              primary text="Create"
-              disabled={props.creationInProgress} 
-              onClick={() => onCreate()} 
-              ariaLabel="Create Meeting"
-            />
-            <DefaultButton
-              className="teamsButtonInverted"
-              text="Cancel"
-              disabled={props.creationInProgress}
-              onClick={() => props.cancel()}
-              ariaLabel="Cancel"
-            />
-          </Stack>
-        </StackItem>
-      </Stack>
-      <Stack horizontal>
-        <StackItem className="newMeetingInputIcon"><FontIcon iconName="Edit" className={inputIconClass} /></StackItem>
-        <StackItem grow>
-          <TextField className="newMeetingInput" placeholder="Add title" value={props.meeting?.subject} underlined onChange={onSubjectChanged} errorMessage={validationEnabled ? props.validationFailures.invalidTitle : undefined}/>
-        </StackItem>
-      </Stack>
+    <div className="newMeetingContainer">
+      <Stack
+        className="container"
+        verticalFill
+        tokens={{
+          childrenGap: 35
+        }} >
+        <Stack horizontal tokens={{childrenGap: 15}}>
+          <StackItem grow>
+            <FontIcon iconName="Calendar" className={meetingIconClass} />
+            <Text variant="xLarge" styles={boldStyle}>
+              New meeting
+            </Text>
+          </StackItem>
+          <StackItem align="end" className="newMeetingButtons">
+            <Stack horizontal tokens={{childrenGap: 10}}>
+              <PrimaryButton
+                className="teamsButton"
+                primary text="Create"
+                disabled={props.creationInProgress} 
+                onClick={() => onCreate()} 
+                ariaLabel="Create Meeting"
+              />
+              <DefaultButton
+                className="teamsButtonInverted"
+                text="Cancel"
+                disabled={props.creationInProgress}
+                onClick={() => props.cancel()}
+                ariaLabel="Cancel"
+              />
+            </Stack>
+          </StackItem>
+        </Stack>
+        <Stack horizontal>
+          <StackItem className="newMeetingInputIcon"><FontIcon iconName="Edit" className={inputIconClass} /></StackItem>
+          <StackItem grow>
+            <TextField className="newMeetingInput" placeholder="Add title" value={props.meeting?.subject} underlined onChange={onSubjectChanged} errorMessage={validationEnabled ? props.validationFailures.invalidTitle : undefined}/>
+          </StackItem>
+        </Stack>
 
-      <Stack horizontal tokens={{childrenGap: 15}} className="newMeetingPicker">
-        <FontIcon iconName="Clock" className={inputIconClass} />
-        <DateTimePicker
-          dateTime={props.meeting.startDateTime}
-          minDate={moment()}
-          onTimeUpdated={onStartDateSelected}
-          includeDuration={false}
+        <div className="newMeetingDatePickerContainer">
+          <FontIcon iconName="Clock" className={inputIconClass} />
+          <div className="newMeetingPicker">
+            <DateTimePicker
+              dateTime={props.meeting.startDateTime}
+              minDate={moment()}
+              onTimeUpdated={onStartDateSelected}
+              includeDuration={false}
+              iconName="ReplyAlt"
+            />
+            <DateTimePicker
+              dateTime={props.meeting.endDateTime}
+              minDate={props.meeting.startDateTime}
+              onTimeUpdated={onEndDateSelected}
+              includeDuration={true}
+            />
+          </div>
+
+        </div>
+        
+        {/* MOBILE BUTTON GROUP */}
+
+      </Stack>
+      <StackItem className="newMeetingButtonsMobile">
+      <Stack horizontal tokens={{childrenGap: 10}}>
+        <PrimaryButton
+          className="teamsButton teamsButtonFullWidth"
+          primary text="Create"
+          disabled={props.creationInProgress} 
+          onClick={() => onCreate()} 
+          ariaLabel="Create Meeting"
         />
-        <FontIcon className="newMeetingPickerIcon" iconName="ReplyAlt" />
-        <DateTimePicker
-          dateTime={props.meeting.endDateTime}
-          minDate={props.meeting.startDateTime}
-          onTimeUpdated={onEndDateSelected}
-          includeDuration={true}
+        <DefaultButton
+          className="teamsButtonInverted teamsButtonFullWidth"
+          text="Cancel"
+          disabled={props.creationInProgress}
+          onClick={() => props.cancel()}
+          ariaLabel="Cancel"
         />
       </Stack>
-      {/* Include the element below if your integration creates an event in the course calendar
-        <Text variant="medium">We will create an event which includes a Microsoft Teams meeting link on your course calendar.</Text> */}
-    </Stack>
+    </StackItem>
+    </div>
   );
 }
 

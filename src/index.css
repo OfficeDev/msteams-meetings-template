@@ -27,6 +27,10 @@ body {
   text-align: right;
 }
 
+.headerIcon span {
+  display: inherit;
+}
+
 .headerIcon i {
   color: #3e3e3e;
   position: relative;
@@ -74,6 +78,10 @@ body {
   background-color: #f3f2f1;
 }
 
+.teamsButtonFullWidth {
+  width: 100%;
+}
+
 .splashImage {
   max-width: 650px;
   margin-top: 4.3rem;
@@ -91,19 +99,19 @@ div[class*="ms-TextField-wrapper"]:after {
 *  New Meeting Styles
 */
 
+.newMeetingContainer {
+  display: flex;
+  height: calc(100vh - 10vh);
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .newMeetingInput input {
   border-radius: 3px;
 }
 
 .newMeetingInputIcon i {
   margin-right: 1.1rem;
-}
-
-.newMeetingPickerIcon {
-  transform: rotate(180deg);
-  position: relative;
-  top: -8px;
-  font-size: 1.1rem;
 }
 
 div[class*="ms-ComboBox"]::after {
@@ -114,8 +122,75 @@ div[class*="ms-ComboBox"]::after {
   margin-right: 0.5rem;
 }
 
+.newMeetingDatePickerContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.newMeetingDatePickerContainer > i {
+  margin-right: 1rem;
+}
+
 .newMeetingDatePicker i {
   display: none; /* hides fabric date icon to match design */
+}
+
+.newMeetingComboBox {
+  flex: 0 0 30%;
+}
+
+.newMeetingPicker > div {
+  margin-bottom: 0.8rem;
+}
+
+.newMeetingPickerIcon {
+  transform: rotate(180deg);
+  position: relative;
+  font-size: 1.1rem;
+  left: 15px;
+  top: -8px;
+}
+
+.newMeetingPickerIncrement {
+  position: relative;
+  left: 15px;
+  top: 7px;
+}
+
+@media (min-width: 600px) {
+  .newMeetingPicker {
+    display: flex;
+  }
+
+  .newMeetingComboBox {
+    flex: 1 1 auto;
+    max-width: 100px;
+  }
+
+  .newMeetingPickerIcon {
+    padding: 0 0.5rem;
+    left: auto;
+  }
+}
+
+.newMeetingButtons {
+  display: none;
+}
+
+.newMeetingButtonsMobile {
+  display: block;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 500px) {
+  .newMeetingButtons {
+    display: block;
+  }
+
+  .newMeetingButtonsMobile {
+    display: none;
+  }
 }
 
 /*
