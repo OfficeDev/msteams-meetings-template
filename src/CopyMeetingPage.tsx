@@ -23,7 +23,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
         return
       }
       e.clipboardData.setData("text/html", str);
-      e.clipboardData.setData("text/plain", str);
       e.preventDefault();
     }
     document.addEventListener("copy", listener);
@@ -43,7 +42,7 @@ function CopyMeetingPageComponent(props: Partial<CopyMeetingPageProps>) {
     verticalFill
     tokens={{
       childrenGap: 35
-    }}>
+    }} id="copy" >
       <Stack.Item align="center" className="meetingCardContainer">
         <Text block variant="xLarge" className="meetingCardHeader">New Meeting link created & copied</Text>
         <div className="meetingCardBody">
