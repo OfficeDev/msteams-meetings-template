@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Stack, Text, FontWeights, PrimaryButton, DefaultButton, StackItem, TextField, DatePicker, 
-  IDatePickerStrings, DayOfWeek, initializeIcons, ComboBox, IComboBoxOption, IComboBox } from 'office-ui-fabric-react';
+  IDatePickerStrings, DayOfWeek, initializeIcons, ComboBox, IComboBoxOption, IComboBox, Spinner, SpinnerSize } from 'office-ui-fabric-react';
 import { FontIcon } from 'office-ui-fabric-react/lib/Icon';
 import { AppState } from './RootReducer'
 import { Dispatch } from 'redux';
@@ -179,6 +179,21 @@ function MeetingPageComponent(props: MeetingPageProps) {
     }
 
     props.setMeeting(nextMeeting);
+  }
+
+  if (props.creationInProgress) {
+    return (
+      <Stack className="container"
+      verticalFill
+      verticalAlign="center"
+      tokens={{
+        childrenGap: 35
+      }}>
+        <StackItem grow>
+          <Spinner size={SpinnerSize.large} />
+        </StackItem>
+      </Stack> 
+    )
   }
 
   return (
