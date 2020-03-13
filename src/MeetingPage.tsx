@@ -96,6 +96,12 @@ function DateTimePicker(props: DateTimePickerProps) {
     props.onTimeUpdated(newDateTime);
   }
 
+  const timeSuggestions = _.range(0, 1440, 30)
+    .map(minutes => ({
+      key: minutes,
+      text: moment().startOf('day').minutes(minutes).format(timePickerFormat),
+      disabled: moment(props.minDate).isAfter(moment(props.dateTime).startOf('day').add(moment.duration(minutes, 'minutes')))
+    }));
   return (
     <Stack horizontal>
       <DatePicker firstDayOfWeek={DayOfWeek.Sunday} strings={DayPickerStrings} ariaLabel="Select a date" value={props.dateTime?.toDate()} onSelectDate={onDayPicked} minDate={props.minDate?.toDate()}/>
