@@ -48,7 +48,7 @@ function CopyMeetingPageComponent(props: CopyMeetingPageProps) {
           </svg>
 
           <Text block variant="xLarge" className="meetingCardHeader">New meeting link created & copied</Text>
-          <div className="meetingCardBody">
+          <div className="meetingCardBody" id="copy">
             <Link href={props.meeting?.joinWebUrl} className="teamsLink meetingCardUrl">Join Microsoft Teams Meeting</Link>
             
             {props.meeting?.dialinUrl && props.meeting?.tollNumber &&
