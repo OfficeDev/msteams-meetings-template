@@ -37,6 +37,7 @@ export const meetingReducer = (state: MeetingState, action : MeetingAction | Loc
                     creationInProgress: false
                 }
             }
+            // falls through
         default: 
             return state;
     }
