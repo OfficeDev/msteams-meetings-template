@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { FontIcon, Text, FontWeights } from "office-ui-fabric-react";
+import { Text, FontWeights, IconButton } from "office-ui-fabric-react";
 import { AppState } from "../RootReducer";
 import { Dispatch } from 'redux';
 import { SIGNOUT_COMMAND } from "../auth/actions";
@@ -59,7 +59,12 @@ function HeaderComponent(props: Partial<HeaderProps>) {
       </div>
 
       <div className="headerIcon">
-        <button onClick={() => onSignOut()}><FontIcon iconName="Leave" /></button>
+        <IconButton
+          onClick={() => onSignOut()}
+          iconProps={{iconName: 'Leave'}}
+          title="Sign Out"
+          ariaLabel="Sign Out"
+        />
       </div>
     </div>
   )

@@ -54,7 +54,12 @@ function CreateLandingPageComponent(props: CreateLandingPageProps) {
         alt="logo"
       />
       <Text variant="large">Schedule Teams meetings for your course.</Text>
-      <PrimaryButton className="teamsButton" text="Create meeting link" onClick={() => props.onNewMeeting()} />
+      <PrimaryButton 
+        className="teamsButton"
+        text="Create meeting link" 
+        onClick={() => props.onNewMeeting()}
+        ariaLabel="Create Meeting Link"
+      />
     </Stack>
     </>
   );

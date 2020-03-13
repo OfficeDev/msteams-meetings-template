@@ -70,7 +70,12 @@ function CopyMeetingPageComponent(props: CopyMeetingPageProps) {
               <Link className="teamsLink" href="https://products.office.com/en-us/microsoft-teams/group-chat-software">Learn more about Teams</Link>
             </div>
           </div>
-          <PrimaryButton className="teamsButton copyButton" text="Copy" onClick={() => props.onCopyToClipboard(props.meeting)}/>
+          <PrimaryButton 
+            className="teamsButton copyButton"
+            text="Copy"
+            onClick={() => props.onCopyToClipboard(props.meeting)}
+            ariaLabel="Copy Meeting"
+          />
         </Stack.Item>
     </Stack>
   </>

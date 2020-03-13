@@ -22,11 +22,14 @@ body {
 }
 
 .headerIcon {
-  color: #3e3e3e;
   cursor: pointer;
   margin-left: auto;
-  position: relative;
   text-align: right;
+}
+
+.headerIcon i {
+  color: #3e3e3e;
+  position: relative;
   top: 7px;
 }
 
