@@ -38,16 +38,16 @@ export function createMeetingService() {
             const createdMeeting = {
                 id: response.data.id,
                 creationDateTime: moment(response.data.creationDateTime),
+                subject: response.data.subject,
                 joinUrl: response.data.joinUrl,
                 joinWebUrl: response.data.joinWebUrl,
                 startDateTime: moment(response.data.startDateTime),
                 endDateTime: moment(response.data.endDateTime),
-                conferenceId: response.data?.audioConferencing.conferenceId || '', 
-                tollNumber: response.data?.audioConferencing.tollNumber || '',
-                subject: response?.data.subject,
-                tollFreeNumber: response.data?.audioConferencing.tollFreeNumber,
-                dialinUrl: response.data?.audioConferencing.dialinUrl,
-                videoTeleconferenceId: response?.data.videoTeleconferenceId
+                conferenceId: response.data.audioConferencing?.conferenceId || '', 
+                tollNumber: response.data.audioConferencing?.tollNumber || '',
+                tollFreeNumber: response.data.audioConferencing?.tollFreeNumber || '',
+                dialinUrl: response.data.audioConferencing?.dialinUrl || '',
+                videoTeleconferenceId: response.data.videoTeleconferenceId,
             } as OnlineMeeting
             console.log('Created meeting', createdMeeting);
             
