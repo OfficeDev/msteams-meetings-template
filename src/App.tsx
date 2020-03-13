@@ -33,7 +33,7 @@ function App() {
       <ConnectedRouter history={hist}>
         <Switch>
           <Route exact path="/signin" component={SigninPage} />
-          <Route exact path="/createEvent" component={MeetingPage} />
+          <Route exact path="/createMeeting" component={MeetingPage} />
           <Route exact path="/copyMeeting" component={CopyMeetingPage} />
           <Route exact path="/error" component={ErrorPage} />
           <Route component={CreateLandingPage} />

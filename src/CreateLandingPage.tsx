@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
       type: SET_MEETING_COMMAND,
       meeting: createDefaultMeetingInput(),
     } as SetMeetingCommand);
-    dispatch(push("/createEvent"))
+    dispatch(push("/createMeeting"))
   },
 });
 

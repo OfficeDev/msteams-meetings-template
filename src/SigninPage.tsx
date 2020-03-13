@@ -9,20 +9,20 @@ import './index.css';
 
 const boldStyle = { root: { fontWeight: FontWeights.semibold } };
 
-interface LandingPageProps {
+interface SigninPageProps {
   onSignIn: () => void;
 }
 
 const mapStateToProps = (state : AppState) => ({
-}) as Partial<LandingPageProps>;
+}) as Partial<SigninPageProps>;
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onSignIn: () => dispatch({
     type: OPEN_SIGNIN_DIALOG_COMMAND
   }),
-}) as Partial<LandingPageProps>;
+}) as Partial<SigninPageProps>;
 
-function LandingPageComponent(props: Partial<LandingPageProps>) {
+function SigninPageComponent(props: Partial<SigninPageProps>) {
   const onSignIn = props.onSignIn ?? (() => {});
 
   return (
@@ -60,4 +60,4 @@ function LandingPageComponent(props: Partial<LandingPageProps>) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LandingPageComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(SigninPageComponent);
