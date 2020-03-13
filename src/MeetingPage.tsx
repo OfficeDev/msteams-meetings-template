@@ -153,12 +153,14 @@ function MeetingPageComponent(props: MeetingPageProps) {
     const nextMeeting = _.cloneDeep(props.meeting);
     nextMeeting.startDateTime = date ?? nextMeeting.startDateTime;
 
-    // If start > end, adjust end to the same time, but on a day after the start date
-    if (nextMeeting.startDateTime.isAfter(nextMeeting.endDateTime)) {
-      const endOffsetFromStartOfDay = nextMeeting.endDateTime.diff(moment(nextMeeting.endDateTime).startOf('day'));
-      const newEndDateTime = moment(nextMeeting.startDateTime).startOf('day').add(endOffsetFromStartOfDay);
-      if (nextMeeting.startDateTime.isAfter(newEndDateTime)) {
-        newEndDateTime.add(1, 'day');
+    // If start >= end, adjust to be the same delta as before from the start time
+    if (nextMeeting.startDateTime.isSameOrAfter(nextMeeting.endDateTime)) {
+      const existingDelta = moment(props.meeting.endDateTime).diff(moment(props.meeting.startDateTime));
+      console.log('EXISTING DELTA', existingDelta);
+      // const endOffsetFromStartOfDay = nextMeeting.endDateTime.diff(moment(nextMeeting.endDateTime).startOf('day'));
+      const newEndDateTime = moment(nextMeeting.startDateTime).add(existingDelta);
+      if (nextMeeting.startDateTime.isSameOrAfter(newEndDateTime)) {
+        newEndDateTime.add(existingDelta);
       }
       nextMeeting.endDateTime = newEndDateTime;
     }
@@ -214,6 +216,7 @@ function MeetingPageComponent(props: MeetingPageProps) {
       </Stack>
       {/* Include the element below if your integration creates an event in the course calendar
         <Text variant="medium">We will create an event which includes a Microsoft Teams meeting link on your course calendar.</Text> */}
+      <Text><pre>{JSON.stringify(props.meeting, null, 2)}</pre></Text>
     </Stack>
   );
 }
