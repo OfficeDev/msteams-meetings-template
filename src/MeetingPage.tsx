@@ -124,7 +124,7 @@ function DateTimePicker(props: DateTimePickerProps) {
   return (
     <Stack horizontal>
       <DatePicker firstDayOfWeek={DayOfWeek.Sunday} strings={DayPickerStrings} ariaLabel="Select a date" value={props.dateTime?.toDate()} onSelectDate={onDayPicked} minDate={props.minDate?.toDate()}/>
-      <ComboBox allowFreeform={true} autoComplete="on" options={timeSuggestions} onChange={onTimePicked} text={props.dateTime?.format(timePickerFormat)} />
+      <ComboBox styles={{ root: { maxHeight: '500px' }}} allowFreeform={true} autoComplete="on" options={timeSuggestions} onChange={onTimePicked} text={props.dateTime?.format(timePickerFormat)} useComboBoxAsMenuWidth={true} scrollSelectedToTop={true}/>
     </Stack>
   );
 }

@@ -166,3 +166,7 @@ div[class*="ms-TextField-wrapper"]:after {
 div[class*="ms-Spinner-circle"] {
   border-color: #6264a7 #a7a8c7 #a7a8c7;
 }
+
+.ms-ComboBox-optionsContainerWrapper {
+  max-height: 300px;
+}
