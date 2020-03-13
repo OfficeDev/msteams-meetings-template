@@ -48,16 +48,23 @@ function CopyMeetingPageComponent(props: Partial<CopyMeetingPageProps>) {
         <div className="meetingCardBody">
           <Link href={props.meeting?.joinWebUrl} className="teamsLink meetingCardUrl">Join Microsoft Teams Meeting</Link>
           
-          <div className="meetingCardDialInfo">
-            <Link href={props.meeting?.dialinUrl} className="teamsLink">
-              <Text variant="medium">{props.meeting?.tollNumber}</Text>
-            </Link>
-          </div>
+          {props.meeting?.dialinUrl && props.meeting?.tollNumber &&
+            <div className="meetingCardDialInfo">
+              <Link href={props.meeting?.dialinUrl} className="teamsLink">
+                <Text variant="medium">{props.meeting?.tollNumber}</Text>
+              </Link>
+            </div>
+          }
 
-          <div className="meetingCardID">
-            <Text>Conference ID: {props.meeting?.conferenceId}</Text>
-          </div>
+          {props.meeting?.conferenceId &&
+            <div className="meetingCardID">
+              <Text>Conference ID: {props.meeting?.conferenceId}</Text>
+            </div>          
+          }
 
+          <div>
+            <Link className="teamsLink" href="https://products.office.com/en-us/microsoft-teams/group-chat-software">Learn more about Teams</Link>
+          </div>
         </div>
     <PrimaryButton className="teamsButton copyButton" text="Copy" onClick={() => onCopyToClipboard(props.meeting)}/>
       </Stack.Item>
