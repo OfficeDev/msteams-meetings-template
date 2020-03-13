@@ -5,6 +5,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { CHECK_FOR_SIGNEDIN_USER_COMMAND } from './auth/actions';
+import { Header } from './components/header';
 
 interface CreateLandingPageProps {
   checkForSignedInUser: () => void;
@@ -32,6 +33,8 @@ function CreateLandingPageComponent(props: Partial<CreateLandingPageProps>) {
   }, []);
   
   return (
+    <>
+    <Header />
     <Stack
       className="container"
       horizontalAlign="center"
@@ -48,6 +51,7 @@ function CreateLandingPageComponent(props: Partial<CreateLandingPageProps>) {
       <Text variant="large">Schedule Teams meetings for your course.</Text>
       <PrimaryButton className="teamsButton" text="Create meeting link" onClick={() => onNewMeeting()} />
     </Stack>
+    </>
   );
 }
 
