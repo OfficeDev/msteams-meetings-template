@@ -52,8 +52,18 @@ function ErrorPageComponent(props: ErrorPageProps) {
         Please try again. If the problem persists, check with your IT administrator to ensure you have the proper permissions.
       </Text>
       <Stack horizontal tokens={{childrenGap: 10}}>
-        <DefaultButton className="teamsButtonInverted" text="Back" onClick={(event) => props.goBack()} />
-        <PrimaryButton className="teamsButton" primary text="Try again" onClick={(event) => props.createMeeting(props.meeting)} />
+        <DefaultButton
+          className="teamsButtonInverted"
+          text="Back"
+          onClick={(event) => props.goBack()} 
+          ariaLabel="Back to last screen"
+        />
+        <PrimaryButton
+          className="teamsButton"
+          primary text="Try again" 
+          onClick={(event) => props.createMeeting(props.meeting)} 
+          ariaLabel="Try again"
+        />
       </Stack>
     </Stack>
   );

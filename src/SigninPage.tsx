@@ -55,7 +55,12 @@ function SigninPageComponent(props: Partial<SigninPageProps>) {
         Welcome to Microsoft Teams
       </Text>
       <Text variant="large" className="uTextCenter">Sign in to Microsoft Teams using your school account to get started.</Text>
-      <PrimaryButton className="teamsButton" text="Sign in" onClick={() => onSignIn()}/>
+      <PrimaryButton
+        className="teamsButton"
+        text="Sign in"
+        onClick={() => onSignIn()}
+        ariaLabel="Sign in"
+      />
     </Stack>
     </>
   );

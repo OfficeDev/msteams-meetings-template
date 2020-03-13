@@ -250,8 +250,20 @@ function MeetingPageComponent(props: MeetingPageProps) {
         </StackItem>
         <StackItem align="end">
           <Stack horizontal tokens={{childrenGap: 10}}>
-            <PrimaryButton className="teamsButton" primary text="Create" disabled = {props.creationInProgress} onClick={() => onCreate()} />
-            <DefaultButton className="teamsButtonInverted" text="Cancel" disabled = {props.creationInProgress} onClick={() => props.cancel()}/>
+            <PrimaryButton
+              className="teamsButton"
+              primary text="Create"
+              disabled={props.creationInProgress} 
+              onClick={() => onCreate()} 
+              ariaLabel="Create Meeting"
+            />
+            <DefaultButton
+              className="teamsButtonInverted"
+              text="Cancel"
+              disabled={props.creationInProgress}
+              onClick={() => props.cancel()}
+              ariaLabel="Cancel"
+            />
           </Stack>
         </StackItem>
       </Stack>
