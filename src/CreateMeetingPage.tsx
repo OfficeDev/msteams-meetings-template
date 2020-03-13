@@ -15,7 +15,7 @@ interface CreateLandingPageProps {
 }
 
 const mapStateToProps = (state : AppState) => ({
-}) as Partial<CreateLandingPageProps>;
+});
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   checkForSignedInUser: () => dispatch({
@@ -28,13 +28,11 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     } as SetMeetingCommand);
     dispatch(push("/createEvent"))
   },
-}) as Partial<CreateLandingPageProps>;
+});
 
-function CreateLandingPageComponent(props: Partial<CreateLandingPageProps>) {
-  const checkForSignedInUser = props.checkForSignedInUser ?? (() => {});
-  const onNewMeeting = props.onNewMeeting ?? (() => {});
-  
+function CreateLandingPageComponent(props: CreateLandingPageProps) {
   // Check for a signed-in user and go to the signin page if there isn't one
+  const checkForSignedInUser = props.checkForSignedInUser;
   React.useEffect(() => {
     checkForSignedInUser();
   }, []);
@@ -56,7 +54,7 @@ function CreateLandingPageComponent(props: Partial<CreateLandingPageProps>) {
         alt="logo"
       />
       <Text variant="large">Schedule Teams meetings for your course.</Text>
-      <PrimaryButton className="teamsButton" text="Create meeting link" onClick={() => onNewMeeting()} />
+      <PrimaryButton className="teamsButton" text="Create meeting link" onClick={() => props.onNewMeeting()} />
     </Stack>
     </>
   );

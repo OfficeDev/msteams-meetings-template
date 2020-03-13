@@ -17,7 +17,7 @@ interface ErrorPageProps {
 
 const mapStateToProps = (state : AppState) => ({
   meeting: state.meeting.inputMeeting,
-}) as Partial<ErrorPageProps>;
+});
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   goBack: () => dispatch(goBack()),
@@ -28,22 +28,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
       meeting,
     } as CreateMeetingCommand)
   }
-}) as Partial<ErrorPageProps>;
+});
 
-function ErrorPageComponent(props: Partial<ErrorPageProps>) {
-  const goBack = props.goBack ?? (() => {});
-
-  function createMeeting(meeting?: OnlineMeetingInput)
-  {
-    if (!meeting) {
-      console.warn("Meeting is undefined, ignoring input");
-      return;
-    }
-
-    const createMeeting = props.createMeeting || (() => {})
-    createMeeting(meeting);
-  }
-
+function ErrorPageComponent(props: ErrorPageProps) {
   return (
     <Stack
       className="container"
@@ -65,8 +52,8 @@ function ErrorPageComponent(props: Partial<ErrorPageProps>) {
         Please try again. If the problem persists, check with your IT administrator to ensure you have the proper permissions.
       </Text>
       <Stack horizontal tokens={{childrenGap: 10}}>
-        <DefaultButton className="teamsButtonInverted" text="Back" onClick={(event) => goBack()} />
-        <PrimaryButton className="teamsButton" primary text="Try again" onClick={(event) => createMeeting(props.meeting)} />
+        <DefaultButton className="teamsButtonInverted" text="Back" onClick={(event) => props.goBack()} />
+        <PrimaryButton className="teamsButton" primary text="Try again" onClick={(event) => props.createMeeting(props.meeting)} />
       </Stack>
     </Stack>
   );
