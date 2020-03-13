@@ -12,9 +12,10 @@ $ctx = $storageAccount.Context
 
 Enable-AzStorageStaticWebsite -Context $ctx -IndexDocument "index.html"
 
-# Setting properties of all the files to text/html is a bad hack... need to do that right
-Get-ChildItem -Path ../build -File -Recurse  | Set-AzStorageBlobContent `
--Properties @{ ContentType = "text/html; charset=utf-8" } ` 
+# Setting properties of all the files to text/html is a bad hack... need to do that
+
+Get-ChildItem -Path ../build -File -Recurse | Set-AzStorageBlobContent `
 -Container "`$web" `
+-Properties @{ ContentType = "text/html; charset=utf-8" } `
 -Context $ctx `
 -Force

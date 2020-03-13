@@ -42,8 +42,8 @@ function CopyMeetingPageComponent(props: Partial<CopyMeetingPageProps>) {
     verticalFill
     tokens={{
       childrenGap: 35
-    }} id="copy" >
-      <Stack.Item align="center" className="meetingCardContainer">
+    }} >
+      <Stack.Item align="center" className="meetingCardContainer" id="copy">
         <Text block variant="xLarge" className="meetingCardHeader">New Meeting link created & copied</Text>
         <div className="meetingCardBody">
           <Link href={props.meeting?.joinWebUrl} className="teamsLink meetingCardUrl">Join Microsoft Teams Meeting</Link>
