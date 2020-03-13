@@ -28,7 +28,7 @@ export function createMeetingService() {
             };
             console.log('POST body', requestBody);
 
-            const response = await axios.post("https://graph.microsoft.com/beta/me/onlineMeetings", requestBody, {
+            const response = await axios.post("https://graph.microsoft.com/v1.0/me/onlineMeetings", requestBody, {
                 headers: {
                     'Authorization': `Bearer ${token.accessToken}`, 
                     'Content-type': 'application/json'
