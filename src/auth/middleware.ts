@@ -1,6 +1,12 @@
 import { Middleware } from 'redux';
 import { msalApp } from './msalApp'
-import { CHECK_FOR_SIGNEDIN_USER_COMMAND, OPEN_SIGNIN_DIALOG_COMMAND, SIGNIN_COMPLETE_EVENT, SigninCompleteEvent } from './actions'
+import { 
+    CHECK_FOR_SIGNEDIN_USER_COMMAND,
+    OPEN_SIGNIN_DIALOG_COMMAND,
+    SIGNIN_COMPLETE_EVENT,
+    SigninCompleteEvent,
+    SIGNOUT_COMPLETE_EVENT
+} from './actions'
 import { replace } from 'connected-react-router';
 
 export function createAuthMiddleware() : Middleware
@@ -33,6 +39,14 @@ export function createAuthMiddleware() : Middleware
 
         if (action.type === SIGNIN_COMPLETE_EVENT) {
             store.dispatch(replace('/'));
+        }
+
+        if (action.type === SIGNOUT_COMPLETE_EVENT) {
+            msalApp.logout();
+            store.dispatch({
+                type: SIGNOUT_COMPLETE_EVENT
+            })
+            console.log('logged out?');
         }
 
         next(action);

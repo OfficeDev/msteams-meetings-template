@@ -1,10 +1,32 @@
 import React from "react";
+import { connect } from "react-redux";
 import { FontIcon, Text, FontWeights } from "office-ui-fabric-react";
+import { AppState } from "../RootReducer";
+import { Dispatch } from 'redux';
+import { SIGNOUT_COMPLETE_EVENT } from "../auth/actions";
 
+interface HeaderProps {
+  onSignOut: () => void;
+}
+
+const mapStateToProps = (state : AppState) => ({
+}) as Partial<HeaderProps>;
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  onSignOut: () => {
+    console.log('clicked')
+    dispatch({
+    type: SIGNOUT_COMPLETE_EVENT
+  })
+  },
+}) as Partial<HeaderProps>;
 
 const boldStyle = { root: { fontWeight: FontWeights.bold } };
 
-export function Header() {
+export function Header(props: Partial<HeaderProps>) {
+  const onSignOut = props.onSignOut ?? (() => {});
+
+
   return (
     <div className="header">
       <div className="headerLogo">
@@ -38,8 +60,10 @@ export function Header() {
       </div>
 
       <div className="headerIcon">
-        <FontIcon iconName="Leave" />
+        <button onClick={() => onSignOut()}><FontIcon iconName="Leave" /></button>
       </div>
     </div>
   )
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

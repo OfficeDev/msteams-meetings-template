@@ -16,4 +16,9 @@ export interface SigninCompleteEvent {
     idToken: IdToken
 }
 
-export type AuthAction = CheckForSignedInUserCommand | OpenSigninDialogCommand | SigninCompleteEvent
+export const SIGNOUT_COMPLETE_EVENT = "SignoutCompleteEvent"
+export interface SignoutCompleteEvent {
+    type: typeof SIGNOUT_COMPLETE_EVENT
+}
+
+export type AuthAction = CheckForSignedInUserCommand | OpenSigninDialogCommand | SigninCompleteEvent | SignoutCompleteEvent
