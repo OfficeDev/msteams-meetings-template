@@ -62,7 +62,11 @@ div[class*="ms-TextField-wrapper"]:after {
 */
 
 .newMeetingInput input {
-  background-color: #f9f9f9;
+  border-radius: 3px;
+}
+
+.newMeetingInputIcon i {
+  margin-right: 1.1rem;
 }
 
 

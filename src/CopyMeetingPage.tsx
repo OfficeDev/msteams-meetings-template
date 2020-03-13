@@ -1,10 +1,7 @@
 import React from 'react';
-import { Stack, Text, FontWeights, PrimaryButton, Link, StackItem } from 'office-ui-fabric-react';
-import { msalApp } from './auth';
-import { AuthResponse } from 'msal';
+import { Stack, Text, PrimaryButton, Link } from 'office-ui-fabric-react';
 import { AppState } from './RootReducer'
 import { Dispatch } from 'redux';
-import { OPEN_SIGNIN_DIALOG_COMMAND } from './auth/actions';
 import { connect } from 'react-redux';
 import { OnlineMeeting } from './meeting-creator/models';
 

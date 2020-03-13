@@ -1,11 +1,10 @@
 import React from 'react';
-import { Stack, Text, PrimaryButton, IIconProps } from 'office-ui-fabric-react';
+import { Stack, Text, PrimaryButton } from 'office-ui-fabric-react';
 import { AppState } from './RootReducer'
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
-const addIcon: IIconProps = { iconName: 'Add' };
 
 interface CreateLandingPageProps {
   onNewMeeting: () => void
@@ -38,7 +37,7 @@ function CreateLandingPageComponent(props: Partial<CreateLandingPageProps>) {
       alt="logo"
     />
     <Text variant="large">Schedule Teams meetings for your course.</Text>
-    <PrimaryButton iconProps={addIcon} className="teamsButton" text="New Meeting" onClick={() => onNewMeeting()} />
+    <PrimaryButton className="teamsButton" text="Create meeting link" onClick={() => onNewMeeting()} />
   </Stack>
   );
 }
