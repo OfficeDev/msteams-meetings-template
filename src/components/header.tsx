@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { FontIcon, Text, FontWeights } from "office-ui-fabric-react";
 import { AppState } from "../RootReducer";
 import { Dispatch } from 'redux';
-import { SIGNOUT_COMPLETE_EVENT } from "../auth/actions";
+import { SIGNOUT_COMMAND } from "../auth/actions";
 
 interface HeaderProps {
   onSignOut: () => void;
@@ -16,14 +16,15 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   onSignOut: () => {
     console.log('clicked')
     dispatch({
-    type: SIGNOUT_COMPLETE_EVENT
+    type: SIGNOUT_COMMAND
   })
   },
 }) as Partial<HeaderProps>;
 
 const boldStyle = { root: { fontWeight: FontWeights.bold } };
 
-export function Header(props: Partial<HeaderProps>) {
+function HeaderComponent(props: Partial<HeaderProps>) {
+  console.log('Praphs?', props);
   const onSignOut = props.onSignOut ?? (() => {});
 
 
@@ -66,4 +67,4 @@ export function Header(props: Partial<HeaderProps>) {
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export const Header = connect(mapStateToProps, mapDispatchToProps)(HeaderComponent);
