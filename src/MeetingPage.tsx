@@ -11,7 +11,7 @@ import * as _ from 'lodash';
 import moment, { Moment } from 'moment'
 
 import { OnlineMeetingInput } from './meeting-creator/models';
-import { SET_MEETING_COMMAND, CREATE_MEETING_COMMAND } from './meeting-creator/actions';
+import { SET_MEETING_COMMAND, CREATE_MEETING_COMMAND, CreateMeetingCommand } from './meeting-creator/actions';
 
 const boldStyle = { root: { fontWeight: FontWeights.semibold } };
 initializeIcons(); //TODO: move to root. 
@@ -36,8 +36,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   createMeeting: (meeting: OnlineMeetingInput) => {
     dispatch({
       type: CREATE_MEETING_COMMAND,
+      fromPage: "meeting",
       meeting
-    })
+    } as CreateMeetingCommand)
   }
 }) as Partial<MeetingPageProps>;
 

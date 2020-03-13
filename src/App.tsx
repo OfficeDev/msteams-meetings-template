@@ -11,6 +11,7 @@ import { createRootReducer } from './RootReducer'
 import { createMeetingMiddleware } from './meeting-creator/middleware';
 import CopyMeetingPage from './CopyMeetingPage';
 import CreateMeetingPage from './CreateMeetingPage';
+import ErrorPage from './ErrorPage';
 
 const hist = createBrowserHistory();
 
@@ -34,6 +35,7 @@ function App() {
           <Route exact path="/signin" component={LandingPage} />
           <Route exact path="/createEvent" component={MeetingPage} />
           <Route exact path="/copyMeeting" component={CopyMeetingPage} />
+          <Route exact path="/error" component={ErrorPage} />
           <Route component={CreateMeetingPage} />
         </Switch>
       </ConnectedRouter>
