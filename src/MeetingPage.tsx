@@ -16,34 +16,6 @@ import { goBack } from 'connected-react-router';
 const boldStyle = { root: { fontWeight: FontWeights.semibold } };
 initializeIcons(); //TODO: move to root. 
 
-interface MeetingPageProps {
-  meeting: OnlineMeetingInput,
-  setMeeting: (meeting: OnlineMeetingInput) => void,
-  createMeeting: (meeting: OnlineMeetingInput) => void,
-  cancel: () => void,
-}
-
-const mapStateToProps = (state : AppState) => ({
-  meeting: state.meeting?.inputMeeting
-}) as Partial<MeetingPageProps>;
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  setMeeting: (meeting: OnlineMeetingInput) => {
-    dispatch({
-      type: SET_MEETING_COMMAND,
-      meeting
-    })
-  },
-  createMeeting: (meeting: OnlineMeetingInput) => {
-    dispatch({
-      type: CREATE_MEETING_COMMAND,
-      fromPage: "meeting",
-      meeting
-    } as CreateMeetingCommand)
-  },
-  cancel: () => dispatch(goBack()),
-}) as Partial<MeetingPageProps>;
-
 const DayPickerStrings: IDatePickerStrings = {
   months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -73,6 +45,10 @@ const inputIconClass = mergeStyles({
   position: 'relative',
   top: 7,
 });
+
+//
+// Date and time picker component
+//
 
 interface DateTimePickerProps {
   dateTime?: Moment
@@ -110,70 +86,71 @@ function DateTimePicker(props: DateTimePickerProps) {
   )
 }
 
-function MeetingPageComponent(props: Partial<MeetingPageProps>) {
-  const setMeeting = props.setMeeting || ((meeting) => {});
-  const cancel = props.cancel || (() => {});
+
+//
+// Meeting page component
+//
+
+interface MeetingPageProps {
+  meeting: OnlineMeetingInput,
+  setMeeting: (meeting: OnlineMeetingInput) => void,
+  createMeeting: (meeting: OnlineMeetingInput) => void,
+  cancel: () => void,
+}
+
+const mapStateToProps = (state : AppState) => ({
+  meeting: state.meeting?.inputMeeting
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  setMeeting: (meeting: OnlineMeetingInput) => {
+    dispatch({
+      type: SET_MEETING_COMMAND,
+      meeting
+    })
+  },
+  createMeeting: (meeting: OnlineMeetingInput) => {
+    dispatch({
+      type: CREATE_MEETING_COMMAND,
+      fromPage: "meeting",
+      meeting
+    } as CreateMeetingCommand)
+  },
+  cancel: () => dispatch(goBack()),
+});
+
+function MeetingPageComponent(props: MeetingPageProps) {
 
   function onSubjectChanged(evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue: string | undefined)
   {
-    if (!props.meeting) {
-      console.warn("Meeting is undefined, ignoring input");
-      return;
-    }
-
     // The meeting objects are small, cloning is cheap enough
     // Normally would use immutable records or similar to avoid overhead.
     const nextMeeting = _.cloneDeep(props.meeting);
     nextMeeting.subject = newValue ?? '';
-    setMeeting(nextMeeting);
+    props.setMeeting(nextMeeting);
   }
 
   function onStartDateSelected(date?: Moment)
   {
-    if (!props.meeting) {
-      console.warn("Meeting is undefined, ignoring input");
-      return;
-    }
-
-    // The meeting objects are small, cloning is cheap enough
-    // Normally would use immutable records or similar to avoid overhead.
     const nextMeeting = _.cloneDeep(props.meeting);
     nextMeeting.startDateTime = date ?? nextMeeting.startDateTime;
-    setMeeting(nextMeeting);
+    props.setMeeting(nextMeeting);
   }
 
   function onEndDateSelected(date?: Moment)
   {
-    if (!props.meeting) {
-      console.warn("Meeting is undefined, ignoring input");
-      return;
-    }
-
-    // The meeting objects are small, cloning is cheap enough
-    // Normally would use immutable records or similar to avoid overhead.
     const nextMeeting = _.cloneDeep(props.meeting);
     nextMeeting.endDateTime = date ?? nextMeeting.endDateTime;
-    setMeeting(nextMeeting);
-  }
-
-  function createMeeting(meeting?: OnlineMeetingInput)
-  {
-    if (!meeting) {
-      console.warn("Meeting is undefined, ignoring input");
-      return;
-    }
-
-    const createMeeting = props.createMeeting || ((meeting) => {});
-    createMeeting(meeting);
+    props.setMeeting(nextMeeting);
   }
 
   return (
     <Stack
-    className="container"
-    verticalFill
-    tokens={{
-      childrenGap: 35
-    }} >
+      className="container"
+      verticalFill
+      tokens={{
+        childrenGap: 35
+      }} >
       <Stack horizontal tokens={{childrenGap: 15}}>
         <StackItem grow>
           <FontIcon iconName="Calendar" className={meetingIconClass} />
@@ -183,8 +160,8 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
         </StackItem>
         <StackItem align="end">
           <Stack horizontal tokens={{childrenGap: 10}}>
-            <PrimaryButton className="teamsButton" primary text="Create" onClick={() => createMeeting(props.meeting)} />
-            <DefaultButton className="teamsButtonInverted" text="Cancel" onClick={() => cancel()}/>
+            <PrimaryButton className="teamsButton" primary text="Create" onClick={() => props.createMeeting(props.meeting)} />
+            <DefaultButton className="teamsButtonInverted" text="Cancel" onClick={() => props.cancel()}/>
           </Stack>
         </StackItem>
       </Stack>
@@ -200,8 +177,9 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
         <DateTimePicker dateTime={props.meeting?.startDateTime?.clone()} onTimeUpdated={onStartDateSelected} />
         <DateTimePicker dateTime={props.meeting?.endDateTime?.clone()} onTimeUpdated={onEndDateSelected} />
       </Stack>
-      <Text variant="medium">We will create an event which includes a Microsoft Teams meeting link on your course calendar.</Text>
-  </Stack>
+      {/* Include the element below if your integration creates an event in the course calendar
+        <Text variant="medium">We will create an event which includes a Microsoft Teams meeting link on your course calendar.</Text> */}
+    </Stack>
   );
 }
 
