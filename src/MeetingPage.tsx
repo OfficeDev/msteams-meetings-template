@@ -107,6 +107,24 @@ function DateTimePicker(props: DateTimePickerProps) {
     props.onTimeUpdated(newDateTime);
   }
 
+  function onFormatDate(dateToFormat?: Date): string {
+    const date = dateToFormat || new Date();
+
+    return + (date.getMonth() + 1) + '/' + date.getDate() + '/' + (date.getFullYear() % 100);
+  };
+
+  function onParseDateFromString(value: string): Date {
+    const date = props.dateTime?.toDate() || new Date();
+    const values = (value || '').trim().split('/');
+    const day = values.length > 0 ? Math.max(1, Math.min(31, parseInt(values[0], 10))) : date.getDate();
+    const month = values.length > 1 ? Math.max(1, Math.min(12, parseInt(values[1], 10))) - 1 : date.getMonth();
+    let year = values.length > 2 ? parseInt(values[2], 10) : date.getFullYear();
+    if (year < 100) {
+      year += date.getFullYear() - (date.getFullYear() % 100);
+    }
+    return new Date(year, month, day);
+  };
+
   const timeSuggestions = _.range(0, 1440, 30)
     .map(minutes => {
       // if the selection is before the min value
@@ -121,10 +139,32 @@ function DateTimePicker(props: DateTimePickerProps) {
         disabled: isDisabled
       }) 
     });
+
+    console.log(props.dateTime?.format('l'));
   return (
     <Stack horizontal>
-      <DatePicker firstDayOfWeek={DayOfWeek.Sunday} strings={DayPickerStrings} ariaLabel="Select a date" value={props.dateTime?.toDate()} onSelectDate={onDayPicked} minDate={props.minDate?.toDate()}/>
-      <ComboBox styles={{ root: { maxHeight: '500px' }}} allowFreeform={true} autoComplete="on" options={timeSuggestions} onChange={onTimePicked} text={props.dateTime?.format(timePickerFormat)} useComboBoxAsMenuWidth={true} scrollSelectedToTop={true}/>
+      <DatePicker
+        className="newMeetingDatePicker"
+        borderless 
+        firstDayOfWeek={DayOfWeek.Sunday} 
+        strings={DayPickerStrings} 
+        ariaLabel="Select a date" 
+        value={props.dateTime?.toDate()}
+        formatDate={onFormatDate}
+        parseDateFromString={onParseDateFromString}
+        onSelectDate={onDayPicked} 
+        minDate={props.minDate?.toDate()}
+      />
+      <ComboBox
+        styles={{ root: { maxHeight: '500px' }}}
+        useComboBoxAsMenuWidth={true}
+        scrollSelectedToTop={true}
+        allowFreeform={true} 
+        autoComplete="on" 
+        options={timeSuggestions} 
+        onChange={onTimePicked} 
+        text={props.dateTime?.format(timePickerFormat)} 
+      />
     </Stack>
   );
 }
@@ -245,7 +285,7 @@ function MeetingPageComponent(props: MeetingPageProps) {
         <StackItem grow>
           <FontIcon iconName="Calendar" className={meetingIconClass} />
           <Text variant="xLarge" styles={boldStyle}>
-            New meeting link
+            New meeting
           </Text>
         </StackItem>
         <StackItem align="end">
@@ -270,14 +310,25 @@ function MeetingPageComponent(props: MeetingPageProps) {
       <Stack horizontal>
         <StackItem className="newMeetingInputIcon"><FontIcon iconName="Edit" className={inputIconClass} /></StackItem>
         <StackItem grow>
-          <TextField className="newMeetingInput" placeholder="Event Name" value={props.meeting?.subject} underlined onChange={onSubjectChanged} errorMessage={validationEnabled ? props.validationFailures.invalidTitle : undefined}/>
+          <TextField className="newMeetingInput" placeholder="Add title" value={props.meeting?.subject} underlined onChange={onSubjectChanged} errorMessage={validationEnabled ? props.validationFailures.invalidTitle : undefined}/>
         </StackItem>
       </Stack>
 
-      <Stack horizontal tokens={{childrenGap: 15}}>
+      <Stack horizontal tokens={{childrenGap: 15}} className="newMeetingPicker">
         <FontIcon iconName="Clock" className={inputIconClass} />
-        <DateTimePicker dateTime={props.meeting.startDateTime} minDate={moment()} onTimeUpdated={onStartDateSelected} includeDuration={false}/>
-        <DateTimePicker dateTime={props.meeting.endDateTime} minDate={props.meeting.startDateTime} onTimeUpdated={onEndDateSelected} includeDuration={true}/>
+        <DateTimePicker
+          dateTime={props.meeting.startDateTime}
+          minDate={moment()}
+          onTimeUpdated={onStartDateSelected}
+          includeDuration={false}
+        />
+        <FontIcon className="newMeetingPickerIcon" iconName="ReplyAlt" />
+        <DateTimePicker
+          dateTime={props.meeting.endDateTime}
+          minDate={props.meeting.startDateTime}
+          onTimeUpdated={onEndDateSelected}
+          includeDuration={true}
+        />
       </Stack>
       {/* Include the element below if your integration creates an event in the course calendar
         <Text variant="medium">We will create an event which includes a Microsoft Teams meeting link on your course calendar.</Text> */}
