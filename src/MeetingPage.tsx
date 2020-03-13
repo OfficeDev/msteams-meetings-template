@@ -9,17 +9,18 @@ import { connect } from 'react-redux';
 import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
 import * as _ from 'lodash';
 import moment, { Moment } from 'moment'
-
 import { OnlineMeetingInput } from './meeting-creator/models';
 import { SET_MEETING_COMMAND, CREATE_MEETING_COMMAND, CreateMeetingCommand } from './meeting-creator/actions';
+import { goBack } from 'connected-react-router';
 
 const boldStyle = { root: { fontWeight: FontWeights.semibold } };
 initializeIcons(); //TODO: move to root. 
 
 interface MeetingPageProps {
   meeting: OnlineMeetingInput,
-  setMeeting: (meeting: OnlineMeetingInput) => void
-  createMeeting: (meeting: OnlineMeetingInput) => void
+  setMeeting: (meeting: OnlineMeetingInput) => void,
+  createMeeting: (meeting: OnlineMeetingInput) => void,
+  cancel: () => void,
 }
 
 const mapStateToProps = (state : AppState) => ({
@@ -39,7 +40,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
       fromPage: "meeting",
       meeting
     } as CreateMeetingCommand)
-  }
+  },
+  cancel: () => dispatch(goBack()),
 }) as Partial<MeetingPageProps>;
 
 //TODO: see if only want work week
@@ -116,6 +118,8 @@ function DateTimePicker(props: DateTimePickerProps) {
 
 function MeetingPageComponent(props: Partial<MeetingPageProps>) {
   const setMeeting = props.setMeeting || ((meeting) => {});
+  const cancel = props.cancel || (() => {});
+
   function onSubjectChanged(evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue: string | undefined)
   {
     if (!props.meeting) {
@@ -160,7 +164,7 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
     setMeeting(nextMeeting);
   }
 
-  function createMeeing(meeting?: OnlineMeetingInput)
+  function createMeeting(meeting?: OnlineMeetingInput)
   {
     if (!meeting) {
       console.warn("Meeting is undefined, ignoring input");
@@ -186,8 +190,8 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
         </StackItem>
         <StackItem align="end">
           <Stack horizontal tokens={{childrenGap: 10}}>
-            <PrimaryButton className="teamsButton" primary text="Create" onClick={() => createMeeing(props.meeting)} />
-            <DefaultButton className="teamsButtonInverted" text="Cancel" />
+            <PrimaryButton className="teamsButton" primary text="Create" onClick={() => createMeeting(props.meeting)} />
+            <DefaultButton className="teamsButtonInverted" text="Cancel" onClick={() => cancel()}/>
           </Stack>
         </StackItem>
       </Stack>
