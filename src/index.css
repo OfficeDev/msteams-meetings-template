@@ -4,8 +4,34 @@ body {
   background-color: #f9f9f9;
 }
 
+.microsoftLogo {
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  border-bottom: 1px solid #cccccc6b;
+}
+
+.headerLogo {
+  margin-right: 1rem;
+  max-width: 32px;
+  width: 32px;
+}
+
+.headerIcon {
+  color: #3e3e3e;
+  cursor: pointer;
+  margin-left: auto;
+  position: relative;
+  text-align: right;
+  top: 7px;
+}
+
 .container {
-  padding: 3rem 1.5rem 2rem 1.5rem;
+  padding: 1rem 1.5rem 2rem 1.5rem;
   width: 100%;
 }
 
@@ -47,6 +73,7 @@ body {
 
 .splashImage {
   max-width: 650px;
+  margin-top: 4.3rem;
 }
 
 .uTextCenter {
@@ -87,9 +114,10 @@ div[class*="ms-TextField-wrapper"]:after {
 
 .meetingCardContainer {
   display: flex;
-  flex-direction: column;
-  padding: 2rem;
   box-shadow: 0px 9px 10px 1px #00000014;
+  flex-direction: column;
+  margin-top: 4.3rem;
+  padding: 2rem;
 }
 
 .meetingCardBody {
