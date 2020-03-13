@@ -8,7 +8,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
 import * as _ from 'lodash';
-import moment, { Moment } from 'moment'
+import moment, { Moment, Duration } from 'moment'
 import { OnlineMeetingInput } from './meeting-creator/models';
 import { SET_MEETING_COMMAND, CREATE_MEETING_COMMAND, CreateMeetingCommand } from './meeting-creator/actions';
 import { goBack } from 'connected-react-router';
@@ -16,6 +16,21 @@ import { hasValidSubject } from './meeting-creator/validators';
 
 const boldStyle = { root: { fontWeight: FontWeights.semibold } };
 initializeIcons(); //TODO: move to root. 
+
+function durationString(duration: Duration)
+{
+  let str = '';
+  if (Math.floor(duration.asDays()) > 0) {
+    str += `${Math.floor(duration.asDays())}d `;
+  }
+  if (duration.hours() > 0) {
+    str += `${duration.hours()}h `;
+  }
+  if (duration.minutes() > 0) {
+    str += `${duration.minutes()}m `;
+  }
+  return str;
+}
 
 const DayPickerStrings: IDatePickerStrings = {
   months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -57,6 +72,7 @@ interface DateTimePickerProps {
   dateTime?: Moment,
   minDate?: Moment,
   onTimeUpdated: (date?: Moment) => void,
+  includeDuration: boolean
 }
 
 function DateTimePicker(props: DateTimePickerProps) {
@@ -92,11 +108,19 @@ function DateTimePicker(props: DateTimePickerProps) {
   }
 
   const timeSuggestions = _.range(0, 1440, 30)
-    .map(minutes => ({
-      key: minutes,
-      text: moment().startOf('day').minutes(minutes).format(timePickerFormat),
-      disabled: moment(props.minDate).isAfter(moment(props.dateTime).startOf('day').add(moment.duration(minutes, 'minutes')))
-    }));
+    .map(minutes => {
+      // if the selection is before the min value
+      const projectedEndTime = moment(props.dateTime).startOf('day').add(moment.duration(minutes, 'minutes'));
+      const isDisabled = moment(props.minDate).isAfter(projectedEndTime);
+      const timeTag = moment().startOf('day').minutes(minutes).format(timePickerFormat);
+      const projectedDuration = moment.duration(moment(projectedEndTime).diff(props.minDate));
+      const projectedDurationString = _.trim(durationString(projectedDuration));
+      return ({
+        key: minutes,
+        text: props.includeDuration && !isDisabled && projectedDurationString.length > 0 ? `${timeTag} (${projectedDurationString})` : timeTag,
+        disabled: isDisabled
+      }) 
+    });
   return (
     <Stack horizontal>
       <DatePicker firstDayOfWeek={DayOfWeek.Sunday} strings={DayPickerStrings} ariaLabel="Select a date" value={props.dateTime?.toDate()} onSelectDate={onDayPicked} minDate={props.minDate?.toDate()}/>
@@ -240,8 +264,8 @@ function MeetingPageComponent(props: MeetingPageProps) {
 
       <Stack horizontal tokens={{childrenGap: 15}}>
         <FontIcon iconName="Clock" className={inputIconClass} />
-        <DateTimePicker dateTime={props.meeting.startDateTime} minDate={moment()} onTimeUpdated={onStartDateSelected} />
-        <DateTimePicker dateTime={props.meeting.endDateTime} minDate={props.meeting.startDateTime} onTimeUpdated={onEndDateSelected} />
+        <DateTimePicker dateTime={props.meeting.startDateTime} minDate={moment()} onTimeUpdated={onStartDateSelected} includeDuration={false}/>
+        <DateTimePicker dateTime={props.meeting.endDateTime} minDate={props.meeting.startDateTime} onTimeUpdated={onEndDateSelected} includeDuration={true}/>
       </Stack>
       {/* Include the element below if your integration creates an event in the course calendar
         <Text variant="medium">We will create an event which includes a Microsoft Teams meeting link on your course calendar.</Text> */}
