@@ -1,11 +1,17 @@
 import { Middleware } from 'redux';
 import { msalApp } from './msalApp'
-import { OPEN_SIGNIN_DIALOG_COMMAND, SIGNIN_COMPLETE_EVENT, SigninCompleteEvent } from './actions'
-import { push } from 'connected-react-router';
+import { CHECK_FOR_SIGNEDIN_USER_COMMAND, OPEN_SIGNIN_DIALOG_COMMAND, SIGNIN_COMPLETE_EVENT, SigninCompleteEvent } from './actions'
+import { replace } from 'connected-react-router';
 
 export function createAuthMiddleware() : Middleware
 {
     return store => next => action => {
+        if (action.type === CHECK_FOR_SIGNEDIN_USER_COMMAND) {
+            if (!msalApp.getAccount()) {
+                store.dispatch(replace('/signin'));
+            };
+        }
+
         if (action.type === OPEN_SIGNIN_DIALOG_COMMAND) {
             msalApp
                 .loginPopup({
@@ -26,7 +32,7 @@ export function createAuthMiddleware() : Middleware
         }
 
         if (action.type === SIGNIN_COMPLETE_EVENT) {
-            store.dispatch(push('/createLanding'));
+            store.dispatch(replace('/'));
         }
 
         next(action);

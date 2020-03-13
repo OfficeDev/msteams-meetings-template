@@ -1,5 +1,10 @@
 import { IdToken } from "msal/lib-commonjs/IdToken"
 
+export const CHECK_FOR_SIGNEDIN_USER_COMMAND = "CheckForSignedInUserCommand";
+export interface CheckForSignedInUserCommand {
+    type: typeof CHECK_FOR_SIGNEDIN_USER_COMMAND
+}
+
 export const OPEN_SIGNIN_DIALOG_COMMAND = "OpenSigninDialogCommand"
 export interface OpenSigninDialogCommand {
     type: typeof OPEN_SIGNIN_DIALOG_COMMAND
@@ -11,4 +16,4 @@ export interface SigninCompleteEvent {
     idToken: IdToken
 }
 
-export type AuthAction = OpenSigninDialogCommand | SigninCompleteEvent
+export type AuthAction = CheckForSignedInUserCommand | OpenSigninDialogCommand | SigninCompleteEvent

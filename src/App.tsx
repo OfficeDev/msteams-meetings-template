@@ -31,10 +31,10 @@ function App() {
     <Provider store={store}>
       <ConnectedRouter history={hist}>
         <Switch>
-        <Route exact path="/createLanding" component={CreateMeetingPage} />
+          <Route exact path="/signin" component={LandingPage} />
           <Route exact path="/createEvent" component={MeetingPage} />
           <Route exact path="/copyMeeting" component={CopyMeetingPage} />
-          <Route component={LandingPage} />
+          <Route component={CreateMeetingPage} />
         </Switch>
       </ConnectedRouter>
     </Provider>
