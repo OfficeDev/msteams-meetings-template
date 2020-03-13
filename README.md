@@ -76,6 +76,9 @@ Change the following values in the `msalApp.ts` file:
 ## Running the sample
 
 In the project directory, you can run:
+### `yarn install`
+
+Installs all the dependencies for the app.
 
 ### `yarn start`
 
