@@ -153,7 +153,7 @@ function MeetingPageComponent(props: MeetingPageProps) {
     const nextMeeting = _.cloneDeep(props.meeting);
     nextMeeting.startDateTime = date ?? nextMeeting.startDateTime;
 
-    // If start is after end, adjust end to the same time, but on a day after the start date
+    // If start > end, adjust end to the same time, but on a day after the start date
     if (nextMeeting.startDateTime.isAfter(nextMeeting.endDateTime)) {
       const endOffsetFromStartOfDay = nextMeeting.endDateTime.diff(moment(nextMeeting.endDateTime).startOf('day'));
       const newEndDateTime = moment(nextMeeting.startDateTime).startOf('day').add(endOffsetFromStartOfDay);
@@ -169,7 +169,13 @@ function MeetingPageComponent(props: MeetingPageProps) {
   function onEndDateSelected(date?: Moment)
   {
     const nextMeeting = _.cloneDeep(props.meeting);
-    nextMeeting.endDateTime = date ?? nextMeeting.endDateTime;
+    const newEndDateTime = date ?? nextMeeting.endDateTime;
+
+    // Allow the change only if it maintains start < end
+    if (!nextMeeting.startDateTime.isAfter(newEndDateTime)) {
+      nextMeeting.endDateTime = newEndDateTime;
+    }
+
     props.setMeeting(nextMeeting);
   }
 
