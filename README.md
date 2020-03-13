@@ -1,6 +1,48 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
+page_type: sample
+languages:
+- typescript
+products:
+- office-teams
+- ms-graph
+description: "Add 150 character max description"
+urlFragment: "update-this-to-unique-url-stub"
+---
 
-## Available Scripts
+# Official Microsoft Sample
+
+<!-- 
+Guidelines on README format: https://review.docs.microsoft.com/help/onboard/admin/samples/concepts/readme-template?branch=master
+
+Guidance on onboarding samples to docs.microsoft.com/samples: https://review.docs.microsoft.com/help/onboard/admin/samples/process/onboarding?branch=master
+
+Taxonomies for products and languages: https://review.docs.microsoft.com/new-hope/information-architecture/metadata/taxonomies?branch=master
+-->
+
+Give a short description for your sample here. What does it do and why is it important?
+
+## Contents
+
+Outline the file contents of the repository. It helps users navigate the codebase, build configuration and any related assets.
+
+| File/folder       | Description                                |
+|-------------------|--------------------------------------------|
+| `src`             | Sample source code.                        |
+| `.gitignore`      | Define what to ignore at commit time.      |
+| `CHANGELOG.md`    | List of changes to the sample.             |
+| `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
+| `README.md`       | This README file.                          |
+| `LICENSE`         | The license for the sample.                |
+
+## Prerequisites
+
+Outline the required components and tools that a user might need to have on their machine in order to run the sample. This can be anything from frameworks, SDKs, OS versions or IDE releases.
+
+## Setup
+
+Explain how to prepare the sample once the user clones or downloads the repository. The section should outline every step necessary to install dependencies and set up any settings (for example, API keys and output folders).
+
+## Running the sample
 
 In the project directory, you can run:
 
@@ -27,18 +69,21 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+## Key concepts
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Provide users with more context on the tools and services used in the sample. Explain some of the code that is being used and how services interact with each other.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Contributing
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+This project welcomes contributions and suggestions.  Most contributions require you to agree to a
+Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
+the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+When you submit a pull request, a CLA bot will automatically determine whether you need to provide
+a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
+provided by the bot. You will only need to do this once across all repos using our CLA.
 
-## Learn More
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
+For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
+contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
