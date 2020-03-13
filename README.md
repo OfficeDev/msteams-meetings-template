@@ -5,8 +5,8 @@ languages:
 products:
 - office-teams
 - ms-graph
-description: "Add 150 character max description"
-urlFragment: "update-this-to-unique-url-stub"
+description: "Microsoft Teams Meetings app for Learning Management Systems"
+urlFragment: "msteams-app-lms-meetings"
 ---
 
 # Microsoft Teams Meetings app for Learning Management Systems
@@ -26,16 +26,15 @@ By integrating with this app template you can enable remote learning for your en
 
 ## Contents
 
-Outline the file contents of the repository. It helps users navigate the codebase, build configuration and any related assets.
-
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
-| `src`             | Sample source code.                        |
-| `.gitignore`      | Define what to ignore at commit time.      |
-| `CHANGELOG.md`    | List of changes to the sample.             |
-| `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
-| `README.md`       | This README file.                          |
-| `LICENSE`         | The license for the sample.                |
+| `src`             | Sample source code                         |
+| `public`          | Static assets                              |
+| `deploy`          | Deployment template and scripts            |
+| `.gitignore`      | Define what to ignore at commit time       |
+| `CONTRIBUTING.md` | Guidelines for contributing to the sample  |
+| `README.md`       | This README file                           |
+| `LICENSE`         | The license for the sample                 |
 
 ## Prerequisites
 
