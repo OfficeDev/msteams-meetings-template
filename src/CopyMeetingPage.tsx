@@ -42,8 +42,12 @@ function CopyMeetingPageComponent(props: Partial<CopyMeetingPageProps>) {
     verticalFill
     tokens={{
       childrenGap: 35
-    }} >
-      <Stack.Item align="center" className="meetingCardContainer" id="copy">
+    }}>
+      <Stack.Item align="center" className="meetingCardContainer">
+          <svg className="meetingSuccess"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+            <path d="M24 0c2.2 0 4.3.3 6.4.9 2 .6 3.9 1.4 5.7 2.4 1.8 1 3.4 2.3 4.9 3.8 1.5 1.5 2.7 3.1 3.8 4.9 1 1.8 1.8 3.7 2.4 5.7.6 2 .9 4.2.9 6.4s-.3 4.3-.9 6.3c-.6 2-1.4 3.9-2.4 5.7-1 1.8-2.3 3.4-3.8 4.9-1.5 1.5-3.1 2.7-4.9 3.8-1.8 1-3.7 1.9-5.7 2.4-2 .6-4.1.9-6.4.9-2.2 0-4.3-.3-6.3-.9-2-.6-3.9-1.4-5.7-2.4-1.8-1-3.4-2.3-4.9-3.8-1.5-1.5-2.7-3.1-3.8-4.9-1-1.8-1.9-3.7-2.4-5.7C.3 28.3 0 26.2 0 24s.3-4.3.9-6.4c.6-2 1.4-3.9 2.4-5.7 1-1.8 2.3-3.4 3.8-4.9 1.5-1.5 3.1-2.7 4.9-3.8 1.8-1 3.7-1.9 5.7-2.4S21.8 0 24 0zm7.9 17.1c-.6 0-1.2.2-1.6.7l-8.5 8.5-3-3c-.4-.4-1-.7-1.6-.7-.3 0-.6.1-.8.2-.3.1-.5.3-.7.5s-.4.4-.5.7c-.2.3-.2.5-.2.8 0 .6.2 1.2.7 1.6l4.6 4.6c.4.4 1 .7 1.6.7.6 0 1.2-.2 1.6-.7l10.1-10.1c.4-.5.7-1 .7-1.6 0-.3-.1-.6-.2-.8-.1-.3-.3-.5-.5-.7s-.4-.4-.7-.5c-.4-.2-.7-.2-1-.2z" fill="#599c00"/>
+          </svg>
+
         <Text block variant="xLarge" className="meetingCardHeader">New Meeting link created & copied</Text>
         <div className="meetingCardBody">
           <Link href={props.meeting?.joinWebUrl} className="teamsLink meetingCardUrl">Join Microsoft Teams Meeting</Link>
@@ -57,9 +61,9 @@ function CopyMeetingPageComponent(props: Partial<CopyMeetingPageProps>) {
           }
 
           {props.meeting?.conferenceId &&
-            <div className="meetingCardID">
+            <div className="meetingCardConfID">
               <Text>Conference ID: {props.meeting?.conferenceId}</Text>
-            </div>          
+            </div>
           }
 
           <div>

@@ -74,6 +74,13 @@ div[class*="ms-TextField-wrapper"]:after {
 *  Meeting Card Styles
 */
 
+.meetingSuccess {
+  align-self: center;
+  display: flex;
+  margin-bottom: 1.5rem;
+  width: 50px;
+}
+
 .teamsLink {
   color: #6264a7;
 }
@@ -101,6 +108,10 @@ div[class*="ms-TextField-wrapper"]:after {
   margin-bottom: 1rem;
   display: block;
   font-size: 1rem;
+}
+
+.meetingCardConfID {
+  margin-bottom: 1rem;
 }
 
 .copyButton {
