@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Stack, Text, FontWeights, PrimaryButton, DefaultButton, StackItem, TextField, DatePicker, 
-  IDatePickerStrings, DayOfWeek, initializeIcons, ComboBox, IComboBoxOption, IComboBox } from 'office-ui-fabric-react';
+  IDatePickerStrings, DayOfWeek, initializeIcons, ComboBox, IComboBoxOption, IComboBox, memoizeFunction } from 'office-ui-fabric-react';
 import { FontIcon } from 'office-ui-fabric-react/lib/Icon';
 import { AppState } from './RootReducer'
 import { Dispatch } from 'redux';
@@ -28,6 +28,8 @@ const DayPickerStrings: IDatePickerStrings = {
   nextYearAriaLabel: 'Go to next year',
   closeButtonAriaLabel: 'Close date picker'
 };
+const timePickerFormat = "h:mm A";
+
 const meetingIconClass = mergeStyles({
   fontSize: 16,
   height: 16,
@@ -58,32 +60,44 @@ interface DateTimePickerProps {
 const timeSuggestions = _.range(0, 1440, 30)
   .map(minutes => ({
     key: minutes,
-    text: moment().startOf('day').minutes(minutes).format("h:mm A")
+    text: moment().startOf('day').minutes(minutes).format(timePickerFormat),
   }));
 
 function DateTimePicker(props: DateTimePickerProps) {
+
   function onDayPicked(date: Date | null | undefined) {
-    const nextDateTime = date ?? props.dateTime?.clone();
-    // get the delta of minutes from the start of the day
-    const offset = moment.duration(props.dateTime?.clone().diff(props.dateTime?.clone().startOf('day')));
-    const updatedNextDateTime = moment(nextDateTime).startOf('day').add(offset);
-    props.onTimeUpdated(updatedNextDateTime);
+    const currentDateTime = moment(props.dateTime);
+
+    const offsetFromStartOfDay = currentDateTime.diff(moment(currentDateTime).startOf('day'), 'minutes');
+    const newDateTime = moment(date ?? currentDateTime).startOf('day').add(offsetFromStartOfDay);
+
+    props.onTimeUpdated(newDateTime);
   }
 
-  function onTimePicked(event: React.FormEvent<IComboBox>, option?: IComboBoxOption | undefined) {
-    const offset = moment.duration(option?.key, 'minutes');
-    
-    const nextTime = moment(props.dateTime).startOf('day').add(offset);
-    props.onTimeUpdated(nextTime)
+  function onTimePicked(event: React.FormEvent<IComboBox>, option?: IComboBoxOption, index?: number, value?: string) {
+    const currentDateTimeStartOfDay = moment(props.dateTime).startOf('day');
+
+    let newDateTime: moment.Moment;
+    if (option) {
+      const offsetFromStartOfDay = moment.duration(option.key, 'minutes') ;
+      newDateTime = currentDateTimeStartOfDay.add(offsetFromStartOfDay);
+    } else {
+      // User entered a free-form string, try to parse it as a time
+      const enteredTime = moment(value, timePickerFormat);
+      const offsetFromStartOfDay = enteredTime.diff(moment(enteredTime).startOf('day')) ;
+      newDateTime = currentDateTimeStartOfDay.add(offsetFromStartOfDay);
+    }
+
+    props.onTimeUpdated(newDateTime);
   }
 
   const defaultMinuteKey = moment(props.dateTime).startOf('hour').diff(moment(props.dateTime).startOf('day'), 'minutes');
   return (
     <Stack horizontal>
       <DatePicker firstDayOfWeek={DayOfWeek.Sunday} strings={DayPickerStrings} ariaLabel="Select a date" value={props.dateTime?.toDate()} onSelectDate={onDayPicked}/>
-      <ComboBox allowFreeform={true} autoComplete="on" options={timeSuggestions} onChange={onTimePicked} defaultSelectedKey={defaultMinuteKey} />
+      <ComboBox allowFreeform={true} autoComplete="on" options={timeSuggestions} onChange={onTimePicked} text={props.dateTime?.format(timePickerFormat)} defaultSelectedKey={defaultMinuteKey} />
     </Stack>
-  )
+  );
 }
 
 
