@@ -38,13 +38,41 @@ By integrating with this app template you can enable remote learning for your en
 
 ## Prerequisites
 
-Outline the required components and tools that a user might need to have on their machine in order to run the sample. This can be anything from frameworks, SDKs, OS versions or IDE releases.
-
-## Setup
-
 This is a single page web app and requires only static web hosting to deploy the service.
 
 We recommend hosting on your own app platform or service, creating an Azure storage account, or integrating the code directly into your own experience.
+
+## Setup
+
+### Register an Azure AD application
+
+You'll need to register an app through the following process:
+
+1. Sign in to the [Azure portal](https://go.microsoft.com/fwlink/?linkid=2083908) using either a work or school account or a personal Microsoft account.
+2. If your account gives you access to more than one tenant, select your account in the top right corner, and set your portal session to the Azure AD tenant that you want.
+3. Select **New registration**.
+4. When the Register an application page appears, enter your application's registration information:
+   * **Name** - Enter a meaningful application name that will be displayed to users of the app.
+   * **Supported account types** - Select which accounts you would like your application to support.
+5. When finished, select **Register**.
+6. Azure AD assigns a unique application (client) ID to your app, and you're taken to your application's Overview page.
+
+    Copy the Application Id. This is the unique identifier for your app.
+
+7. Under **Manage** on the left-hand pane, click **Authentication**. Under **Redirect URIs**, click **Add URI** and enter the following URIs one by one.
+    * `http://localhost:3000/signin`
+    * `http://localhost:3000/createEvent`
+
+    On the same page, under **Implicit grant**, make sure that both **Access tokens** and **ID tokens** checkboxes are checked.
+
+    Click **Save** to save your changes.
+
+7. Under **Manage** on the left-hand pane, click **API permissions** and then **Add a new permission**. Select **Microsoft Graph** and then **Delegated permissions**. Add the `OnlineMeetings.ReadWrite` (Read and create user's online meetings) permission.
+
+### Update the configuration
+
+Change the following values in the `msalApp.ts` file:
+* **clientId** - Set this to the Application (client) ID of the AAD application that you registered
 
 ## Running the sample
 
