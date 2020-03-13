@@ -152,3 +152,17 @@ div[class*="ms-TextField-wrapper"]:after {
   align-self: flex-end;
   margin-top: 1.6rem;
 }
+
+/*
+* Spinner styling
+*/
+.spinnerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+div[class*="ms-Spinner-circle"] {
+  border-color: #6264a7 #a7a8c7 #a7a8c7;
+}

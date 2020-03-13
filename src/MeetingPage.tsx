@@ -204,16 +204,9 @@ function MeetingPageComponent(props: MeetingPageProps) {
 
   if (props.creationInProgress) {
     return (
-      <Stack className="container"
-      verticalFill
-      verticalAlign="center"
-      tokens={{
-        childrenGap: 35
-      }}>
-        <StackItem grow>
-          <Spinner size={SpinnerSize.large} />
-        </StackItem>
-      </Stack> 
+      <div className="spinnerContainer">
+        <Spinner size={SpinnerSize.large} />
+      </div> 
     )
   }
 
