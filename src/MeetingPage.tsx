@@ -156,8 +156,6 @@ function MeetingPageComponent(props: MeetingPageProps) {
     // If start >= end, adjust to be the same delta as before from the start time
     if (nextMeeting.startDateTime.isSameOrAfter(nextMeeting.endDateTime)) {
       const existingDelta = moment(props.meeting.endDateTime).diff(moment(props.meeting.startDateTime));
-      console.log('EXISTING DELTA', existingDelta);
-      // const endOffsetFromStartOfDay = nextMeeting.endDateTime.diff(moment(nextMeeting.endDateTime).startOf('day'));
       const newEndDateTime = moment(nextMeeting.startDateTime).add(existingDelta);
       if (nextMeeting.startDateTime.isSameOrAfter(newEndDateTime)) {
         newEndDateTime.add(existingDelta);
