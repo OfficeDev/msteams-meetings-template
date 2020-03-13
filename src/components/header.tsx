@@ -14,7 +14,6 @@ const mapStateToProps = (state : AppState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onSignOut: () => {
-    console.log('clicked')
     dispatch({
     type: SIGNOUT_COMMAND
   })
@@ -24,7 +23,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 const boldStyle = { root: { fontWeight: FontWeights.bold } };
 
 function HeaderComponent(props: Partial<HeaderProps>) {
-  console.log('Praphs?', props);
   const onSignOut = props.onSignOut ?? (() => {});
 
 
