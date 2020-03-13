@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Stack, Text, FontWeights, PrimaryButton, DefaultButton, StackItem, TextField, DatePicker, 
-  IDatePickerStrings, DayOfWeek, initializeIcons, ComboBox, IComboBoxOption, IComboBox, memoizeFunction } from 'office-ui-fabric-react';
+  IDatePickerStrings, DayOfWeek, initializeIcons, ComboBox, IComboBoxOption, IComboBox } from 'office-ui-fabric-react';
 import { FontIcon } from 'office-ui-fabric-react/lib/Icon';
 import { AppState } from './RootReducer'
 import { Dispatch } from 'redux';
@@ -68,7 +68,7 @@ function DateTimePicker(props: DateTimePickerProps) {
   function onDayPicked(date: Date | null | undefined) {
     const currentDateTime = moment(props.dateTime);
 
-    const offsetFromStartOfDay = currentDateTime.diff(moment(currentDateTime).startOf('day'), 'minutes');
+    const offsetFromStartOfDay = currentDateTime.diff(moment(currentDateTime).startOf('day'));
     const newDateTime = moment(date ?? currentDateTime).startOf('day').add(offsetFromStartOfDay);
 
     props.onTimeUpdated(newDateTime);
@@ -84,18 +84,21 @@ function DateTimePicker(props: DateTimePickerProps) {
     } else {
       // User entered a free-form string, try to parse it as a time
       const enteredTime = moment(value, timePickerFormat);
-      const offsetFromStartOfDay = enteredTime.diff(moment(enteredTime).startOf('day')) ;
-      newDateTime = currentDateTimeStartOfDay.add(offsetFromStartOfDay);
+      if (enteredTime.isValid()) {
+        const offsetFromStartOfDay = enteredTime.diff(moment(enteredTime).startOf('day')) ;
+        newDateTime = currentDateTimeStartOfDay.add(offsetFromStartOfDay);
+      } else {
+        newDateTime = moment(props.dateTime);
+      }
     }
 
     props.onTimeUpdated(newDateTime);
   }
 
-  const defaultMinuteKey = moment(props.dateTime).startOf('hour').diff(moment(props.dateTime).startOf('day'), 'minutes');
   return (
     <Stack horizontal>
       <DatePicker firstDayOfWeek={DayOfWeek.Sunday} strings={DayPickerStrings} ariaLabel="Select a date" value={props.dateTime?.toDate()} onSelectDate={onDayPicked}/>
-      <ComboBox allowFreeform={true} autoComplete="on" options={timeSuggestions} onChange={onTimePicked} text={props.dateTime?.format(timePickerFormat)} defaultSelectedKey={defaultMinuteKey} />
+      <ComboBox allowFreeform={true} autoComplete="on" options={timeSuggestions} onChange={onTimePicked} text={props.dateTime?.format(timePickerFormat)} />
     </Stack>
   );
 }
@@ -188,8 +191,8 @@ function MeetingPageComponent(props: MeetingPageProps) {
 
       <Stack horizontal tokens={{childrenGap: 15}}>
         <FontIcon iconName="Clock" className={inputIconClass} />
-        <DateTimePicker dateTime={props.meeting?.startDateTime?.clone()} onTimeUpdated={onStartDateSelected} />
-        <DateTimePicker dateTime={props.meeting?.endDateTime?.clone()} onTimeUpdated={onEndDateSelected} />
+        <DateTimePicker dateTime={props.meeting.startDateTime} onTimeUpdated={onStartDateSelected} />
+        <DateTimePicker dateTime={props.meeting.endDateTime} onTimeUpdated={onEndDateSelected} />
       </Stack>
       {/* Include the element below if your integration creates an event in the course calendar
         <Text variant="medium">We will create an event which includes a Microsoft Teams meeting link on your course calendar.</Text> */}
