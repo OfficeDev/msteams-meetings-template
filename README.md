@@ -9,7 +9,7 @@ description: "Add 150 character max description"
 urlFragment: "update-this-to-unique-url-stub"
 ---
 
-# Official Microsoft Sample
+# Microsoft Teams Meetings app for Learning Management Systems
 
 <!-- 
 Guidelines on README format: https://review.docs.microsoft.com/help/onboard/admin/samples/concepts/readme-template?branch=master
@@ -19,7 +19,10 @@ Guidance on onboarding samples to docs.microsoft.com/samples: https://review.doc
 Taxonomies for products and languages: https://review.docs.microsoft.com/new-hope/information-architecture/metadata/taxonomies?branch=master
 -->
 
-Give a short description for your sample here. What does it do and why is it important?
+Welcome to the embedded Microsoft Teams meeting link creator, built for Learning Management Systems and app developers to provide an easy way for users to create meeting links and share them directly with participants. 
+
+The app provides an easy interface for users to sign in using their Microsoft credentials, create a meeting, and copy the join information to share within a LMS.
+By integrating with this app template you can enable remote learning for your entire userbase by bringing the Microsoft Teams free meetings solution to your users.
 
 ## Contents
 
@@ -40,7 +43,9 @@ Outline the required components and tools that a user might need to have on thei
 
 ## Setup
 
-Explain how to prepare the sample once the user clones or downloads the repository. The section should outline every step necessary to install dependencies and set up any settings (for example, API keys and output folders).
+This is a single page web app and requires only static web hosting to deploy the service.
+
+We recommend hosting on your own app platform or service, creating an Azure storage account, or integrating the code directly into your own experience.
 
 ## Running the sample
 
@@ -69,9 +74,21 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Key concepts
+## Feedback
 
-Provide users with more context on the tools and services used in the sample. Explain some of the code that is being used and how services interact with each other.
+Thoughts? Questions? Ideas? Share them with us on [Teams UserVoice](https://microsoftteams.uservoice.com/forums/555103-public)!
+
+Please report bugs and other code issues [here](https://github.com/OfficeDev/msteams-app-lms-meetings/issues/new).
+
+## Legal notice
+
+Please read the license terms applicable to this app template [here](https://github.com/OfficeDev/msteams-app-lms-meetings/blob/master/LICENSE). In addition to these terms, by using this app template you agree to the following:
+
+* You are responsible for complying with applicable privacy and security regulations related to use, collection and handling of any personal data by your app.  This includes complying with all internal privacy and security policies of your organization if your app is developed to be sideloaded internally within your organization.
+
+* Microsoft will have no access to data collected through your app.  Microsoft will not be responsible for any data related incidents or data subject requests.
+
+* Any trademarks or registered trademarks of Microsoft in the United States and/or other countries and logos included in this repository are the property of Microsoft, and the license for this project does not grant you rights to use any Microsoft names, logos or trademarks outside of this repository.  Microsoft’s general trademark guidelines can be found [here](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general.aspx)
 
 ## Contributing
 
