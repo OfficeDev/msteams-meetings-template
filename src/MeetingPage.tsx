@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Stack, Text, FontWeights, PrimaryButton, DefaultButton, StackItem, TextField, DatePicker, 
-  IDatePickerStrings, DayOfWeek, Toggle, initializeIcons, ComboBox, IComboBoxOption, IComboBox } from 'office-ui-fabric-react';
+  IDatePickerStrings, DayOfWeek, initializeIcons, ComboBox, IComboBoxOption, IComboBox } from 'office-ui-fabric-react';
 import { FontIcon } from 'office-ui-fabric-react/lib/Icon';
 import { AppState } from './RootReducer'
 import { Dispatch } from 'redux';
@@ -10,7 +10,7 @@ import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
 import * as _ from 'lodash';
 import moment, { Moment } from 'moment'
 
-import { OnlineMeetingInput, OnlineMeeting } from './meeting-creator/models';
+import { OnlineMeetingInput } from './meeting-creator/models';
 import { SET_MEETING_COMMAND, CREATE_MEETING_COMMAND } from './meeting-creator/actions';
 
 const boldStyle = { root: { fontWeight: FontWeights.semibold } };
@@ -59,17 +59,21 @@ const DayPickerStrings: IDatePickerStrings = {
   closeButtonAriaLabel: 'Close date picker'
 };
 const meetingIconClass = mergeStyles({
-  fontSize: 35,
-  height: 35,
-  width: 35,
+  fontSize: 16,
+  height: 16,
+  width: 16,
   margin: '0 7px',
   position: 'relative',
-  top: 7
+  top: 1,
+  backgroundColor: '#6264a7',
+  padding: '10px',
+  color: '#fff',
+  borderRadius: '3px'
 });
 
 const inputIconClass = mergeStyles({
   position: 'relative',
-  top: 7
+  top: 7,
 });
 
 interface DateTimePickerProps {
@@ -175,19 +179,19 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
       <Stack horizontal tokens={{childrenGap: 15}}>
         <StackItem grow>
           <FontIcon iconName="Calendar" className={meetingIconClass} />
-          <Text variant="xxLarge" styles={boldStyle}>
-            New Meeting
+          <Text variant="xLarge" styles={boldStyle}>
+            New meeting link
           </Text>
         </StackItem>
         <StackItem align="end">
           <Stack horizontal tokens={{childrenGap: 10}}>
-            <PrimaryButton className="teamsButton" primary text="Save" onClick={() => createMeeing(props.meeting)} />
-            <DefaultButton className="teamsButtonInverted" text="Close" />
+            <PrimaryButton className="teamsButton" primary text="Create" onClick={() => createMeeing(props.meeting)} />
+            <DefaultButton className="teamsButtonInverted" text="Cancel" />
           </Stack>
         </StackItem>
       </Stack>
       <Stack horizontal>
-        <StackItem><FontIcon iconName="Edit" className={inputIconClass} /></StackItem>
+        <StackItem className="newMeetingInputIcon"><FontIcon iconName="Edit" className={inputIconClass} /></StackItem>
         <StackItem grow>
           <TextField className="newMeetingInput" placeholder="Event Name" value={props?.meeting?.subject} underlined onChange={onSubjectChanged}/>
         </StackItem>
