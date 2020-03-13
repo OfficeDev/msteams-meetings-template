@@ -44,16 +44,11 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   cancel: () => dispatch(goBack()),
 }) as Partial<MeetingPageProps>;
 
-//TODO: see if only want work week
 const DayPickerStrings: IDatePickerStrings = {
   months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-
   shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-
   days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-
   shortDays: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-
   goToToday: 'Go to today',
   prevMonthAriaLabel: 'Go to previous month',
   nextMonthAriaLabel: 'Go to next month',
@@ -92,9 +87,9 @@ const timeSuggestions = _.range(0, 1440, 30)
 
 function DateTimePicker(props: DateTimePickerProps) {
   function onDayPicked(date: Date | null | undefined) {
-    const nextDateTime = date ?? props.dateTime?.clone()
+    const nextDateTime = date ?? props.dateTime?.clone();
     // get the delta of minutes from the start of the day
-    const offset = moment.duration(moment(props.dateTime?.clone()).diff(moment(props.dateTime?.clone()).startOf('day')));
+    const offset = moment.duration(props.dateTime?.clone().diff(props.dateTime?.clone().startOf('day')));
     const updatedNextDateTime = moment(nextDateTime).startOf('day').add(offset);
     props.onTimeUpdated(updatedNextDateTime);
   }
@@ -102,12 +97,11 @@ function DateTimePicker(props: DateTimePickerProps) {
   function onTimePicked(event: React.FormEvent<IComboBox>, option?: IComboBoxOption | undefined) {
     const offset = moment.duration(option?.key, 'minutes');
     
-    const nextTime = moment(props.dateTime?.clone())?.startOf('day').add(offset);
+    const nextTime = moment(props.dateTime).startOf('day').add(offset);
     props.onTimeUpdated(nextTime)
   }
 
-  const defaultMinuteKey = props.dateTime?.endOf('hour').diff(props.dateTime?.startOf('day'));
-  // TODO: figure out why this keeps winding up as zero. 
+  const defaultMinuteKey = moment(props.dateTime).startOf('hour').diff(moment(props.dateTime).startOf('day'), 'minutes');
   return (
     <Stack horizontal>
       <DatePicker firstDayOfWeek={DayOfWeek.Sunday} strings={DayPickerStrings} ariaLabel="Select a date" value={props.dateTime?.toDate()} onSelectDate={onDayPicked}/>
@@ -144,13 +138,12 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
     // The meeting objects are small, cloning is cheap enough
     // Normally would use immutable records or similar to avoid overhead.
     const nextMeeting = _.cloneDeep(props.meeting);
-    nextMeeting.startDateTime = date ?? props.meeting.startDateTime?.clone();
+    nextMeeting.startDateTime = date ?? nextMeeting.startDateTime;
     setMeeting(nextMeeting);
   }
 
   function onEndDateSelected(date?: Moment)
   {
-    console.log('end date selected:', date);
     if (!props.meeting) {
       console.warn("Meeting is undefined, ignoring input");
       return;
@@ -159,8 +152,7 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
     // The meeting objects are small, cloning is cheap enough
     // Normally would use immutable records or similar to avoid overhead.
     const nextMeeting = _.cloneDeep(props.meeting);
-    nextMeeting.endDateTime = date ?? props.meeting.endDateTime?.clone()
-    console.log('next meeting', nextMeeting.endDateTime);
+    nextMeeting.endDateTime = date ?? nextMeeting.endDateTime;
     setMeeting(nextMeeting);
   }
 
@@ -170,7 +162,8 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
       console.warn("Meeting is undefined, ignoring input");
       return;
     }
-    const createMeeting = props.createMeeting || (() => {})
+
+    const createMeeting = props.createMeeting || ((meeting) => {});
     createMeeting(meeting);
   }
 
@@ -198,14 +191,14 @@ function MeetingPageComponent(props: Partial<MeetingPageProps>) {
       <Stack horizontal>
         <StackItem className="newMeetingInputIcon"><FontIcon iconName="Edit" className={inputIconClass} /></StackItem>
         <StackItem grow>
-          <TextField className="newMeetingInput" placeholder="Event Name" value={props?.meeting?.subject} underlined onChange={onSubjectChanged}/>
+          <TextField className="newMeetingInput" placeholder="Event Name" value={props.meeting?.subject} underlined onChange={onSubjectChanged}/>
         </StackItem>
       </Stack>
 
       <Stack horizontal tokens={{childrenGap: 15}}>
         <FontIcon iconName="Clock" className={inputIconClass} />
-        <DateTimePicker dateTime={props?.meeting?.startDateTime?.clone()} onTimeUpdated={onStartDateSelected} />
-        <DateTimePicker dateTime={props?.meeting?.endDateTime?.clone()} onTimeUpdated={onEndDateSelected} />
+        <DateTimePicker dateTime={props.meeting?.startDateTime?.clone()} onTimeUpdated={onStartDateSelected} />
+        <DateTimePicker dateTime={props.meeting?.endDateTime?.clone()} onTimeUpdated={onEndDateSelected} />
       </Stack>
       <Text variant="medium">We will create an event which includes a Microsoft Teams meeting link on your course calendar.</Text>
   </Stack>

@@ -20,7 +20,7 @@ export function createAuthMiddleware() : Middleware
                     ]
                 })
                 .then((response) => {
-                    console.log('Login succeeded:');
+                    console.log('Login succeeded');
                     store.dispatch({
                         type: SIGNIN_COMPLETE_EVENT,
                         idToken: response.idToken

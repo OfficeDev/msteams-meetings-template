@@ -7,9 +7,8 @@ const loadInitialState = () => {
     return {
         inputMeeting: {
             subject: "",
-            endDateTime: moment().startOf('hour').add(1, 'hour'),
-            startDateTime: moment().startOf('hour').subtract(1, 'hour'),
-            allDay: false
+            startDateTime: moment().startOf('hour').add(1, 'hour'),
+            endDateTime: moment().startOf('hour').add(2, 'hour'),
         }
     } as MeetingState
 }
