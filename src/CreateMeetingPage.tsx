@@ -5,7 +5,9 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { CHECK_FOR_SIGNEDIN_USER_COMMAND } from './auth/actions';
+import { SET_MEETING_COMMAND, SetMeetingCommand } from './meeting-creator/actions';
 import { Header } from './components/header';
+import { createDefaultMeetingInput } from './meeting-creator/models';
 
 interface CreateLandingPageProps {
   checkForSignedInUser: () => void;
@@ -19,8 +21,13 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   checkForSignedInUser: () => dispatch({
     type: CHECK_FOR_SIGNEDIN_USER_COMMAND,
   }),
-  onNewMeeting: () => dispatch(push("/createEvent")),
-
+  onNewMeeting: () => {
+    dispatch({
+      type: SET_MEETING_COMMAND,
+      meeting: createDefaultMeetingInput(),
+    } as SetMeetingCommand);
+    dispatch(push("/createEvent"))
+  },
 }) as Partial<CreateLandingPageProps>;
 
 function CreateLandingPageComponent(props: Partial<CreateLandingPageProps>) {

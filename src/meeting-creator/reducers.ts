@@ -1,15 +1,11 @@
 import { MeetingState } from './state';
 import { SET_MEETING_COMMAND, MeetingAction, MEETING_CREATED_EVENT } from './actions'
-import moment from 'moment';
-import * as _ from 'lodash';
+import _ from 'lodash';
+import { createDefaultMeetingInput } from './models';
 
 const loadInitialState = () => {
     return {
-        inputMeeting: {
-            subject: "",
-            startDateTime: moment().startOf('hour').add(1, 'hour'),
-            endDateTime: moment().startOf('hour').add(2, 'hour'),
-        }
+        inputMeeting: createDefaultMeetingInput(),
     } as MeetingState
 }
 

@@ -3,7 +3,7 @@ import { OnlineMeetingInput, OnlineMeeting } from "./models"
 export const SET_MEETING_COMMAND = "SetMeetingCommand"
 export interface SetMeetingCommand {
     type: typeof SET_MEETING_COMMAND,
-    meeting: OnlineMeetingInput
+    meeting: Partial<OnlineMeetingInput>,
 }
 
 export const CREATE_MEETING_COMMAND = "CreateMeetingCommand"

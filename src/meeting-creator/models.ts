@@ -1,3 +1,4 @@
+import moment from "moment";
 import { Moment } from "moment";
 
 export interface OnlineMeetingInput {
@@ -18,4 +19,12 @@ export interface OnlineMeeting {
     conferenceId: string,
     tollNumber: string,
     tollFreeNumber: string,
+}
+
+export function createDefaultMeetingInput(): OnlineMeetingInput {
+    return {
+        subject: "",
+        startDateTime: moment().startOf('hour').add(1, 'hour'),
+        endDateTime: moment().startOf('hour').add(2, 'hour'),
+    };
 }
