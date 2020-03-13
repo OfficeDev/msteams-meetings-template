@@ -220,7 +220,6 @@ function MeetingPageComponent(props: MeetingPageProps) {
       </Stack>
       {/* Include the element below if your integration creates an event in the course calendar
         <Text variant="medium">We will create an event which includes a Microsoft Teams meeting link on your course calendar.</Text> */}
-      <Text><pre>{JSON.stringify(props.meeting, null, 2)}</pre></Text>
     </Stack>
   );
 }
