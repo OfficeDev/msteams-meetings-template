@@ -59,9 +59,8 @@ You'll need to register an app through the following process:
 
     Copy the Application Id. This is the unique identifier for your app.
 
-7. Under **Manage** on the left-hand pane, click **Authentication**. Under **Redirect URIs**, click **Add URI** and enter the following URIs one by one.
-    * `http://localhost:3000/signin`
-    * `http://localhost:3000/createMeeting`
+7. Under **Manage** on the left-hand pane, click **Authentication**. Under **Redirect URIs**, click **Add URI** and enter the following URIs:
+    * `http://localhost:3000/`
 
     On the same page, under **Implicit grant**, make sure that both **Access tokens** and **ID tokens** checkboxes are checked.
 
