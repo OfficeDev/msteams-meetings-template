@@ -53,8 +53,9 @@ const inputIconClass = mergeStyles({
 //
 
 interface DateTimePickerProps {
-  dateTime?: Moment
-  onTimeUpdated: (date?: Moment) => void
+  dateTime?: Moment,
+  minDate?: Moment,
+  onTimeUpdated: (date?: Moment) => void,
 }
 
 const timeSuggestions = _.range(0, 1440, 30)
@@ -97,7 +98,7 @@ function DateTimePicker(props: DateTimePickerProps) {
 
   return (
     <Stack horizontal>
-      <DatePicker firstDayOfWeek={DayOfWeek.Sunday} strings={DayPickerStrings} ariaLabel="Select a date" value={props.dateTime?.toDate()} onSelectDate={onDayPicked}/>
+      <DatePicker firstDayOfWeek={DayOfWeek.Sunday} strings={DayPickerStrings} ariaLabel="Select a date" value={props.dateTime?.toDate()} onSelectDate={onDayPicked} minDate={props.minDate?.toDate()}/>
       <ComboBox allowFreeform={true} autoComplete="on" options={timeSuggestions} onChange={onTimePicked} text={props.dateTime?.format(timePickerFormat)} />
     </Stack>
   );
@@ -116,7 +117,7 @@ interface MeetingPageProps {
 }
 
 const mapStateToProps = (state : AppState) => ({
-  meeting: state.meeting?.inputMeeting
+  meeting: state.meeting.inputMeeting
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -151,6 +152,17 @@ function MeetingPageComponent(props: MeetingPageProps) {
   {
     const nextMeeting = _.cloneDeep(props.meeting);
     nextMeeting.startDateTime = date ?? nextMeeting.startDateTime;
+
+    // If start is after end, adjust end to the same time, but on a day after the start date
+    if (nextMeeting.startDateTime.isAfter(nextMeeting.endDateTime)) {
+      const endOffsetFromStartOfDay = nextMeeting.endDateTime.diff(moment(nextMeeting.endDateTime).startOf('day'));
+      const newEndDateTime = moment(nextMeeting.startDateTime).startOf('day').add(endOffsetFromStartOfDay);
+      if (nextMeeting.startDateTime.isAfter(newEndDateTime)) {
+        newEndDateTime.add(1, 'day');
+      }
+      nextMeeting.endDateTime = newEndDateTime;
+    }
+
     props.setMeeting(nextMeeting);
   }
 
@@ -191,8 +203,8 @@ function MeetingPageComponent(props: MeetingPageProps) {
 
       <Stack horizontal tokens={{childrenGap: 15}}>
         <FontIcon iconName="Clock" className={inputIconClass} />
-        <DateTimePicker dateTime={props.meeting.startDateTime} onTimeUpdated={onStartDateSelected} />
-        <DateTimePicker dateTime={props.meeting.endDateTime} onTimeUpdated={onEndDateSelected} />
+        <DateTimePicker dateTime={props.meeting.startDateTime} minDate={moment()} onTimeUpdated={onStartDateSelected} />
+        <DateTimePicker dateTime={props.meeting.endDateTime} minDate={props.meeting.startDateTime} onTimeUpdated={onEndDateSelected} />
       </Stack>
       {/* Include the element below if your integration creates an event in the course calendar
         <Text variant="medium">We will create an event which includes a Microsoft Teams meeting link on your course calendar.</Text> */}

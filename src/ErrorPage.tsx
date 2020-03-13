@@ -16,7 +16,7 @@ interface ErrorPageProps {
 }
 
 const mapStateToProps = (state : AppState) => ({
-  meeting: state.meeting,
+  meeting: state.meeting.inputMeeting,
 }) as Partial<ErrorPageProps>;
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
