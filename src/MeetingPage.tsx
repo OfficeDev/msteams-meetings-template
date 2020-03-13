@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Stack, Text, FontWeights, PrimaryButton, DefaultButton, StackItem, TextField, DatePicker, 
   IDatePickerStrings, DayOfWeek, initializeIcons, ComboBox, IComboBoxOption, IComboBox, Spinner, SpinnerSize } from 'office-ui-fabric-react';
@@ -12,6 +12,7 @@ import moment, { Moment } from 'moment'
 import { OnlineMeetingInput } from './meeting-creator/models';
 import { SET_MEETING_COMMAND, CREATE_MEETING_COMMAND, CreateMeetingCommand } from './meeting-creator/actions';
 import { goBack } from 'connected-react-router';
+import { hasValidSubject } from './meeting-creator/validators';
 
 const boldStyle = { root: { fontWeight: FontWeights.semibold } };
 initializeIcons(); //TODO: move to root. 
@@ -109,8 +110,13 @@ function DateTimePicker(props: DateTimePickerProps) {
 // Meeting page component
 //
 
+interface MeetingValidationFailures {
+  invalidTitle?: string
+}
+
 interface MeetingPageProps {
   meeting: OnlineMeetingInput,
+  validationFailures: MeetingValidationFailures
   creationInProgress: boolean
   setMeeting: (meeting: OnlineMeetingInput) => void,
   createMeeting: (meeting: OnlineMeetingInput) => void,
@@ -119,7 +125,10 @@ interface MeetingPageProps {
 
 const mapStateToProps = (state : AppState) => ({
   meeting: state.meeting.inputMeeting,
-  creationInProgress: state.meeting.creationInProgress 
+  creationInProgress: state.meeting.creationInProgress,
+  validationFailures: {
+    invalidTitle: hasValidSubject(state.meeting.inputMeeting) ? undefined : 'Invalid subject'
+  }
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -140,6 +149,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 });
 
 function MeetingPageComponent(props: MeetingPageProps) {
+
+  const [validationEnabled, setValidationEnabled] = useState(false)
 
   function onSubjectChanged(evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue: string | undefined)
   {
@@ -181,6 +192,16 @@ function MeetingPageComponent(props: MeetingPageProps) {
     props.setMeeting(nextMeeting);
   }
 
+  function onCreate()
+  {
+    if (!!props.validationFailures.invalidTitle) {
+      setValidationEnabled(true);
+      return;
+    }
+    
+    props.createMeeting(props.meeting)
+  }
+
   if (props.creationInProgress) {
     return (
       <Stack className="container"
@@ -212,7 +233,7 @@ function MeetingPageComponent(props: MeetingPageProps) {
         </StackItem>
         <StackItem align="end">
           <Stack horizontal tokens={{childrenGap: 10}}>
-            <PrimaryButton className="teamsButton" primary text="Create" disabled = {props.creationInProgress} onClick={() => props.createMeeting(props.meeting)} />
+            <PrimaryButton className="teamsButton" primary text="Create" disabled = {props.creationInProgress} onClick={() => onCreate()} />
             <DefaultButton className="teamsButtonInverted" text="Cancel" disabled = {props.creationInProgress} onClick={() => props.cancel()}/>
           </Stack>
         </StackItem>
@@ -220,7 +241,7 @@ function MeetingPageComponent(props: MeetingPageProps) {
       <Stack horizontal>
         <StackItem className="newMeetingInputIcon"><FontIcon iconName="Edit" className={inputIconClass} /></StackItem>
         <StackItem grow>
-          <TextField className="newMeetingInput" placeholder="Event Name" value={props.meeting?.subject} underlined onChange={onSubjectChanged}/>
+          <TextField className="newMeetingInput" placeholder="Event Name" value={props.meeting?.subject} underlined onChange={onSubjectChanged} errorMessage={validationEnabled ? props.validationFailures.invalidTitle : undefined}/>
         </StackItem>
       </Stack>
 
