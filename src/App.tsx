@@ -1,5 +1,5 @@
 import React from 'react';
-import { createHashHistory } from 'history'
+import { createBrowserHistory } from 'history'
 import { applyMiddleware, createStore, compose } from 'redux'
 import { Provider } from 'react-redux'
 import { Route, Switch } from 'react-router'
@@ -13,7 +13,7 @@ import CopyMeetingPage from './CopyMeetingPage';
 import CreateLandingPage from './CreateLandingPage';
 import ErrorPage from './ErrorPage';
 
-const hist = createHashHistory();
+const hist = createBrowserHistory();
 
 const store = createStore(
   createRootReducer(hist),
