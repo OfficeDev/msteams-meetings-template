@@ -58,12 +58,6 @@ interface DateTimePickerProps {
   onTimeUpdated: (date?: Moment) => void,
 }
 
-const timeSuggestions = _.range(0, 1440, 30)
-  .map(minutes => ({
-    key: minutes,
-    text: moment().startOf('day').minutes(minutes).format(timePickerFormat),
-  }));
-
 function DateTimePicker(props: DateTimePickerProps) {
 
   function onDayPicked(date: Date | null | undefined) {
@@ -117,13 +111,15 @@ function DateTimePicker(props: DateTimePickerProps) {
 
 interface MeetingPageProps {
   meeting: OnlineMeetingInput,
+  creationInProgress: boolean
   setMeeting: (meeting: OnlineMeetingInput) => void,
   createMeeting: (meeting: OnlineMeetingInput) => void,
   cancel: () => void,
 }
 
 const mapStateToProps = (state : AppState) => ({
-  meeting: state.meeting.inputMeeting
+  meeting: state.meeting.inputMeeting,
+  creationInProgress: state.meeting.creationInProgress 
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -201,8 +197,8 @@ function MeetingPageComponent(props: MeetingPageProps) {
         </StackItem>
         <StackItem align="end">
           <Stack horizontal tokens={{childrenGap: 10}}>
-            <PrimaryButton className="teamsButton" primary text="Create" onClick={() => props.createMeeting(props.meeting)} />
-            <DefaultButton className="teamsButtonInverted" text="Cancel" onClick={() => props.cancel()}/>
+            <PrimaryButton className="teamsButton" primary text="Create" disabled = {props.creationInProgress} onClick={() => props.createMeeting(props.meeting)} />
+            <DefaultButton className="teamsButtonInverted" text="Cancel" disabled = {props.creationInProgress} onClick={() => props.cancel()}/>
           </Stack>
         </StackItem>
       </Stack>

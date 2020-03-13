@@ -26,7 +26,6 @@ export function createMeetingService() {
                 "endDateTime": meeting.endDateTime?.toISOString(),
                 "subject": meeting.subject
             };
-            console.log('POST body', requestBody);
 
             const response = await axios.post("https://graph.microsoft.com/v1.0/me/onlineMeetings", requestBody, {
                 headers: {
@@ -34,6 +33,8 @@ export function createMeetingService() {
                     'Content-type': 'application/json'
                 }
             });
+            
+            // TODO: throw when the reponse isn't successful 
 
             const createdMeeting = {
                 id: response.data.id,
@@ -49,7 +50,6 @@ export function createMeetingService() {
                 dialinUrl: response.data.audioConferencing?.dialinUrl || '',
                 videoTeleconferenceId: response.data.videoTeleconferenceId,
             } as OnlineMeeting
-            console.log('Created meeting', createdMeeting);
             
             return createdMeeting;
         }
