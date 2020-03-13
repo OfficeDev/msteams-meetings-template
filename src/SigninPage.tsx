@@ -4,6 +4,7 @@ import { AppState } from './RootReducer'
 import { Dispatch } from 'redux';
 import { OPEN_SIGNIN_DIALOG_COMMAND } from './auth/actions';
 import { connect } from 'react-redux';
+import signInImage from './images/signin.svg';
 
 import './index.css';
 
@@ -47,7 +48,7 @@ function SigninPageComponent(props: Partial<SigninPageProps>) {
       }}>
       <img
         className="splashImage"
-        src="https://statics.teams.microsoft.com/hashedassets-launcher/launcher_meetings_new.b2c45282207c2dff1f96b89f128a7e31.svg"
+        src={signInImage}
         alt="logo"
       />
       <Text variant="xxLarge" styles={boldStyle}>

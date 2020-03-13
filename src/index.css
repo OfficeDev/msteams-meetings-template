@@ -123,12 +123,18 @@ div[class*="ms-TextField-wrapper"]:after {
 .meetingCardBody {
   border: 1px solid #cccccc6b;
   border-radius: 3px;
-  padding: 1.3rem 1rem 1.1rem 1rem;
+  padding: 1.3rem 1rem;
 }
 
-.meetingCardHeader {
+.meetingCardHeader,
+.meetingCardSubHeader {
   margin-bottom: 1.4rem;
   text-align: center;
+}
+
+.meetingCardSubHeader {
+  line-height: 1.5;
+  max-width: 400px;
 }
 
 .meetingCardDialInfo,
