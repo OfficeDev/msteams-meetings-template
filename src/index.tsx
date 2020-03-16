@@ -4,9 +4,9 @@ import App from './App';
 
 function isMsalRedirect()
 {
-    const msalParameters = ["access_token", "id_token", "code", "error_description"];
+    const msalParameters = ["access_token", "id_token", "code", "error", "error_description"];
     const hash = window.location.hash;
-    return msalParameters.some(param => hash.indexOf(param) >= 0);
+    return msalParameters.some(param => hash.indexOf(`${param}=`) >= 0);
 }
 
 // hack to fix MSAL fighting with hash routing
