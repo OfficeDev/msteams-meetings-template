@@ -152,7 +152,7 @@ function DateTimePicker(props: DateTimePickerProps) {
       <ComboBox
         className="newMeetingComboBox"
         styles={{ root: { maxHeight: '500px' }}}
-        useComboBoxAsMenuWidth={true}
+        useComboBoxAsMenuWidth={!props.includeDuration}
         scrollSelectedToTop={true}
         allowFreeform={true} 
         autoComplete="on" 
