@@ -7,7 +7,7 @@ import { AppState } from './RootReducer'
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import moment, { Moment, Duration } from 'moment'
 import { OnlineMeetingInput } from './meeting-creator/models';
 import { SET_MEETING_COMMAND, CREATE_MEETING_COMMAND, CreateMeetingCommand } from './meeting-creator/actions';
@@ -32,18 +32,6 @@ function durationString(duration: Duration)
   return str;
 }
 
-const DayPickerStrings: IDatePickerStrings = {
-  months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-  days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-  shortDays: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-  goToToday: 'Go to today',
-  prevMonthAriaLabel: 'Go to previous month',
-  nextMonthAriaLabel: 'Go to next month',
-  prevYearAriaLabel: 'Go to previous year',
-  nextYearAriaLabel: 'Go to next year',
-  closeButtonAriaLabel: 'Close date picker'
-};
 const timePickerFormat = "h:mm A";
 
 const meetingIconClass = mergeStyles({
@@ -77,6 +65,22 @@ interface DateTimePickerProps {
 }
 
 function DateTimePicker(props: DateTimePickerProps) {
+
+  function getDatePickerStrings(): IDatePickerStrings {
+    const localeData = moment.localeData();
+    return {
+      months: localeData.months(),
+      shortMonths: localeData.monthsShort(),
+      days: localeData.weekdays(),
+      shortDays: localeData.weekdaysMin(),
+      goToToday: 'Go to today',
+      prevMonthAriaLabel: 'Go to previous month',
+      nextMonthAriaLabel: 'Go to next month',
+      prevYearAriaLabel: 'Go to previous year',
+      nextYearAriaLabel: 'Go to next year',
+      closeButtonAriaLabel: 'Close date picker'
+    };
+  }
 
   function onDayPicked(date: Date | null | undefined) {
     const currentDateTime = moment(props.dateTime);
@@ -147,7 +151,7 @@ function DateTimePicker(props: DateTimePickerProps) {
         className="newMeetingDatePicker"
         borderless 
         firstDayOfWeek={DayOfWeek.Sunday} 
-        strings={DayPickerStrings} 
+        strings={getDatePickerStrings()} 
         ariaLabel="Select a date" 
         value={props.dateTime?.toDate()}
         formatDate={onFormatDate}
