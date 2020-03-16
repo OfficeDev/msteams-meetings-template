@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/react-intl": "3.0.0",
     "@uifabric/fluent-theme": "7.1.35",
     "axios": "0.19.2",
     "connected-react-router": "6.7.0",
@@ -13,6 +14,7 @@
     "office-ui-fabric-react": "7.103.0",
     "react": "16.13.0",
     "react-dom": "16.13.0",
+    "react-intl": "4.1.1",
     "react-redux": "7.2.0",
     "react-router": "5.1.2",
     "react-router-dom": "5.1.2",

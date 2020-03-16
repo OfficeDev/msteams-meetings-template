@@ -5,6 +5,7 @@ import { Dispatch } from 'redux';
 import { OPEN_SIGNIN_DIALOG_COMMAND } from './auth/actions';
 import { connect } from 'react-redux';
 import signInImage from './images/signin.svg';
+import { FormattedMessage } from 'react-intl';
 
 import './index.css';
 
@@ -49,18 +50,32 @@ function SigninPageComponent(props: Partial<SigninPageProps>) {
       <img
         className="splashImage"
         src={signInImage}
-        alt="logo"
+        alt="sign in logo"
       />
       <Text variant="xxLarge" styles={boldStyle}>
-        Welcome to Microsoft Teams
+        <FormattedMessage id="signin.header"
+          defaultMessage="Welcome to Microsoft Teams"
+          description="Header text"
+        />
       </Text>
-      <Text variant="large" className="uTextCenter">Sign in to Microsoft Teams using your school account to get started.</Text>
+
+      <Text variant="large" className="uTextCenter">
+        <FormattedMessage id="signin.subheader"
+          defaultMessage="Sign in to Microsoft Teams using your school account to get started."
+          description="Welcome message to sign in"
+        />
+      </Text>
+
       <PrimaryButton
         className="teamsButton"
-        text="Sign in"
         onClick={() => onSignIn()}
         ariaLabel="Sign in"
-      />
+      >
+        <FormattedMessage id="signin.button"
+         defaultMessage="Sign in"
+         description="Sign in button for app"
+        />
+      </PrimaryButton>
     </Stack>
     </>
   );

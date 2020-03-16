@@ -49,7 +49,6 @@ function CopyMeetingPageComponent(props: CopyMeetingPageProps) {
           </svg>
 
           <Text block variant="xLarge" className="meetingCardHeader">Meeting Created</Text>
-          <Text block variant="medium" className="meetingCardSubHeader">A link to your meeting was automatically copied to your clipboard</Text>
           <div className="meetingCardBody" id="copy">
             <Link href={props.meeting?.joinWebUrl} className="teamsLink meetingCardUrl">Join Microsoft Teams Meeting</Link>
             
