@@ -141,7 +141,7 @@ function DateTimePicker(props: DateTimePickerProps) {
       <DatePicker
         className="newMeetingDatePicker"
         borderless 
-        firstDayOfWeek={DayOfWeek.Sunday} 
+        firstDayOfWeek={moment.localeData().firstDayOfWeek() as DayOfWeek} 
         strings={getDatePickerStrings()} 
         ariaLabel="Select a date" 
         value={props.dateTime?.toDate()}
