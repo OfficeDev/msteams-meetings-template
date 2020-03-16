@@ -33,9 +33,7 @@ export function createMeetingService() {
                     'Content-type': 'application/json'
                 }
             });
-            
-            // TODO: throw when the reponse isn't successful 
-
+ 
             const createdMeeting = {
                 id: response.data.id,
                 creationDateTime: moment(response.data.creationDateTime),

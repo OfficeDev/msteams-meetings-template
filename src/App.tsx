@@ -12,6 +12,13 @@ import { createMeetingMiddleware } from './meeting-creator/middleware';
 import CopyMeetingPage from './CopyMeetingPage';
 import CreateLandingPage from './CreateLandingPage';
 import ErrorPage from './ErrorPage';
+import moment from 'moment';
+import 'moment/min/locales.min';
+import { initializeIcons } from 'office-ui-fabric-react';
+
+moment.locale(navigator.language);
+
+initializeIcons();
 
 const hist = createHashHistory();
 
@@ -25,7 +32,6 @@ const store = createStore(
     )
   )
 )
-
 
 function App() {
   return (

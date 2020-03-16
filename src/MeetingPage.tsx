@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { 
   Stack, Text, FontWeights, PrimaryButton, DefaultButton, StackItem, TextField, DatePicker, 
-  IDatePickerStrings, DayOfWeek, initializeIcons, ComboBox, IComboBoxOption, IComboBox, Spinner, SpinnerSize } from 'office-ui-fabric-react';
+  IDatePickerStrings, DayOfWeek, ComboBox, IComboBoxOption, IComboBox, Spinner, SpinnerSize } from 'office-ui-fabric-react';
 import { FontIcon } from 'office-ui-fabric-react/lib/Icon';
 import { AppState } from './RootReducer'
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import moment, { Moment, Duration } from 'moment'
 import { OnlineMeetingInput } from './meeting-creator/models';
 import { SET_MEETING_COMMAND, CREATE_MEETING_COMMAND, CreateMeetingCommand } from './meeting-creator/actions';
@@ -15,9 +15,8 @@ import { goBack } from 'connected-react-router';
 import { hasValidSubject } from './meeting-creator/validators';
 
 const boldStyle = { root: { fontWeight: FontWeights.semibold } };
-initializeIcons(); //TODO: move to root. 
 
-function durationString(duration: Duration)
+function formatDuration(duration: Duration)
 {
   let str = '';
   if (Math.floor(duration.asDays()) > 0) {
@@ -32,19 +31,8 @@ function durationString(duration: Duration)
   return str;
 }
 
-const DayPickerStrings: IDatePickerStrings = {
-  months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-  days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-  shortDays: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-  goToToday: 'Go to today',
-  prevMonthAriaLabel: 'Go to previous month',
-  nextMonthAriaLabel: 'Go to next month',
-  prevYearAriaLabel: 'Go to previous year',
-  nextYearAriaLabel: 'Go to next year',
-  closeButtonAriaLabel: 'Close date picker'
-};
-const timePickerFormat = "h:mm A";
+const datePickerFormat = "ll";
+const timePickerFormat = "LT";
 
 const meetingIconClass = mergeStyles({
   fontSize: 16,
@@ -73,10 +61,26 @@ interface DateTimePickerProps {
   minDate?: Moment,
   iconName?: string
   onTimeUpdated: (date?: Moment) => void,
-  includeDuration: boolean
+  includeDuration: boolean,
 }
 
 function DateTimePicker(props: DateTimePickerProps) {
+
+  function getDatePickerStrings(): IDatePickerStrings {
+    const localeData = moment.localeData();
+    return {
+      months: localeData.months(),
+      shortMonths: localeData.monthsShort(),
+      days: localeData.weekdays(),
+      shortDays: localeData.weekdaysMin(),
+      goToToday: 'Go to today',
+      prevMonthAriaLabel: 'Go to previous month',
+      nextMonthAriaLabel: 'Go to next month',
+      prevYearAriaLabel: 'Go to previous year',
+      nextYearAriaLabel: 'Go to next year',
+      closeButtonAriaLabel: 'Close date picker'
+    };
+  }
 
   function onDayPicked(date: Date | null | undefined) {
     const currentDateTime = moment(props.dateTime);
@@ -109,21 +113,11 @@ function DateTimePicker(props: DateTimePickerProps) {
   }
 
   function onFormatDate(dateToFormat?: Date): string {
-    const date = dateToFormat || new Date();
-
-    return + (date.getMonth() + 1) + '/' + date.getDate() + '/' + (date.getFullYear() % 100);
+    return moment(dateToFormat).format(datePickerFormat);
   };
 
   function onParseDateFromString(value: string): Date {
-    const date = props.dateTime?.toDate() || new Date();
-    const values = (value || '').trim().split('/');
-    const day = values.length > 0 ? Math.max(1, Math.min(31, parseInt(values[0], 10))) : date.getDate();
-    const month = values.length > 1 ? Math.max(1, Math.min(12, parseInt(values[1], 10))) - 1 : date.getMonth();
-    let year = values.length > 2 ? parseInt(values[2], 10) : date.getFullYear();
-    if (year < 100) {
-      year += date.getFullYear() - (date.getFullYear() % 100);
-    }
-    return new Date(year, month, day);
+    return moment(value, datePickerFormat).toDate();
   };
 
   const timeSuggestions = _.range(0, 1440, 30)
@@ -133,7 +127,7 @@ function DateTimePicker(props: DateTimePickerProps) {
       const isDisabled = moment(props.minDate).isAfter(projectedEndTime);
       const timeTag = moment().startOf('day').minutes(minutes).format(timePickerFormat);
       const projectedDuration = moment.duration(moment(projectedEndTime).diff(props.minDate));
-      const projectedDurationString = _.trim(durationString(projectedDuration));
+      const projectedDurationString = _.trim(formatDuration(projectedDuration));
       return ({
         key: minutes,
         text: props.includeDuration && !isDisabled && projectedDurationString.length > 0 ? `${timeTag} (${projectedDurationString})` : timeTag,
@@ -146,8 +140,8 @@ function DateTimePicker(props: DateTimePickerProps) {
       <DatePicker
         className="newMeetingDatePicker"
         borderless 
-        firstDayOfWeek={DayOfWeek.Sunday} 
-        strings={DayPickerStrings} 
+        firstDayOfWeek={moment.localeData().firstDayOfWeek() as DayOfWeek} 
+        strings={getDatePickerStrings()} 
         ariaLabel="Select a date" 
         value={props.dateTime?.toDate()}
         formatDate={onFormatDate}
@@ -158,7 +152,7 @@ function DateTimePicker(props: DateTimePickerProps) {
       <ComboBox
         className="newMeetingComboBox"
         styles={{ root: { maxHeight: '500px' }}}
-        useComboBoxAsMenuWidth={true}
+        useComboBoxAsMenuWidth={!props.includeDuration}
         scrollSelectedToTop={true}
         allowFreeform={true} 
         autoComplete="on" 
@@ -169,7 +163,7 @@ function DateTimePicker(props: DateTimePickerProps) {
       {props.iconName === "ReplyAlt" ?
         <FontIcon className="newMeetingPickerIcon" iconName={props.iconName} />
         :
-        <Text className="newMeetingPickerIncrement" variant="smallPlus">1hr</Text>
+        <Text className="newMeetingPickerIncrement" variant="smallPlus">{formatDuration(moment.duration(moment(props.dateTime).diff(moment(props.minDate))))}</Text>
       }
     </Stack>
   );
