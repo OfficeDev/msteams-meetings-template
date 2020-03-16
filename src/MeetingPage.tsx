@@ -32,7 +32,8 @@ function durationString(duration: Duration)
   return str;
 }
 
-const timePickerFormat = "h:mm A";
+const datePickerFormat = "ll";
+const timePickerFormat = "LT";
 
 const meetingIconClass = mergeStyles({
   fontSize: 16,
@@ -113,21 +114,11 @@ function DateTimePicker(props: DateTimePickerProps) {
   }
 
   function onFormatDate(dateToFormat?: Date): string {
-    const date = dateToFormat || new Date();
-
-    return + (date.getMonth() + 1) + '/' + date.getDate() + '/' + (date.getFullYear() % 100);
+    return moment(dateToFormat).format(datePickerFormat);
   };
 
   function onParseDateFromString(value: string): Date {
-    const date = props.dateTime?.toDate() || new Date();
-    const values = (value || '').trim().split('/');
-    const day = values.length > 0 ? Math.max(1, Math.min(31, parseInt(values[0], 10))) : date.getDate();
-    const month = values.length > 1 ? Math.max(1, Math.min(12, parseInt(values[1], 10))) - 1 : date.getMonth();
-    let year = values.length > 2 ? parseInt(values[2], 10) : date.getFullYear();
-    if (year < 100) {
-      year += date.getFullYear() - (date.getFullYear() % 100);
-    }
-    return new Date(year, month, day);
+    return moment(value, datePickerFormat).toDate();
   };
 
   const timeSuggestions = _.range(0, 1440, 30)
