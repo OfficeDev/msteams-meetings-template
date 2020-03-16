@@ -24,6 +24,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
         return
       }
       e.clipboardData.setData("text/html", str);
+      e.clipboardData.setData("text/plain", meeting?.joinWebUrl ?? 'Failed to copy');
       e.preventDefault();
     }
     document.addEventListener("copy", listener);
