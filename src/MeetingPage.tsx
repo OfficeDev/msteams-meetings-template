@@ -17,7 +17,7 @@ import { hasValidSubject } from './meeting-creator/validators';
 const boldStyle = { root: { fontWeight: FontWeights.semibold } };
 initializeIcons(); //TODO: move to root. 
 
-function durationString(duration: Duration)
+function formatDuration(duration: Duration)
 {
   let str = '';
   if (Math.floor(duration.asDays()) > 0) {
@@ -62,7 +62,7 @@ interface DateTimePickerProps {
   minDate?: Moment,
   iconName?: string
   onTimeUpdated: (date?: Moment) => void,
-  includeDuration: boolean
+  includeDuration: boolean,
 }
 
 function DateTimePicker(props: DateTimePickerProps) {
@@ -128,7 +128,7 @@ function DateTimePicker(props: DateTimePickerProps) {
       const isDisabled = moment(props.minDate).isAfter(projectedEndTime);
       const timeTag = moment().startOf('day').minutes(minutes).format(timePickerFormat);
       const projectedDuration = moment.duration(moment(projectedEndTime).diff(props.minDate));
-      const projectedDurationString = _.trim(durationString(projectedDuration));
+      const projectedDurationString = _.trim(formatDuration(projectedDuration));
       return ({
         key: minutes,
         text: props.includeDuration && !isDisabled && projectedDurationString.length > 0 ? `${timeTag} (${projectedDurationString})` : timeTag,
@@ -164,7 +164,7 @@ function DateTimePicker(props: DateTimePickerProps) {
       {props.iconName === "ReplyAlt" ?
         <FontIcon className="newMeetingPickerIcon" iconName={props.iconName} />
         :
-        <Text className="newMeetingPickerIncrement" variant="smallPlus">1hr</Text>
+        <Text className="newMeetingPickerIncrement" variant="smallPlus">{formatDuration(moment.duration(moment(props.dateTime).diff(moment(props.minDate))))}</Text>
       }
     </Stack>
   );
