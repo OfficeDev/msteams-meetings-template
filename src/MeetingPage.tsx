@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Stack, Text, FontWeights, PrimaryButton, DefaultButton, StackItem, TextField, DatePicker, 
-  IDatePickerStrings, DayOfWeek, initializeIcons, ComboBox, IComboBoxOption, IComboBox, Spinner, SpinnerSize } from 'office-ui-fabric-react';
+  IDatePickerStrings, DayOfWeek, ComboBox, IComboBoxOption, IComboBox, Spinner, SpinnerSize } from 'office-ui-fabric-react';
 import { FontIcon } from 'office-ui-fabric-react/lib/Icon';
 import { AppState } from './RootReducer'
 import { Dispatch } from 'redux';
@@ -15,7 +15,6 @@ import { goBack } from 'connected-react-router';
 import { hasValidSubject } from './meeting-creator/validators';
 
 const boldStyle = { root: { fontWeight: FontWeights.semibold } };
-initializeIcons(); //TODO: move to root. 
 
 function formatDuration(duration: Duration)
 {
