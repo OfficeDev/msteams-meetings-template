@@ -95,6 +95,15 @@ div[class*="ms-TextField-wrapper"]:after {
   border-bottom: 2px solid #6264a7;
 }
 
+.signinHeader {
+  margin-bottom: 2.1rem;
+}
+
+.signinSubHeader {
+  margin-top: 0 !important; /* needs to override Fabric */
+  margin-bottom: 0.5rem; 
+}
+
 /*
 *  New Meeting Styles
 */
@@ -214,6 +223,12 @@ div[class*="ms-ComboBox"]::after {
   flex-direction: column;
   margin-top: 4.3rem;
   padding: 2rem;
+}
+
+@media (min-width: 600px) {
+  .meetingCardContainer {
+    width: 400px;
+  }
 }
 
 .meetingCardBody {

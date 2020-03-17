@@ -52,15 +52,21 @@ function SigninPageComponent(props: Partial<SigninPageProps>) {
         src={signInImage}
         alt="sign in logo"
       />
-      <Text variant="xxLarge" styles={boldStyle}>
+      <Text variant="xxLarge" styles={boldStyle} className="signinHeader">
         <FormattedMessage id="signin.header"
           defaultMessage="Welcome to Microsoft Teams"
           description="Header text"
         />
       </Text>
 
-      <Text variant="large" className="uTextCenter">
-        <FormattedMessage id="signin.subheader"
+      <Text variant="medium" className="uTextCenter signinSubHeader">
+        <FormattedMessage id="signin.subheader.lead"
+          defaultMessage="Bring educators and students together with online meetings in Teams."
+          description="Welcome message to sign in"
+        />
+      </Text>
+      <Text variant="medium" className="uTextCenter signinSubHeader">
+        <FormattedMessage id="signin.subheader.signin"
           defaultMessage="Sign in to Microsoft Teams using your school account to get started."
           description="Welcome message to sign in"
         />

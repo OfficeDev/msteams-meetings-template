@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Text, PrimaryButton } from 'office-ui-fabric-react';
+import { Stack, Text, PrimaryButton, FontWeights } from 'office-ui-fabric-react';
 import { AppState } from './RootReducer'
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
@@ -8,6 +8,11 @@ import { CHECK_FOR_SIGNEDIN_USER_COMMAND } from './auth/actions';
 import { SET_MEETING_COMMAND, SetMeetingCommand } from './meeting-creator/actions';
 import { Header } from './components/header';
 import { createDefaultMeetingInput } from './meeting-creator/models';
+
+import calendar from './images/calendar.svg';
+
+const boldStyle = { root: { fontWeight: FontWeights.semibold } };
+
 
 interface CreateLandingPageProps {
   checkForSignedInUser: () => void;
@@ -35,7 +40,7 @@ function CreateLandingPageComponent(props: CreateLandingPageProps) {
   const checkForSignedInUser = props.checkForSignedInUser;
   React.useEffect(() => {
     checkForSignedInUser();
-  }, []);
+  });
   
   return (
     <>
@@ -50,10 +55,11 @@ function CreateLandingPageComponent(props: CreateLandingPageProps) {
       }}>
       <img
         className="splashImage"
-        src="https://statics.teams.microsoft.com/hashedassets-launcher/launcher_meetings_new.b2c45282207c2dff1f96b89f128a7e31.svg"
+        src={calendar}
         alt="logo"
       />
-      <Text variant="large">Schedule Teams meetings for your course.</Text>
+      <Text variant="large" styles={boldStyle}>Create Teams meetings for your course.</Text>
+      <Text variant="medium" >Get started on Teams by creating a meeting you can share with people in your course.</Text>
       <PrimaryButton 
         className="teamsButton"
         text="Create meeting link" 
