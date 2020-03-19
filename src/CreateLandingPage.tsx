@@ -35,8 +35,8 @@ function CreateLandingPageComponent(props: CreateLandingPageProps) {
   const checkForSignedInUser = props.checkForSignedInUser;
   React.useEffect(() => {
     checkForSignedInUser();
-  }, []);
-  
+  });
+
   return (
     <>
     <Header />
@@ -54,9 +54,9 @@ function CreateLandingPageComponent(props: CreateLandingPageProps) {
         alt="logo"
       />
       <Text variant="large">Schedule Teams meetings for your course.</Text>
-      <PrimaryButton 
+      <PrimaryButton
         className="teamsButton"
-        text="Create meeting link" 
+        text="Create meeting link"
         onClick={() => props.onNewMeeting()}
         ariaLabel="Create Meeting link"
       />

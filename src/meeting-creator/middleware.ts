@@ -26,7 +26,23 @@ export function createMeetingMiddleware() : Middleware
         }
 
         if (action.type === MEETING_CREATED_EVENT) {
-            store.dispatch(push("/copyMeeting"))
+            // console.log(action.meeting);
+            const url = new URL(document.location.href);
+            // console.log('url', url);
+            let returnUrlParameter = url.searchParams.get('returnUrl');
+            console.log('searchParams', url.searchParams);
+            if (returnUrlParameter) {
+                let returnUrl = new URL(returnUrlParameter);
+                let returnUrlSearchParams = returnUrl.searchParams;
+                returnUrlSearchParams.set('quickLink', action.meeting.joinWebUrl);
+                returnUrlSearchParams.set('title', action.meeting.subject);
+                returnUrlSearchParams.set('target', 'NewWindow');
+                returnUrl.search = returnUrlSearchParams.toString();
+
+                // console.log('returnUrl', returnUrlParameter);
+                // console.log(returnUrl.toString());
+                document.location.href = returnUrl.toString();
+            }
         }
         next(action);
     }
