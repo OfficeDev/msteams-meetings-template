@@ -26,11 +26,9 @@ export function createMeetingMiddleware() : Middleware
         }
 
         if (action.type === MEETING_CREATED_EVENT) {
-            // console.log(action.meeting);
+
             const url = new URL(document.location.href);
-            // console.log('url', url);
             let returnUrlParameter = url.searchParams.get('returnUrl');
-            console.log('searchParams', url.searchParams);
             if (returnUrlParameter) {
                 let returnUrl = new URL(returnUrlParameter);
                 let returnUrlSearchParams = returnUrl.searchParams;
@@ -39,9 +37,9 @@ export function createMeetingMiddleware() : Middleware
                 returnUrlSearchParams.set('target', 'NewWindow');
                 returnUrl.search = returnUrlSearchParams.toString();
 
-                // console.log('returnUrl', returnUrlParameter);
-                // console.log(returnUrl.toString());
                 document.location.href = returnUrl.toString();
+            } else {
+                store.dispatch(push("/copyMeeting"))
             }
         }
         next(action);
