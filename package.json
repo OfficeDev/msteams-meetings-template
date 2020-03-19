@@ -28,7 +28,7 @@
       "moduleType": "app",
       "targetDirectory": "ms-teams-meetings",
       "creds": {
-        "accessKeyVar": "CDN_KEY",
+        "key": "AKIA3HLX2CRXS7H6V366",
         "secretVar": "CDN_SECRET"
       },
       "devTagVar": "CIRCLE_SHA1",
