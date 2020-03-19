@@ -8,6 +8,7 @@ import { CHECK_FOR_SIGNEDIN_USER_COMMAND } from './auth/actions';
 import { SET_MEETING_COMMAND, SetMeetingCommand } from './meeting-creator/actions';
 import { Header } from './components/header';
 import { createDefaultMeetingInput } from './meeting-creator/models';
+import { FormattedMessage } from 'react-intl';
 
 import calendar from './images/calendar.svg';
 
@@ -62,10 +63,11 @@ function CreateLandingPageComponent(props: CreateLandingPageProps) {
       <Text variant="medium" >Get started on Teams by creating a meeting you can share with people in your course.</Text>
       <PrimaryButton 
         className="teamsButton"
-        text="Create meeting link" 
         onClick={() => props.onNewMeeting()}
         ariaLabel="Create Meeting link"
-      />
+      >
+        <FormattedMessage id="createLandingPage.create.meeting" />
+      </PrimaryButton>
     </Stack>
     </>
   );

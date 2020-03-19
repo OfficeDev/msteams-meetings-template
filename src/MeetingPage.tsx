@@ -13,6 +13,7 @@ import { OnlineMeetingInput } from './meeting-creator/models';
 import { SET_MEETING_COMMAND, CREATE_MEETING_COMMAND, CreateMeetingCommand } from './meeting-creator/actions';
 import { goBack } from 'connected-react-router';
 import { hasValidSubject } from './meeting-creator/validators';
+import { FormattedMessage } from 'react-intl';
 
 const boldStyle = { root: { fontWeight: FontWeights.semibold } };
 
@@ -285,25 +286,28 @@ function MeetingPageComponent(props: MeetingPageProps) {
           <StackItem grow>
             <FontIcon iconName="Calendar" className={meetingIconClass} />
             <Text variant="xLarge" styles={boldStyle}>
-              New meeting
+              <FormattedMessage id="meetingPage.header" />
             </Text>
           </StackItem>
           <StackItem align="end" className="newMeetingButtons">
             <Stack horizontal tokens={{childrenGap: 10}}>
               <PrimaryButton
                 className="teamsButton"
-                primary text="Create"
                 disabled={props.creationInProgress} 
                 onClick={() => onCreate()} 
                 ariaLabel="Create Meeting"
-              />
+              >
+                <FormattedMessage id="meetingPage.create" />
+              </PrimaryButton>
               <DefaultButton
                 className="teamsButtonInverted"
                 text="Cancel"
                 disabled={props.creationInProgress}
                 onClick={() => props.cancel()}
                 ariaLabel="Cancel"
-              />
+              >
+                <FormattedMessage id="meetingPage.cancel" />
+              </DefaultButton>
             </Stack>
           </StackItem>
         </Stack>
@@ -345,14 +349,18 @@ function MeetingPageComponent(props: MeetingPageProps) {
           disabled={props.creationInProgress} 
           onClick={() => onCreate()} 
           ariaLabel="Create Meeting"
-        />
+        >
+           <FormattedMessage id="meetingPage.create" />
+        </PrimaryButton>
         <DefaultButton
           className="teamsButtonInverted teamsButtonFullWidth"
           text="Cancel"
           disabled={props.creationInProgress}
           onClick={() => props.cancel()}
           ariaLabel="Cancel"
-        />
+        >
+           <FormattedMessage id="meetingPage.cancel" />
+        </DefaultButton>
       </Stack>
     </StackItem>
     </div>

@@ -8,6 +8,7 @@ import { OnlineMeetingInput } from './meeting-creator/models';
 import { CREATE_MEETING_COMMAND, CreateMeetingCommand } from './meeting-creator/actions';
 import { Header } from './components/header';
 import errorImage from './images/genericError.svg';
+import { FormattedMessage } from 'react-intl';
 
 const semiboldStyle = { root: { fontWeight: FontWeights.semibold } };
 
@@ -50,24 +51,26 @@ function ErrorPageComponent(props: ErrorPageProps) {
           alt="Error graphic"
         />
         <Text variant="large" styles={semiboldStyle}>
-          Oops! Your meeting wasn't created successfully.
+          <FormattedMessage id="errorPage.heading" />
         </Text>
         <Text variant="medium" className="uTextCenter">
-          Please try again. If the problem persists, check with your IT administrator to ensure you have the proper permissions.
+          <FormattedMessage id="errorPage.subheading" />
         </Text>
         <Stack horizontal tokens={{childrenGap: 10}}>
           <DefaultButton
             className="teamsButtonInverted"
-            text="Back"
             onClick={() => props.goBack()} 
             ariaLabel="Back to last screen"
-          />
+          >
+            <FormattedMessage id="errorPage.back" />
+          </DefaultButton>
           <PrimaryButton
             className="teamsButton"
-            primary text="Try again" 
             onClick={() => props.retryCreateMeeting(props.meeting)} 
             ariaLabel="Try again"
-          />
+          >
+            <FormattedMessage id="errorPage.try.again" />
+          </PrimaryButton>
         </Stack>
       </Stack>
     </>

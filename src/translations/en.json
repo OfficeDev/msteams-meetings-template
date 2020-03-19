@@ -41,6 +41,8 @@
   "_copyMeetingPage.teams.link.comment": "Link text that has the Teams meeting URL",
   "copyMeetingPage.conference.id": "Conference ID: {confId}",
   "_copyMeetingPage.conference.id.comment": "Label that tells the user what the conference ID is",
+  "copyMeetingPage.learn.more": "Learn more about Teams",
+  "_copyMeetingPage.learn.more.comment": "A link to learn more about Teams",
   "copyMeetingPage.copy": "Copy",
   "_copyMeetingPage.copy.comment": "VERB - button text that tells user they can copy the meeting link",
   "copyMeetingPage.copy.ariaLabel": "Copy the meeting link",
