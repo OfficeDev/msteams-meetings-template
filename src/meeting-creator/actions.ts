@@ -9,7 +9,6 @@ export interface SetMeetingCommand {
 export const CREATE_MEETING_COMMAND = "CreateMeetingCommand"
 export interface CreateMeetingCommand {
     type: typeof CREATE_MEETING_COMMAND,
-    fromPage: "meeting" | "error",
     meeting: OnlineMeetingInput,
 }
 

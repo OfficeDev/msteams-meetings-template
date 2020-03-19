@@ -3,7 +3,7 @@ import { Stack, Text, FontWeights, PrimaryButton, DefaultButton } from 'office-u
 import { AppState } from './RootReducer'
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { goBack } from 'connected-react-router';
+import { goBack, replace } from 'connected-react-router';
 import { OnlineMeetingInput } from './meeting-creator/models';
 import { CREATE_MEETING_COMMAND, CreateMeetingCommand } from './meeting-creator/actions';
 import { Header } from './components/header';
@@ -14,7 +14,7 @@ const semiboldStyle = { root: { fontWeight: FontWeights.semibold } };
 interface ErrorPageProps {
   meeting: OnlineMeetingInput,
   goBack: () => void,
-  createMeeting: (meeting: OnlineMeetingInput) => void,
+  retryCreateMeeting: (meeting: OnlineMeetingInput) => void,
 }
 
 const mapStateToProps = (state : AppState) => ({
@@ -23,10 +23,10 @@ const mapStateToProps = (state : AppState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   goBack: () => dispatch(goBack()),
-  createMeeting: (meeting: OnlineMeetingInput) => {
+  retryCreateMeeting: (meeting: OnlineMeetingInput) => {
+    dispatch(replace('/createMeeting'));
     dispatch({
       type: CREATE_MEETING_COMMAND,
-      fromPage: "error",
       meeting,
     } as CreateMeetingCommand);
   }
@@ -65,7 +65,7 @@ function ErrorPageComponent(props: ErrorPageProps) {
           <PrimaryButton
             className="teamsButton"
             primary text="Try again" 
-            onClick={() => props.createMeeting(props.meeting)} 
+            onClick={() => props.retryCreateMeeting(props.meeting)} 
             ariaLabel="Try again"
           />
         </Stack>

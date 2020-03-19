@@ -205,7 +205,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   createMeeting: (meeting: OnlineMeetingInput) => {
     dispatch({
       type: CREATE_MEETING_COMMAND,
-      fromPage: "meeting",
       meeting
     } as CreateMeetingCommand)
   },

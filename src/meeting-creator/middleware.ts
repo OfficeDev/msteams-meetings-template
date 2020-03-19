@@ -19,9 +19,7 @@ export function createMeetingMiddleware() : Middleware
             })
             .catch(error => {
                 console.error('Create meeting failed: ', error);
-                if (action.fromPage !== "error") {
-                    store.dispatch(push('/error'));
-                }
+                store.dispatch(push('/error'));
             });
         }
 
