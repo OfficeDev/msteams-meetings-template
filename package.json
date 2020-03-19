@@ -1,6 +1,6 @@
 {
   "name": "teams-lms-meeting-creator",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "@types/react-intl": "3.0.0",
@@ -28,7 +28,7 @@
       "moduleType": "app",
       "targetDirectory": "ms-teams-meetings",
       "creds": {
-        "accessKeyVar": "CDN_KEY",
+        "key": "AKIA3HLX2CRXS7H6V366",
         "secretVar": "CDN_SECRET"
       },
       "devTagVar": "CIRCLE_SHA1",
