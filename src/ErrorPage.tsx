@@ -49,10 +49,10 @@ function ErrorPageComponent(props: ErrorPageProps) {
           src={errorImage}
           alt="Error graphic"
         />
-        <Text variant="xxLarge" styles={semiboldStyle}>
+        <Text variant="large" styles={semiboldStyle}>
           Oops! Your meeting wasn't created successfully.
         </Text>
-        <Text variant="large" className="uTextCenter">
+        <Text variant="medium" className="uTextCenter">
           Please try again. If the problem persists, check with your IT administrator to ensure you have the proper permissions.
         </Text>
         <Stack horizontal tokens={{childrenGap: 10}}>
