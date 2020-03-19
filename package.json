@@ -22,9 +22,25 @@
     "redux": "4.0.5",
     "typescript": "~3.7.2"
   },
+  "config": {
+    "frauPublisher": {
+      "files": "./build/**",
+      "moduleType": "app",
+      "targetDirectory": "ms-teams-meetings",
+      "creds": {
+        "accessKeyVar": "CDN_KEY",
+        "secretVar": "CDN_SECRET"
+      },
+      "devTagVar": "CIRCLE_SHA1",
+      "versionVar": "RELEASE_TAG"
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "publish-release": "frau-publisher",
+    "deploy": "npm run build && npm run publish-release",
+    "version-tag": "npx bump -tcpa minor",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -53,6 +69,8 @@
     "@types/react": "16.9.0",
     "@types/react-dom": "16.9.0",
     "@types/react-redux": "7.1.7",
-    "@types/react-router": "5.1.4"
+    "@types/react-router": "5.1.4",
+    "frau-publisher": "^2.7.11",
+    "version-bump-prompt": "^6.0.3"
   }
 }

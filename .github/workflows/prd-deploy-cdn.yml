@@ -1,0 +1,22 @@
+name: 'PRD Deploy CDN'
+on:
+  release:
+    types:
+      - published
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - run: npm install
+      - name: 'Deploy CDN'
+        run: npm run deploy
+        env:
+          CDN_KEY: ${{ secrets.PRD_AWS_ACCESS_KEY_ID }}
+          CDN_SECRET: ${{ secrets.PRD_AWS_SECRET_ACCESS_KEY }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
