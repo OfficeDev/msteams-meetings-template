@@ -301,7 +301,6 @@ function MeetingPageComponent(props: MeetingPageProps) {
               </PrimaryButton>
               <DefaultButton
                 className="teamsButtonInverted"
-                text="Cancel"
                 disabled={props.creationInProgress}
                 onClick={() => props.cancel()}
                 ariaLabel="Cancel"
@@ -354,7 +353,6 @@ function MeetingPageComponent(props: MeetingPageProps) {
         </PrimaryButton>
         <DefaultButton
           className="teamsButtonInverted teamsButtonFullWidth"
-          text="Cancel"
           disabled={props.creationInProgress}
           onClick={() => props.cancel()}
           ariaLabel="Cancel"
