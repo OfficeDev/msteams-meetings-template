@@ -13,7 +13,6 @@ import { replace } from 'connected-react-router';
 export function createAuthMiddleware() : Middleware
 {
     return store => next => action => {
-        console.log('ACTION', action);
         if (action.type === CHECK_FOR_SIGNEDIN_USER_COMMAND) {
             if (!msalApp.getAccount()) {
                 store.dispatch(replace('/signin'));

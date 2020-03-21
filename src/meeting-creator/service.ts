@@ -3,6 +3,8 @@ import { msalApp } from '../auth/msalApp'
 import axios from 'axios'
 import moment from 'moment'
 
+
+
 export function createMeetingService() {    
     return {
         async createMeeting(meeting: OnlineMeetingInput) {
@@ -27,13 +29,15 @@ export function createMeetingService() {
                 "subject": meeting.subject
             };
 
-            const response = await axios.post("https://graph.microsoft.com/v1.0/me/onlineMeetings", requestBody, {
+            const response = await axios.post("https://graph.microsoft.com/beta/me/onlineMeetings", requestBody, {
                 headers: {
                     'Authorization': `Bearer ${token.accessToken}`, 
                     'Content-type': 'application/json'
                 }
             });
- 
+
+            const preview = decodeURIComponent((response.data.joinInformation.content?.split(',')?.[1] ?? '').replace(/\+/g, '%20'));
+
             const createdMeeting = {
                 id: response.data.id,
                 creationDateTime: moment(response.data.creationDateTime),
@@ -47,6 +51,7 @@ export function createMeetingService() {
                 tollFreeNumber: response.data.audioConferencing?.tollFreeNumber || '',
                 dialinUrl: response.data.audioConferencing?.dialinUrl || '',
                 videoTeleconferenceId: response.data.videoTeleconferenceId,
+                preview
             } as OnlineMeeting
             
             return createdMeeting;

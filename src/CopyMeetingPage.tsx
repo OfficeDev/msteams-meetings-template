@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Text, PrimaryButton, Link } from 'office-ui-fabric-react';
+import { Stack, Text, PrimaryButton } from 'office-ui-fabric-react';
 import { AppState } from './RootReducer'
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
@@ -52,31 +52,7 @@ function CopyMeetingPageComponent(props: CopyMeetingPageProps) {
           <Text block variant="xLarge" className="meetingCardHeader">
             <FormattedMessage id="copyMeetingPage.header" />
           </Text>
-          <div className="meetingCardBody" id="copy">
-            <Link href={props.meeting?.joinWebUrl} className="teamsLink meetingCardUrl">
-              <FormattedMessage id="copyMeetingPage.teams.link" />
-            </Link>
-            
-            {props.meeting?.dialinUrl && props.meeting?.tollNumber &&
-              <div className="meetingCardDialInfo">
-                <Link href={props.meeting?.dialinUrl} className="teamsLink">
-                  <Text variant="medium">{props.meeting?.tollNumber}</Text>
-                </Link>
-              </div>
-            }
-
-            {props.meeting?.conferenceId &&
-              <div className="meetingCardConfID">
-                <FormattedMessage id="copyMeetingPage.conference.id" values={{confId: props.meeting?.conferenceId}} />
-              </div>
-            }
-
-            <div>
-              <Link className="teamsLink" href="https://products.office.com/en-us/microsoft-teams/group-chat-software">
-                <FormattedMessage id="copyMeetingPage.learn.more" />
-              </Link>
-            </div>
-          </div>
+          <div className="meetingCardBody" id="copy" dangerouslySetInnerHTML={{__html: props.meeting?.preview ?? ''}} />
           <PrimaryButton 
             className="teamsButton copyButton"
             onClick={() => props.onCopyToClipboard(props.meeting)}

@@ -19,6 +19,7 @@ export interface OnlineMeeting {
     conferenceId: string,
     tollNumber: string,
     tollFreeNumber: string,
+    preview: string
 }
 
 export function createDefaultMeetingInput(): OnlineMeetingInput {
