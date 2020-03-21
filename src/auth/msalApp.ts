@@ -13,7 +13,9 @@ function isIE() {
 
 export const msalApp = new UserAgentApplication({
     auth: {
-        clientId: "2005d3ee-3dc1-471d-9641-85d7886478a6", // TODO: move this into a cfg value from composition root 9cbc57a5-3f93-4444-863d-81a275c9ab7b
+        // clientId: "2005d3ee-3dc1-471d-9641-85d7886478a6", // PROD: TODO: move this into a cfg value from composition root 9cbc57a5-3f93-4444-863d-81a275c9ab7b
+        clientId: "828302d0-de68-48d5-9ca2-ae666c27d8b2", // Dev
+        // clientId: "eb3fa81b-eb63-46bf-8c01-cd54498d3c3a", // Local
         authority: "https://login.microsoftonline.com/common",
         validateAuthority: true,
         postLogoutRedirectUri: "http://localhost:3000",

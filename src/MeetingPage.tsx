@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { 
-  Stack, Text, FontWeights, PrimaryButton, DefaultButton, StackItem, TextField, DatePicker, 
+import {
+  Stack, Text, FontWeights, PrimaryButton, DefaultButton, StackItem, TextField, DatePicker,
   IDatePickerStrings, DayOfWeek, ComboBox, IComboBoxOption, IComboBox, Spinner, SpinnerSize } from 'office-ui-fabric-react';
 import { FontIcon } from 'office-ui-fabric-react/lib/Icon';
 import { AppState } from './RootReducer'
@@ -132,21 +132,21 @@ function DateTimePicker(props: DateTimePickerProps) {
         key: minutes,
         text: props.includeDuration && !isDisabled && projectedDurationString.length > 0 ? `${timeTag} (${projectedDurationString})` : timeTag,
         disabled: isDisabled
-      }) 
+      })
     });
 
   return (
     <Stack horizontal>
       <DatePicker
         className="newMeetingDatePicker"
-        borderless 
-        firstDayOfWeek={moment.localeData().firstDayOfWeek() as DayOfWeek} 
-        strings={getDatePickerStrings()} 
-        ariaLabel="Select a date" 
+        borderless
+        firstDayOfWeek={moment.localeData().firstDayOfWeek() as DayOfWeek}
+        strings={getDatePickerStrings()}
+        ariaLabel="Select a date"
         value={props.dateTime?.toDate()}
         formatDate={onFormatDate}
         parseDateFromString={onParseDateFromString}
-        onSelectDate={onDayPicked} 
+        onSelectDate={onDayPicked}
         minDate={props.minDate?.toDate()}
       />
       <ComboBox
@@ -154,10 +154,10 @@ function DateTimePicker(props: DateTimePickerProps) {
         styles={{ root: { maxHeight: '500px' }}}
         useComboBoxAsMenuWidth={!props.includeDuration}
         scrollSelectedToTop={true}
-        allowFreeform={true} 
-        autoComplete="on" 
-        options={timeSuggestions} 
-        onChange={onTimePicked} 
+        allowFreeform={true}
+        autoComplete="on"
+        options={timeSuggestions}
+        onChange={onTimePicked}
         text={props.dateTime?.format(timePickerFormat)}
       />
       {props.iconName === "ReplyAlt" ?
@@ -262,7 +262,7 @@ function MeetingPageComponent(props: MeetingPageProps) {
       setValidationEnabled(true);
       return;
     }
-    
+
     props.createMeeting(props.meeting)
   }
 
@@ -270,7 +270,7 @@ function MeetingPageComponent(props: MeetingPageProps) {
     return (
       <div className="spinnerContainer">
         <Spinner size={SpinnerSize.large} />
-      </div> 
+      </div>
     )
   }
 
@@ -294,8 +294,8 @@ function MeetingPageComponent(props: MeetingPageProps) {
               <PrimaryButton
                 className="teamsButton"
                 primary text="Create"
-                disabled={props.creationInProgress} 
-                onClick={() => onCreate()} 
+                disabled={props.creationInProgress}
+                onClick={() => onCreate()}
                 ariaLabel="Create Meeting"
               />
               <DefaultButton
@@ -334,7 +334,7 @@ function MeetingPageComponent(props: MeetingPageProps) {
           </div>
 
         </div>
-        
+
         {/* MOBILE BUTTON GROUP */}
 
       </Stack>
@@ -343,8 +343,8 @@ function MeetingPageComponent(props: MeetingPageProps) {
         <PrimaryButton
           className="teamsButton teamsButtonFullWidth"
           primary text="Create"
-          disabled={props.creationInProgress} 
-          onClick={() => onCreate()} 
+          disabled={props.creationInProgress}
+          onClick={() => onCreate()}
           ariaLabel="Create Meeting"
         />
         <DefaultButton

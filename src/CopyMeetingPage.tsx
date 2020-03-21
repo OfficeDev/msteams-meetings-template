@@ -18,12 +18,13 @@ const mapStateToProps = (state : AppState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onCopyToClipboard: (meeting?: OnlineMeeting) => {
-    const str = document.getElementById('copy')?.innerHTML || 'Failed to copy'
+    // const str = document.getElementById('copy')?.innerHTML || 'Failed to copy'
     function listener(e : ClipboardEvent) {
-      if (!e || !e.clipboardData) { 
+      if (!e || !e.clipboardData) {
         return
       }
-      e.clipboardData.setData("text/html", str);
+      // Don't copy HTML for now as it breaks when pasting into Activity Feed HTML editor
+      // e.clipboardData.setData("text/html", str);
       e.clipboardData.setData("text/plain", meeting?.joinWebUrl ?? 'Failed to copy');
       e.preventDefault();
     }
@@ -50,8 +51,8 @@ function CopyMeetingPageComponent(props: CopyMeetingPageProps) {
 
           <Text block variant="xLarge" className="meetingCardHeader">Meeting Created</Text>
           <div className="meetingCardBody" id="copy">
-            <Link href={props.meeting?.joinWebUrl} className="teamsLink meetingCardUrl">Join Microsoft Teams Meeting</Link>
-            
+            <Link target="_blank" href={props.meeting?.joinWebUrl} className="teamsLink meetingCardUrl">Join Microsoft Teams Meeting</Link>
+
             {props.meeting?.dialinUrl && props.meeting?.tollNumber &&
               <div className="meetingCardDialInfo">
                 <Link href={props.meeting?.dialinUrl} className="teamsLink">
@@ -70,7 +71,7 @@ function CopyMeetingPageComponent(props: CopyMeetingPageProps) {
               <Link className="teamsLink" href="https://products.office.com/en-us/microsoft-teams/group-chat-software">Learn more about Teams</Link>
             </div>
           </div>
-          <PrimaryButton 
+          <PrimaryButton
             className="teamsButton copyButton"
             text="Copy"
             onClick={() => props.onCopyToClipboard(props.meeting)}

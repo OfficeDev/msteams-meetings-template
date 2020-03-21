@@ -266,3 +266,25 @@ div[class*="ms-Spinner-circle"] {
 .ms-ComboBox-optionsContainerWrapper {
   max-height: 300px;
 }
+
+
+@media (max-width: 395px) {
+  .container {
+    padding: 1rem 0.5rem 2rem;
+  }
+
+  .newMeetingDatePickerContainer > .ms-Icon,
+  .newMeetingInputIcon > .ms-Icon,
+  .newMeetingPickerIcon,
+  .newMeetingPickerIncrement {
+    display: none;
+  }
+
+  .newMeetingComboBox {
+    flex: 0 0 50%;
+  }
+
+  .ms-DatePicker-monthPicker {
+    display: none !important;
+  }
+}
