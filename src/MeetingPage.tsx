@@ -14,6 +14,7 @@ import { SET_MEETING_COMMAND, CREATE_MEETING_COMMAND, CreateMeetingCommand } fro
 import { goBack } from 'connected-react-router';
 import { hasValidSubject } from './meeting-creator/validators';
 import { FormattedMessage } from 'react-intl';
+import { translate } from './localization/translate';
 
 const boldStyle = { root: { fontWeight: FontWeights.semibold } };
 
@@ -129,6 +130,7 @@ function DateTimePicker(props: DateTimePickerProps) {
       const timeTag = moment().startOf('day').minutes(minutes).format(timePickerFormat);
       const projectedDuration = moment.duration(moment(projectedEndTime).diff(props.minDate));
       const projectedDurationString = _.trim(formatDuration(projectedDuration));
+
       return ({
         key: minutes,
         text: props.includeDuration && !isDisabled && projectedDurationString.length > 0 ? `${timeTag} (${projectedDurationString})` : timeTag,
@@ -143,7 +145,6 @@ function DateTimePicker(props: DateTimePickerProps) {
         borderless 
         firstDayOfWeek={moment.localeData().firstDayOfWeek() as DayOfWeek} 
         strings={getDatePickerStrings()} 
-        ariaLabel="Select a date" 
         value={props.dateTime?.toDate()}
         formatDate={onFormatDate}
         parseDateFromString={onParseDateFromString}
@@ -214,10 +215,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 
 function MeetingPageComponent(props: MeetingPageProps) {
 
-  const [validationEnabled, setValidationEnabled] = useState(false)
+  const [validationEnabled, setValidationEnabled] = useState(false);
 
-  function onSubjectChanged(evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue: string | undefined)
-  {
+  function onSubjectChanged(evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue: string | undefined) {
     // The meeting objects are small, cloning is cheap enough
     // Normally would use immutable records or similar to avoid overhead.
     const nextMeeting = _.cloneDeep(props.meeting);
@@ -225,8 +225,7 @@ function MeetingPageComponent(props: MeetingPageProps) {
     props.setMeeting(nextMeeting);
   }
 
-  function onStartDateSelected(date?: Moment)
-  {
+  function onStartDateSelected(date?: Moment) {
     const nextMeeting = _.cloneDeep(props.meeting);
     nextMeeting.startDateTime = date ?? nextMeeting.startDateTime;
 
@@ -243,8 +242,7 @@ function MeetingPageComponent(props: MeetingPageProps) {
     props.setMeeting(nextMeeting);
   }
 
-  function onEndDateSelected(date?: Moment)
-  {
+  function onEndDateSelected(date?: Moment) {
     const nextMeeting = _.cloneDeep(props.meeting);
     const newEndDateTime = date ?? nextMeeting.endDateTime;
 
@@ -256,14 +254,13 @@ function MeetingPageComponent(props: MeetingPageProps) {
     props.setMeeting(nextMeeting);
   }
 
-  function onCreate()
-  {
+  function onCreate() {
     if (!!props.validationFailures.invalidTitle) {
       setValidationEnabled(true);
       return;
     }
     
-    props.createMeeting(props.meeting)
+    props.createMeeting(props.meeting);
   }
 
   if (props.creationInProgress) {
@@ -271,7 +268,7 @@ function MeetingPageComponent(props: MeetingPageProps) {
       <div className="spinnerContainer">
         <Spinner size={SpinnerSize.large} />
       </div> 
-    )
+    );
   }
 
   return (
@@ -295,7 +292,7 @@ function MeetingPageComponent(props: MeetingPageProps) {
                 className="teamsButton"
                 disabled={props.creationInProgress} 
                 onClick={() => onCreate()} 
-                ariaLabel="Create Meeting"
+                ariaLabel={translate('meetingPage.create.ariaLabel')}
               >
                 <FormattedMessage id="meetingPage.create" />
               </PrimaryButton>
@@ -303,7 +300,7 @@ function MeetingPageComponent(props: MeetingPageProps) {
                 className="teamsButtonInverted"
                 disabled={props.creationInProgress}
                 onClick={() => props.cancel()}
-                ariaLabel="Cancel"
+                ariaLabel={translate('meetingPage.cancel.ariaLabel')}
               >
                 <FormattedMessage id="meetingPage.cancel" />
               </DefaultButton>
@@ -311,9 +308,18 @@ function MeetingPageComponent(props: MeetingPageProps) {
           </StackItem>
         </Stack>
         <Stack horizontal>
-          <StackItem className="newMeetingInputIcon"><FontIcon iconName="Edit" className={inputIconClass} /></StackItem>
+          <StackItem className="newMeetingInputIcon">
+            <FontIcon iconName="Edit" className={inputIconClass} />
+          </StackItem>
           <StackItem grow>
-            <TextField className="newMeetingInput" placeholder="Add title" value={props.meeting?.subject} underlined onChange={onSubjectChanged} errorMessage={validationEnabled ? props.validationFailures.invalidTitle : undefined}/>
+            <TextField 
+              className="newMeetingInput"
+              placeholder={translate('meetingPage.title.input')}
+              value={props.meeting?.subject}
+              underlined
+              onChange={onSubjectChanged}
+              errorMessage={validationEnabled ? props.validationFailures.invalidTitle : undefined}
+            />
           </StackItem>
         </Stack>
 
@@ -341,26 +347,25 @@ function MeetingPageComponent(props: MeetingPageProps) {
 
       </Stack>
       <StackItem className="newMeetingButtonsMobile">
-      <Stack horizontal tokens={{childrenGap: 10}}>
-        <PrimaryButton
-          className="teamsButton teamsButtonFullWidth"
-          primary text="Create"
-          disabled={props.creationInProgress} 
-          onClick={() => onCreate()} 
-          ariaLabel="Create Meeting"
-        >
-           <FormattedMessage id="meetingPage.create" />
-        </PrimaryButton>
-        <DefaultButton
-          className="teamsButtonInverted teamsButtonFullWidth"
-          disabled={props.creationInProgress}
-          onClick={() => props.cancel()}
-          ariaLabel="Cancel"
-        >
-           <FormattedMessage id="meetingPage.cancel" />
-        </DefaultButton>
-      </Stack>
-    </StackItem>
+        <Stack horizontal tokens={{childrenGap: 10}}>
+          <PrimaryButton
+            className="teamsButton teamsButtonFullWidth"
+            disabled={props.creationInProgress} 
+            onClick={() => onCreate()} 
+            ariaLabel={translate('meetingPage.create.ariaLabel')}
+          >
+            <FormattedMessage id="meetingPage.create" />
+          </PrimaryButton>
+          <DefaultButton
+            className="teamsButtonInverted teamsButtonFullWidth"
+            disabled={props.creationInProgress}
+            onClick={() => props.cancel()}
+            ariaLabel={translate('meetingPage.cancel.ariaLabel')}
+          >
+            <FormattedMessage id="meetingPage.cancel" />
+          </DefaultButton>
+        </Stack>
+      </StackItem>
     </div>
   );
 }

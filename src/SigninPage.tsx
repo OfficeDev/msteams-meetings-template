@@ -54,23 +54,14 @@ function SigninPageComponent(props: Partial<SigninPageProps>) {
         alt={translate('signin.logo')}
       />
       <Text variant="xxLarge" styles={boldStyle} className="signinHeader">
-        <FormattedMessage id="signin.header"
-          defaultMessage="Welcome to Microsoft Teams"
-          description="Header text"
-        />
+        <FormattedMessage id="signin.header" />
       </Text>
 
       <Text variant="medium" className="uTextCenter signinSubHeader">
-        <FormattedMessage id="signin.subheader.lead"
-          defaultMessage="Bring educators and students together with online meetings in Teams."
-          description="Welcome message to sign in"
-        />
+        <FormattedMessage id="signin.subheader.lead" />
       </Text>
       <Text variant="medium" className="uTextCenter signinSubHeader">
-        <FormattedMessage id="signin.subheader.signin"
-          defaultMessage="Sign in to Microsoft Teams using your school account to get started."
-          description="Welcome message to sign in"
-        />
+        <FormattedMessage id="signin.subheader.signin" />
       </Text>
 
       <PrimaryButton
@@ -78,10 +69,7 @@ function SigninPageComponent(props: Partial<SigninPageProps>) {
         onClick={() => onSignIn()}
         ariaLabel={translate('signin.button.ariaLabel')}
       >
-        <FormattedMessage id="signin.button"
-         defaultMessage="Sign in"
-         description="Sign in button for app"
-        />
+        <FormattedMessage id="signin.button" />
       </PrimaryButton>
     </Stack>
     </>

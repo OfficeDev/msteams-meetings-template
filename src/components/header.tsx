@@ -4,6 +4,7 @@ import { Text, FontWeights, IconButton } from "office-ui-fabric-react";
 import { AppState } from "../RootReducer";
 import { Dispatch } from 'redux';
 import { SIGNOUT_COMMAND } from "../auth/actions";
+import { translate } from "../localization/translate";
 
 interface HeaderProps {
   onSignOut: () => void;
@@ -62,8 +63,8 @@ function HeaderComponent(props: Partial<HeaderProps>) {
         <IconButton
           onClick={() => onSignOut()}
           iconProps={{iconName: 'Leave'}}
-          title="Sign Out"
-          ariaLabel="Sign Out"
+          title={translate('header.signout.title')}
+          ariaLabel={translate('header.signout.ariaLabel')}
         />
       </div>
     </div>

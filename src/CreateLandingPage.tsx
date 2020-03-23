@@ -9,6 +9,7 @@ import { SET_MEETING_COMMAND, SetMeetingCommand } from './meeting-creator/action
 import { Header } from './components/header';
 import { createDefaultMeetingInput } from './meeting-creator/models';
 import { FormattedMessage } from 'react-intl';
+import { translate } from './localization/translate';
 
 import calendar from './images/calendar.svg';
 
@@ -57,14 +58,18 @@ function CreateLandingPageComponent(props: CreateLandingPageProps) {
       <img
         className="splashImage"
         src={calendar}
-        alt="logo"
+        alt={translate('createLandingPage.splash.altText')}
       />
-      <Text variant="large" styles={boldStyle}>Create Teams meetings for your course.</Text>
-      <Text variant="medium" >Get started on Teams by creating a meeting you can share with people in your course.</Text>
+      <Text variant="large" styles={boldStyle}>
+        <FormattedMessage id="createLandingPage.schedule.header" />
+      </Text>
+      <Text variant="medium" >
+        <FormattedMessage id="createLandingPage.subheader" />
+      </Text>
       <PrimaryButton 
         className="teamsButton"
         onClick={() => props.onNewMeeting()}
-        ariaLabel="Create Meeting link"
+        ariaLabel={translate('createLandingPage.create.meeting.ariaLabel')}
       >
         <FormattedMessage id="createLandingPage.create.meeting" />
       </PrimaryButton>

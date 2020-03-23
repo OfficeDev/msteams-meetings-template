@@ -9,6 +9,7 @@ import { CREATE_MEETING_COMMAND, CreateMeetingCommand } from './meeting-creator/
 import { Header } from './components/header';
 import errorImage from './images/genericError.svg';
 import { FormattedMessage } from 'react-intl';
+import { translate } from './localization/translate';
 
 const semiboldStyle = { root: { fontWeight: FontWeights.semibold } };
 
@@ -60,14 +61,14 @@ function ErrorPageComponent(props: ErrorPageProps) {
           <DefaultButton
             className="teamsButtonInverted"
             onClick={() => props.goBack()} 
-            ariaLabel="Back to last screen"
+            ariaLabel={translate('errorPage.back.ariaLabel')}
           >
             <FormattedMessage id="errorPage.back" />
           </DefaultButton>
           <PrimaryButton
             className="teamsButton"
             onClick={() => props.retryCreateMeeting(props.meeting)} 
-            ariaLabel="Try again"
+            ariaLabel={translate('errorPage.try.again')}
           >
             <FormattedMessage id="errorPage.try.again" />
           </PrimaryButton>

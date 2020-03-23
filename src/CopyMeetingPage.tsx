@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { OnlineMeeting } from './meeting-creator/models';
 import { Header } from './components/header';
 import { FormattedMessage } from 'react-intl';
+import { translate } from './localization/translate';
 
 
 interface CopyMeetingPageProps {
@@ -19,13 +20,15 @@ const mapStateToProps = (state : AppState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onCopyToClipboard: (meeting?: OnlineMeeting) => {
-    const str = document.getElementById('copy')?.innerHTML || 'Failed to copy'
+    const str = document.getElementById('copy')?.innerHTML || translate('copyMeetingPage.failed.copy');
+
     function listener(e : ClipboardEvent) {
       if (!e || !e.clipboardData) { 
-        return
+        return;
       }
+
       e.clipboardData.setData("text/html", str);
-      e.clipboardData.setData("text/plain", meeting?.joinWebUrl ?? 'Failed to copy');
+      e.clipboardData.setData("text/plain", meeting?.joinWebUrl ?? translate('copyMeetingPage.failed.copy'));
       e.preventDefault();
     }
     document.addEventListener("copy", listener);
@@ -56,7 +59,7 @@ function CopyMeetingPageComponent(props: CopyMeetingPageProps) {
           <PrimaryButton 
             className="teamsButton copyButton"
             onClick={() => props.onCopyToClipboard(props.meeting)}
-            ariaLabel="Copy Meeting"
+            ariaLabel={translate('copyMeetingPage.copy.ariaLabel')}
           >
             <FormattedMessage id="copyMeetingPage.copy" />
           </PrimaryButton>
