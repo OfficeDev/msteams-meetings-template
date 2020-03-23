@@ -21,7 +21,7 @@ Taxonomies for products and languages: https://review.docs.microsoft.com/new-hop
 
 Welcome to the embeddable Microsoft Teams meeting link creator. With it, Learning Management Systems and app developers can provide an easy way for their users to create Teams meeting links and share them directly with participants. 
 
-![Screenshot of the solution](doc/Splash.png)
+![Screenshot of the solution](doc/Splash.gif)
 
 The app provides an easy interface where users can:
 
