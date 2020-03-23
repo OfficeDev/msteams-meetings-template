@@ -147,10 +147,6 @@ No, meetings scheduled through the app do not appear in the scheduler’s Outloo
 
 Meetings scheduled through the application are regular meetings and following [normal Teams meeting expiration timelines](https://docs.microsoft.com/en-us/microsoftteams/limits-specifications-teams) based on the date you enter when you create the meeting.
 
-### What languages do you support?
-
-The scheduling app supports all the [languages supported by Teams for Education](https://support.microsoft.com/en-us/office/change-your-display-language-in-microsoft-teams-293792c3-352e-4b24-9fc2-4c28b5de2db8?ui=en-us&rs=en-us&ad=us).
-
 ## Feedback
 
 Thoughts? Questions? Ideas? Share them with us on [Teams UserVoice](https://microsoftteams.uservoice.com/forums/555103-public)!
