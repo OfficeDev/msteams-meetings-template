@@ -15,8 +15,10 @@ import ErrorPage from './ErrorPage';
 import moment from 'moment';
 import 'moment/min/locales.min';
 import { initializeIcons } from 'office-ui-fabric-react';
+import { getUserLocale } from './localization/translate';
 
-moment.locale(navigator.language);
+
+moment.locale(getUserLocale());
 
 initializeIcons();
 

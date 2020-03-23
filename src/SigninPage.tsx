@@ -6,6 +6,7 @@ import { OPEN_SIGNIN_DIALOG_COMMAND } from './auth/actions';
 import { connect } from 'react-redux';
 import signInImage from './images/signin.svg';
 import { FormattedMessage } from 'react-intl';
+import { translate } from './localization/translate';
 
 import './index.css';
 
@@ -50,7 +51,7 @@ function SigninPageComponent(props: Partial<SigninPageProps>) {
       <img
         className="splashImage"
         src={signInImage}
-        alt="sign in logo"
+        alt={translate('signin.logo')}
       />
       <Text variant="xxLarge" styles={boldStyle} className="signinHeader">
         <FormattedMessage id="signin.header"
@@ -75,7 +76,7 @@ function SigninPageComponent(props: Partial<SigninPageProps>) {
       <PrimaryButton
         className="teamsButton"
         onClick={() => onSignIn()}
-        ariaLabel="Sign in"
+        ariaLabel={translate('signin.button.ariaLabel')}
       >
         <FormattedMessage id="signin.button"
          defaultMessage="Sign in"
