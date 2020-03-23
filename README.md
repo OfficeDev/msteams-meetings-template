@@ -9,7 +9,7 @@ description: "Microsoft Teams Meetings app for Learning Management Systems"
 urlFragment: "msteams-app-lms-meetings"
 ---
 
-# Microsoft Teams Meetings app for Learning Management Systems
+# Microsoft Teams Meetings App for Learning Management Systems (LMS)
 
 <!-- 
 Guidelines on README format: https://review.docs.microsoft.com/help/onboard/admin/samples/concepts/readme-template?branch=master
@@ -19,10 +19,17 @@ Guidance on onboarding samples to docs.microsoft.com/samples: https://review.doc
 Taxonomies for products and languages: https://review.docs.microsoft.com/new-hope/information-architecture/metadata/taxonomies?branch=master
 -->
 
-Welcome to the embedded Microsoft Teams meeting link creator, built for Learning Management Systems and app developers to provide an easy way for users to create meeting links and share them directly with participants. 
+Welcome to the embeddable Microsoft Teams meeting link creator. With it, Learning Management Systems and app developers can provide an easy way for their users to create Teams meeting links and share them directly with participants. 
 
-The app provides an easy interface for users to sign in using their Microsoft credentials, create a meeting, and copy the join information to share within a LMS.
-By integrating with this app template you can enable remote learning for your entire userbase by bringing the Microsoft Teams free meetings solution to your users.
+![Screenshot of the solution](doc/Splash.png)
+
+The app provides an easy interface where users can:
+
+1) Sign in using their Microsoft account
+2) Create a Teams meeting link
+3) Copy the meeting information to share within their LMS
+
+Integrating this app template allows you to enable remote learning for your entire userbase by bringing the power of Microsoft Teams' online meetings to your users.
 
 ## Contents
 
@@ -73,9 +80,10 @@ You'll need to register an app through the following process:
 Change the following values in the `msalApp.ts` file:
 * **clientId** - Set this to the Application (client) ID of the AAD application that you registered
 
-## Running the sample
+## Available Scripts
 
 In the project directory, you can run:
+
 ### `yarn install`
 
 Installs all the dependencies for the app.
@@ -88,11 +96,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `yarn build`
 
 Builds the app for production to the `build` folder.<br />
@@ -102,6 +105,51 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `yarn eject`
+
+**Note: this is a one-way operation. Once you eject, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can eject at any time. This command will remove the single build dependency from your project. 
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except eject will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own. 
+
+You don’t have to ever use eject. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it. 
+
+## Learn More
+You can learn more in the [Create React App documentation](https://create-react-app.dev/docs/getting-started/). 
+
+To learn React, check out the [React documentation](https://reactjs.org/). 
+
+## Frequently Asked Questions
+
+### Does the meeting scheduler need to have a Teams? 
+Meeting schedulers need to have a Microsoft Teams license. They need to be able to authenticate into the experience using the Microsoft account given to them by their school or work. Teams IT administrators also need to grant the scheduler with the ability to schedule meetings through [Teams policies](https://docs.microsoft.com/en-us/microsoftteams/meeting-policies-in-teams).
+
+### Do you need Teams to join the meeting?
+If [anonymous join has been enabled](https://docs.microsoft.com/en-us/microsoftteams/meeting-settings-in-teams) within the scheduler’s Teams tenant, users do not need a license to join a meeting. Meetings created through this application respect all Teams [policies](https://docs.microsoft.com/en-us/microsoftteams/meeting-policies-in-teams), [settings](https://docs.microsoft.com/en-us/microsoftteams/meeting-settings-in-teams) and [options](https://support.office.com/en-us/article/roles-in-a-teams-meeting-c16fa7d0-1666-4dde-8686-0a0bfe16e019) applied by the scheduler and their IT administrator. Teams meetings can be joined over the web or any Teams client.
+
+### Where can I learn more about the Teams meeting experience?
+Users 
+- [Getting started with Teams meetings](https://support.office.com/en-us/article/meetings-and-calls-d92432d5-dd0f-4d17-8f69-06096b6b48a8?ui=en-US&rs=en-US&ad=US#ID0EAABAAA=Meetings)
+- [Conduct meetings with Microsoft Teams](https://www.youtube.com/watch?reload=9&v=63cMG0fBRLM)
+- [Change who can present in a meeting](https://support.office.com/en-us/article/roles-in-a-teams-meeting-c16fa7d0-1666-4dde-8686-0a0bfe16e019)
+
+Admins 
+- [Getting started with remote learning](https://docs.microsoft.com/en-us/MicrosoftTeams/remote-learning-edu)
+- [Manage Teams meeting policies](https://docs.microsoft.com/en-us/microsoftteams/meeting-policies-in-teams)
+- [Manage Teams meeting settings](https://docs.microsoft.com/en-us/microsoftteams/meeting-settings-in-teams)
+
+### Do meetings that I schedule through this integration appear in my Outlook or Teams calendars?
+No, meetings scheduled through the app do not appear in the scheduler’s Outlook or Teams calendar.
+
+### When will my Teams meeting expire?
+
+Meetings scheduled through the application are regular meetings and following [normal Teams meeting expiration timelines](https://docs.microsoft.com/en-us/microsoftteams/limits-specifications-teams) based on the date you enter when you create the meeting.
+
+### What languages do you support?
+
+The scheduling app supports all the [languages supported by Teams for Education](https://support.microsoft.com/en-us/office/change-your-display-language-in-microsoft-teams-293792c3-352e-4b24-9fc2-4c28b5de2db8?ui=en-us&rs=en-us&ad=us).
 
 ## Feedback
 
