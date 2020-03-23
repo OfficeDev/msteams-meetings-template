@@ -1,13 +1,13 @@
 import React from 'react';
-import { createHashHistory } from 'history'
-import { applyMiddleware, createStore, compose } from 'redux'
-import { Provider } from 'react-redux'
-import { Route, Switch } from 'react-router'
-import { ConnectedRouter, routerMiddleware } from 'connected-react-router'
-import SigninPage from './SigninPage'
+import { createHashHistory } from 'history';
+import { applyMiddleware, createStore, compose } from 'redux';
+import { Provider } from 'react-redux';
+import { Route, Switch } from 'react-router';
+import { ConnectedRouter, routerMiddleware } from 'connected-react-router';
+import SigninPage from './SigninPage';
 import { createAuthMiddleware } from './auth/middleware';
 import MeetingPage from './MeetingPage';
-import { createRootReducer } from './RootReducer'
+import { createRootReducer } from './RootReducer';
 import { createMeetingMiddleware } from './meeting-creator/middleware';
 import CopyMeetingPage from './CopyMeetingPage';
 import CreateLandingPage from './CreateLandingPage';
@@ -16,7 +16,6 @@ import moment from 'moment';
 import 'moment/min/locales.min';
 import { initializeIcons } from 'office-ui-fabric-react';
 import { getUserLocale } from './localization/translate';
-
 
 moment.locale(getUserLocale());
 
@@ -33,7 +32,7 @@ const store = createStore(
       createMeetingMiddleware()
     )
   )
-)
+);
 
 function App() {
   return (

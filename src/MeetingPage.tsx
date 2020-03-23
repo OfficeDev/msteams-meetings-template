@@ -1,16 +1,34 @@
 import React, { useState } from 'react';
-import { 
-  Stack, Text, FontWeights, PrimaryButton, DefaultButton, StackItem, TextField, DatePicker, 
-  IDatePickerStrings, DayOfWeek, ComboBox, IComboBoxOption, IComboBox, Spinner, SpinnerSize } from 'office-ui-fabric-react';
+import {
+  Stack,
+  Text,
+  FontWeights,
+  PrimaryButton,
+  DefaultButton,
+  StackItem,
+  TextField,
+  DatePicker,
+  IDatePickerStrings,
+  DayOfWeek,
+  ComboBox,
+  IComboBoxOption,
+  IComboBox,
+  Spinner,
+  SpinnerSize
+} from 'office-ui-fabric-react';
 import { FontIcon } from 'office-ui-fabric-react/lib/Icon';
-import { AppState } from './RootReducer'
+import { AppState } from './RootReducer';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
 import _ from 'lodash';
-import moment, { Moment, Duration } from 'moment'
+import moment, { Moment, Duration } from 'moment';
 import { OnlineMeetingInput } from './meeting-creator/models';
-import { SET_MEETING_COMMAND, CREATE_MEETING_COMMAND, CreateMeetingCommand } from './meeting-creator/actions';
+import {
+  SET_MEETING_COMMAND,
+  CREATE_MEETING_COMMAND,
+  CreateMeetingCommand
+} from './meeting-creator/actions';
 import { goBack } from 'connected-react-router';
 import { hasValidSubject } from './meeting-creator/validators';
 import { FormattedMessage } from 'react-intl';
@@ -18,8 +36,7 @@ import { translate } from './localization/translate';
 
 const boldStyle = { root: { fontWeight: FontWeights.semibold } };
 
-function formatDuration(duration: Duration)
-{
+function formatDuration(duration: Duration) {
   let str = '';
   if (Math.floor(duration.asDays()) > 0) {
     str += `${Math.floor(duration.asDays())}d `;
@@ -33,8 +50,8 @@ function formatDuration(duration: Duration)
   return str;
 }
 
-const datePickerFormat = "ll";
-const timePickerFormat = "LT";
+const datePickerFormat = 'll';
+const timePickerFormat = 'LT';
 
 const meetingIconClass = mergeStyles({
   fontSize: 16,
@@ -51,7 +68,7 @@ const meetingIconClass = mergeStyles({
 
 const inputIconClass = mergeStyles({
   position: 'relative',
-  top: 7,
+  top: 7
 });
 
 //
@@ -59,15 +76,14 @@ const inputIconClass = mergeStyles({
 //
 
 interface DateTimePickerProps {
-  dateTime?: Moment,
-  minDate?: Moment,
-  iconName?: string
-  onTimeUpdated: (date?: Moment) => void,
-  includeDuration: boolean,
+  dateTime?: Moment;
+  minDate?: Moment;
+  iconName?: string;
+  onTimeUpdated: (date?: Moment) => void;
+  includeDuration: boolean;
 }
 
 function DateTimePicker(props: DateTimePickerProps) {
-
   function getDatePickerStrings(): IDatePickerStrings {
     const localeData = moment.localeData();
     return {
@@ -87,24 +103,35 @@ function DateTimePicker(props: DateTimePickerProps) {
   function onDayPicked(date: Date | null | undefined) {
     const currentDateTime = moment(props.dateTime);
 
-    const offsetFromStartOfDay = currentDateTime.diff(moment(currentDateTime).startOf('day'));
-    const newDateTime = moment(date ?? currentDateTime).startOf('day').add(offsetFromStartOfDay);
+    const offsetFromStartOfDay = currentDateTime.diff(
+      moment(currentDateTime).startOf('day')
+    );
+    const newDateTime = moment(date ?? currentDateTime)
+      .startOf('day')
+      .add(offsetFromStartOfDay);
 
     props.onTimeUpdated(newDateTime);
   }
 
-  function onTimePicked(event: React.FormEvent<IComboBox>, option?: IComboBoxOption, index?: number, value?: string) {
+  function onTimePicked(
+    event: React.FormEvent<IComboBox>,
+    option?: IComboBoxOption,
+    index?: number,
+    value?: string
+  ) {
     const currentDateTimeStartOfDay = moment(props.dateTime).startOf('day');
 
     let newDateTime: moment.Moment;
     if (option) {
-      const offsetFromStartOfDay = moment.duration(option.key, 'minutes') ;
+      const offsetFromStartOfDay = moment.duration(option.key, 'minutes');
       newDateTime = currentDateTimeStartOfDay.add(offsetFromStartOfDay);
     } else {
       // User entered a free-form string, try to parse it as a time
       const enteredTime = moment(value, timePickerFormat);
       if (enteredTime.isValid()) {
-        const offsetFromStartOfDay = enteredTime.diff(moment(enteredTime).startOf('day')) ;
+        const offsetFromStartOfDay = enteredTime.diff(
+          moment(enteredTime).startOf('day')
+        );
         newDateTime = currentDateTimeStartOfDay.add(offsetFromStartOfDay);
       } else {
         newDateTime = moment(props.dateTime);
@@ -116,84 +143,100 @@ function DateTimePicker(props: DateTimePickerProps) {
 
   function onFormatDate(dateToFormat?: Date): string {
     return moment(dateToFormat).format(datePickerFormat);
-  };
+  }
 
   function onParseDateFromString(value: string): Date {
     return moment(value, datePickerFormat).toDate();
-  };
+  }
 
-  const timeSuggestions = _.range(0, 1440, 30)
-    .map((minutes) => {
-      // if the selection is before the min value
-      const projectedEndTime = moment(props.dateTime).startOf('day').add(moment.duration(minutes, 'minutes'));
-      const isDisabled = moment(props.minDate).isAfter(projectedEndTime);
-      const timeTag = moment().startOf('day').minutes(minutes).format(timePickerFormat);
-      const projectedDuration = moment.duration(moment(projectedEndTime).diff(props.minDate));
-      const projectedDurationString = _.trim(formatDuration(projectedDuration));
+  const timeSuggestions = _.range(0, 1440, 30).map(minutes => {
+    // if the selection is before the min value
+    const projectedEndTime = moment(props.dateTime)
+      .startOf('day')
+      .add(moment.duration(minutes, 'minutes'));
+    const isDisabled = moment(props.minDate).isAfter(projectedEndTime);
+    const timeTag = moment()
+      .startOf('day')
+      .minutes(minutes)
+      .format(timePickerFormat);
+    const projectedDuration = moment.duration(
+      moment(projectedEndTime).diff(props.minDate)
+    );
+    const projectedDurationString = _.trim(formatDuration(projectedDuration));
 
-      return ({
-        key: minutes,
-        text: props.includeDuration && !isDisabled && projectedDurationString.length > 0 ? `${timeTag} (${projectedDurationString})` : timeTag,
-        disabled: isDisabled
-      }) 
-    });
+    return {
+      key: minutes,
+      text:
+        props.includeDuration &&
+        !isDisabled &&
+        projectedDurationString.length > 0
+          ? `${timeTag} (${projectedDurationString})`
+          : timeTag,
+      disabled: isDisabled
+    };
+  });
 
   return (
     <Stack horizontal>
       <DatePicker
         className="newMeetingDatePicker"
-        borderless 
-        firstDayOfWeek={moment.localeData().firstDayOfWeek() as DayOfWeek} 
-        strings={getDatePickerStrings()} 
+        borderless
+        firstDayOfWeek={moment.localeData().firstDayOfWeek() as DayOfWeek}
+        strings={getDatePickerStrings()}
         value={props.dateTime?.toDate()}
         formatDate={onFormatDate}
         parseDateFromString={onParseDateFromString}
-        onSelectDate={onDayPicked} 
+        onSelectDate={onDayPicked}
         minDate={props.minDate?.toDate()}
       />
       <ComboBox
         className="newMeetingComboBox"
-        styles={{ root: { maxHeight: '500px' }}}
+        styles={{ root: { maxHeight: '500px' } }}
         useComboBoxAsMenuWidth={!props.includeDuration}
         scrollSelectedToTop={true}
-        allowFreeform={true} 
-        autoComplete="on" 
-        options={timeSuggestions} 
-        onChange={onTimePicked} 
+        allowFreeform={true}
+        autoComplete="on"
+        options={timeSuggestions}
+        onChange={onTimePicked}
         text={props.dateTime?.format(timePickerFormat)}
       />
-      {props.iconName === "ReplyAlt" ?
+      {props.iconName === 'ReplyAlt' ? (
         <FontIcon className="newMeetingPickerIcon" iconName={props.iconName} />
-        :
-        <Text className="newMeetingPickerIncrement" variant="smallPlus">{formatDuration(moment.duration(moment(props.dateTime).diff(moment(props.minDate))))}</Text>
-      }
+      ) : (
+        <Text className="newMeetingPickerIncrement" variant="smallPlus">
+          {formatDuration(
+            moment.duration(moment(props.dateTime).diff(moment(props.minDate)))
+          )}
+        </Text>
+      )}
     </Stack>
   );
 }
-
 
 //
 // Meeting page component
 //
 
 interface MeetingValidationFailures {
-  invalidTitle?: string
+  invalidTitle?: string;
 }
 
 interface MeetingPageProps {
-  meeting: OnlineMeetingInput,
-  validationFailures: MeetingValidationFailures
-  creationInProgress: boolean
-  setMeeting: (meeting: OnlineMeetingInput) => void,
-  createMeeting: (meeting: OnlineMeetingInput) => void,
-  cancel: () => void,
+  meeting: OnlineMeetingInput;
+  validationFailures: MeetingValidationFailures;
+  creationInProgress: boolean;
+  setMeeting: (meeting: OnlineMeetingInput) => void;
+  createMeeting: (meeting: OnlineMeetingInput) => void;
+  cancel: () => void;
 }
 
-const mapStateToProps = (state : AppState) => ({
+const mapStateToProps = (state: AppState) => ({
   meeting: state.meeting.inputMeeting,
   creationInProgress: state.meeting.creationInProgress,
   validationFailures: {
-    invalidTitle: hasValidSubject(state.meeting.inputMeeting) ? undefined : 'Invalid subject'
+    invalidTitle: hasValidSubject(state.meeting.inputMeeting)
+      ? undefined
+      : 'Invalid subject'
   }
 });
 
@@ -202,22 +245,24 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     dispatch({
       type: SET_MEETING_COMMAND,
       meeting
-    })
+    });
   },
   createMeeting: (meeting: OnlineMeetingInput) => {
     dispatch({
       type: CREATE_MEETING_COMMAND,
       meeting
-    } as CreateMeetingCommand)
+    } as CreateMeetingCommand);
   },
-  cancel: () => dispatch(goBack()),
+  cancel: () => dispatch(goBack())
 });
 
 function MeetingPageComponent(props: MeetingPageProps) {
-
   const [validationEnabled, setValidationEnabled] = useState(false);
 
-  function onSubjectChanged(evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue: string | undefined) {
+  function onSubjectChanged(
+    evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>,
+    newValue: string | undefined
+  ) {
     // The meeting objects are small, cloning is cheap enough
     // Normally would use immutable records or similar to avoid overhead.
     const nextMeeting = _.cloneDeep(props.meeting);
@@ -231,8 +276,12 @@ function MeetingPageComponent(props: MeetingPageProps) {
 
     // If start >= end, adjust to be the same delta as before from the start time
     if (nextMeeting.startDateTime.isSameOrAfter(nextMeeting.endDateTime)) {
-      const existingDelta = moment(props.meeting.endDateTime).diff(moment(props.meeting.startDateTime));
-      const newEndDateTime = moment(nextMeeting.startDateTime).add(existingDelta);
+      const existingDelta = moment(props.meeting.endDateTime).diff(
+        moment(props.meeting.startDateTime)
+      );
+      const newEndDateTime = moment(nextMeeting.startDateTime).add(
+        existingDelta
+      );
       if (nextMeeting.startDateTime.isSameOrAfter(newEndDateTime)) {
         newEndDateTime.add(existingDelta);
       }
@@ -259,7 +308,7 @@ function MeetingPageComponent(props: MeetingPageProps) {
       setValidationEnabled(true);
       return;
     }
-    
+
     props.createMeeting(props.meeting);
   }
 
@@ -267,7 +316,7 @@ function MeetingPageComponent(props: MeetingPageProps) {
     return (
       <div className="spinnerContainer">
         <Spinner size={SpinnerSize.large} />
-      </div> 
+      </div>
     );
   }
 
@@ -278,8 +327,9 @@ function MeetingPageComponent(props: MeetingPageProps) {
         verticalFill
         tokens={{
           childrenGap: 35
-        }} >
-        <Stack horizontal tokens={{childrenGap: 15}}>
+        }}
+      >
+        <Stack horizontal tokens={{ childrenGap: 15 }}>
           <StackItem grow>
             <FontIcon iconName="Calendar" className={meetingIconClass} />
             <Text variant="xLarge" styles={boldStyle}>
@@ -287,11 +337,11 @@ function MeetingPageComponent(props: MeetingPageProps) {
             </Text>
           </StackItem>
           <StackItem align="end" className="newMeetingButtons">
-            <Stack horizontal tokens={{childrenGap: 10}}>
+            <Stack horizontal tokens={{ childrenGap: 10 }}>
               <PrimaryButton
                 className="teamsButton"
-                disabled={props.creationInProgress} 
-                onClick={() => onCreate()} 
+                disabled={props.creationInProgress}
+                onClick={() => onCreate()}
                 ariaLabel={translate('meetingPage.create.ariaLabel')}
               >
                 <FormattedMessage id="meetingPage.create" />
@@ -312,13 +362,17 @@ function MeetingPageComponent(props: MeetingPageProps) {
             <FontIcon iconName="Edit" className={inputIconClass} />
           </StackItem>
           <StackItem grow>
-            <TextField 
+            <TextField
               className="newMeetingInput"
               placeholder={translate('meetingPage.title.input')}
               value={props.meeting?.subject}
               underlined
               onChange={onSubjectChanged}
-              errorMessage={validationEnabled ? props.validationFailures.invalidTitle : undefined}
+              errorMessage={
+                validationEnabled
+                  ? props.validationFailures.invalidTitle
+                  : undefined
+              }
             />
           </StackItem>
         </Stack>
@@ -340,18 +394,16 @@ function MeetingPageComponent(props: MeetingPageProps) {
               includeDuration={true}
             />
           </div>
-
         </div>
-        
-        {/* MOBILE BUTTON GROUP */}
 
+        {/* MOBILE BUTTON GROUP */}
       </Stack>
       <StackItem className="newMeetingButtonsMobile">
-        <Stack horizontal tokens={{childrenGap: 10}}>
+        <Stack horizontal tokens={{ childrenGap: 10 }}>
           <PrimaryButton
             className="teamsButton teamsButtonFullWidth"
-            disabled={props.creationInProgress} 
-            onClick={() => onCreate()} 
+            disabled={props.creationInProgress}
+            onClick={() => onCreate()}
             ariaLabel={translate('meetingPage.create.ariaLabel')}
           >
             <FormattedMessage id="meetingPage.create" />
@@ -370,4 +422,7 @@ function MeetingPageComponent(props: MeetingPageProps) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MeetingPageComponent);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MeetingPageComponent);

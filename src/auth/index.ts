@@ -1,5 +1,3 @@
-import { msalApp } from './msalApp'
+import { msalApp } from './msalApp';
 
-export {
-    msalApp,
-}
+export { msalApp };

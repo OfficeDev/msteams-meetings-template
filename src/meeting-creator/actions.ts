@@ -1,21 +1,24 @@
-import { OnlineMeetingInput, OnlineMeeting } from "./models"
+import { OnlineMeetingInput, OnlineMeeting } from './models';
 
-export const SET_MEETING_COMMAND = "SetMeetingCommand"
+export const SET_MEETING_COMMAND = 'SetMeetingCommand';
 export interface SetMeetingCommand {
-    type: typeof SET_MEETING_COMMAND,
-    meeting: OnlineMeetingInput,
+  type: typeof SET_MEETING_COMMAND;
+  meeting: OnlineMeetingInput;
 }
 
-export const CREATE_MEETING_COMMAND = "CreateMeetingCommand"
+export const CREATE_MEETING_COMMAND = 'CreateMeetingCommand';
 export interface CreateMeetingCommand {
-    type: typeof CREATE_MEETING_COMMAND,
-    meeting: OnlineMeetingInput,
+  type: typeof CREATE_MEETING_COMMAND;
+  meeting: OnlineMeetingInput;
 }
 
-export const MEETING_CREATED_EVENT = "MeetingCreatedEvent"
+export const MEETING_CREATED_EVENT = 'MeetingCreatedEvent';
 export interface MeetingCreatedEvent {
-    type: typeof MEETING_CREATED_EVENT,
-    meeting: OnlineMeeting,
+  type: typeof MEETING_CREATED_EVENT;
+  meeting: OnlineMeeting;
 }
 
-export type MeetingAction = SetMeetingCommand | CreateMeetingCommand | MeetingCreatedEvent
+export type MeetingAction =
+  | SetMeetingCommand
+  | CreateMeetingCommand
+  | MeetingCreatedEvent;
