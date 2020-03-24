@@ -68,7 +68,7 @@ function CreateLandingPageComponent(props: CreateLandingPageProps) {
           src={calendar}
           alt={translate('createLandingPage.splash.altText')}
         />
-        <Text variant="large" styles={boldStyle}>
+        <Text variant="xxLarge" styles={boldStyle}>
           <FormattedMessage id="createLandingPage.schedule.header" />
         </Text>
         <Text variant="medium">
