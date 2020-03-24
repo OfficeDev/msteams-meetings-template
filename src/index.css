@@ -234,7 +234,15 @@ div[class*="ms-ComboBox"]::after {
 .meetingCardBody {
   border: 1px solid #cccccc6b;
   border-radius: 3px;
-  padding: 1.3rem 1rem;
+  padding: 0 1rem 1.3rem 1rem;
+}
+
+.meetingCardBody > div > span {
+  display: none; /* sigh...have to override injected html */
+}
+
+.meetingCardBody span {
+  font-size: 0.9rem !important; /* override for injected html */
 }
 
 .meetingCardHeader,

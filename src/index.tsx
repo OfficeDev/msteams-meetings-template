@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { IntlProvider } from 'react-intl';
-import locale_en from './translations/en.json';
 import App from './App';
+import { getUserLocale, messages } from './localization/translate';
 
-const data = {
-  en: locale_en
-};
+const userLocale = getUserLocale();
 
 function isMsalRedirect() {
   const msalParameters = [
@@ -23,7 +21,7 @@ function isMsalRedirect() {
 // hack to fix MSAL fighting with hash routing
 if (!isMsalRedirect()) {
   ReactDOM.render(
-    <IntlProvider locale="en" messages={data['en']}>
+    <IntlProvider locale={userLocale} messages={messages}>
       <App />
     </IntlProvider>,
     document.getElementById('root')
