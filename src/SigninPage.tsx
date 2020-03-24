@@ -63,7 +63,7 @@ function SigninPageComponent(props: Partial<SigninPageProps>) {
           src={signInImage}
           alt={translate('signin.logo')}
         />
-        <Text variant="xxLarge" styles={boldStyle} className="signinHeader">
+        <Text variant="xLargePlus" styles={boldStyle} className="signinHeader">
           <FormattedMessage id="signin.header" />
         </Text>
 
