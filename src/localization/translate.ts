@@ -70,19 +70,50 @@ loadTranslations().then((translatedStrings: any) => {
   );
 });
 
-const storedTranslations = sessionStorage.getItem('translatedStrings');
-export const messages: any = storedTranslations
+let storedTranslations = sessionStorage.getItem('translatedStrings');
+
+export let messages: any = storedTranslations
   ? JSON.parse(storedTranslations)
   : {};
 
 const cache = createIntlCache();
-const int = createIntl(
+let int = createIntl(
   {
     locale: userLocale,
     messages: messages
   },
   cache
 );
+
+export async function getMessages(): Promise<any>
+{
+  if (!!storedTranslations)
+  {
+    return JSON.parse(storedTranslations);
+  }
+  console.log("Translation not cached, loading...");
+  await loadTranslations();
+
+  // Load the translations into the storedTranslations variable again.
+  storedTranslations = sessionStorage.getItem('translatedStrings');
+
+  if (!storedTranslations)
+  {
+    console.error("Unable to load translations");
+    return {};
+  }
+
+  messages = JSON.parse(storedTranslations);
+  int = createIntl(
+    {
+      locale: userLocale,
+      messages: messages
+    },
+    cache
+  );
+  
+  return messages;
+}
 
 export const translate = (id: string, values?: {}) => {
   return int.formatMessage({ id }, values);
