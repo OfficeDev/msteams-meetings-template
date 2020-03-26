@@ -11,7 +11,7 @@ pool:
 
 steps:
   - script: yarn install
-  - script: yarn build:health
+  - script: yarn build
   - task: CopyFiles@2
     inputs: 
       sourceFolder: 'build'
