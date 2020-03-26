@@ -50,14 +50,15 @@ export function getUserLocale() {
 }
 
 const userLocale = getUserLocale();
+const sku = process?.env?.REACT_APP_SKU ?? 'edu';
 
 async function loadTranslations() {
   let translations;
 
   if (_.includes(supportedLocales, userLocale)) {
-    translations = await import(`../translations/${userLocale}/strings.json`);
+    translations = await import(`../translations/${sku}/${userLocale}/strings.json`);
   } else {
-    translations = await import(`../translations/en-us/strings.json`);
+    translations = await import(`../translations/${sku}/en-us/strings.json`);
   }
 
   return translations;
@@ -91,7 +92,7 @@ export async function getMessages(): Promise<any>
   {
     return JSON.parse(storedTranslations);
   }
-  console.log("Translation not cached, loading...");
+  console.log(`Translation not cached, loading ${userLocale} for ${sku}`);
   await loadTranslations();
 
   // Load the translations into the storedTranslations variable again.
