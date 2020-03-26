@@ -24,8 +24,9 @@ steps:
     authType: 'OAuth'
     authId: '47ee545d-7bd2-47de-b86e-586333b4145c'
     authKey: 'sv[fKccGT@M[qny0C2-bucbv48008=z7'
-    relativePathRoot: 'src/translations/'
-    resourceFilePath: 'strings.json'
-    outputDirectoryRoot: 'src/translations/edu/'
+    relativePathRoot: 'src/localization/'
+    resourceFilePath: '/**/strings.json'
+    appendRelativeDir: true
+    outputDirectoryRoot: 'src/translations/'
     cultureMappingType: 'None'
     gitAction: 'COMMIT'
