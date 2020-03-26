@@ -15,9 +15,24 @@ steps:
   - task: CopyFiles@2
     inputs: 
       sourceFolder: 'build'
-      targetFolder: '$(Build.ArtifactStagingDirectory)'
+      targetFolder: '$(Build.ArtifactStagingDirectory)/edu'
   - task: PublishBuildArtifacts@1
     displayName: 'Upload Artifact'
     inputs:
-      pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)/edu' 
+      artifactName: 'teams-edu-event-creator'
+  - task: DeleteFiles@1
+    inputs:
+      SourceFolder: 'build'
+      Contents: '*'
+      RemoveSourceFolder: true
+  - script: yarn build:health
+  - task: CopyFiles@2
+    inputs: 
+      sourceFolder: 'build'
+      targetFolder: '$(Build.ArtifactStagingDirectory)/health'
+  - task: PublishBuildArtifacts@1
+    displayName: 'Upload Artifact'
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)/health' 
       artifactName: 'teams-health-event-creator'
