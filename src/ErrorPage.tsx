@@ -20,7 +20,7 @@ import errorImage from './images/genericError.svg';
 import { FormattedMessage } from 'react-intl';
 import { translate } from './localization/translate';
 
-const semiboldStyle = { root: { fontWeight: FontWeights.semibold } };
+const boldStyle = { root: { fontWeight: FontWeights.semibold } };
 
 interface ErrorPageProps {
   meeting: OnlineMeetingInput;
@@ -57,7 +57,7 @@ function ErrorPageComponent(props: ErrorPageProps) {
         }}
       >
         <img className="splashImage" src={errorImage} alt="Error graphic" />
-        <Text variant="large" styles={semiboldStyle}>
+        <Text variant="xLargePlus" styles={boldStyle}>
           <FormattedMessage id="errorPage.heading" />
         </Text>
         <Text variant="medium" className="uTextCenter">
