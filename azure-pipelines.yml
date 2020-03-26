@@ -11,7 +11,7 @@ pool:
 
 steps:
   - script: yarn install
-  - script: yarn build
+  - script: yarn build:health
   - task: CopyFiles@2
     inputs: 
       sourceFolder: 'build'
@@ -20,4 +20,4 @@ steps:
     displayName: 'Upload Artifact'
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-      artifactName: 'teams-lms-event-creator'
+      artifactName: 'teams-health-event-creator'
