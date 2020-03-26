@@ -10,15 +10,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-  - task: Npm@1
-    displayName: "Install dependencies"
-    inputs:
-      command: 'install'
-  - task: Npm@1
-    displayName: "Build artifacts"
-    inputs:
-      command: 'custom'
-      customCommand: 'run build'
+  - script: yarn install
+  - script: yarn build
   - task: CopyFiles@2
     inputs: 
       sourceFolder: 'build'
