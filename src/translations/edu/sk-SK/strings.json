@@ -26,7 +26,7 @@
   "header.signout.title": "Sign Out",
   "header.signout.ariaLabel": "Sign Out",
   "errorPage.heading": "Oops! Your meeting wasn't created successfully.",
-  "errorPage.subheading": "Please try again. If the problem persists, check with your IT administrator to ensure you have the proper permissions.",
+  "errorPage.subheading": "Skúste to znova. Ak sa problém nevyrieši, obráťte sa na správcu IT, aby ste zabezpečili, že máte príslušné povolenia.",
   "errorPage.back": "Back",
   "errorPage.back.ariaLabel": "Back to last screen",
   "errorPage.try.again": "Try again",
