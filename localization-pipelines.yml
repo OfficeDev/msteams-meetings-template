@@ -22,8 +22,8 @@ steps:
     environment: 'PRODEXT'
     teamId: '7037'
     authType: 'OAuth'
-    authId: '47ee545d-7bd2-47de-b86e-586333b4145c'
-    authKey: 'sv[fKccGT@M[qny0C2-bucbv48008=z7'
+    authId: $(authId)
+    authKey: $(authKey)
     relativePathRoot: 'src/localization'
     resourceFilePath: '**/strings.json'
     appendRelativeDir: true
