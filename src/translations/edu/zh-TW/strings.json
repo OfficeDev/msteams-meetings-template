@@ -1,7 +1,7 @@
 {
   "signin.logo": "登入標誌",
   "signin.header": "歡迎使用 Microsoft Teams 會議",
-  "signin.subheader.lead": "使用 Teams 線上會議將教育者師和學生聚在一起。",
+  "signin.subheader.lead": "使用 Teams 線上會議將授課者和學生聚在一起。",
   "signin.subheader.signin": "使用您的學校帳戶登入 Microsoft Teams 以開始使用。",
   "signin.button": "登入",
   "signin.button.ariaLabel": "登入",
@@ -25,7 +25,7 @@
   "copyMeetingPage.copy.ariaLabel": "複製會議連結",
   "header.signout.title": "登出",
   "header.signout.ariaLabel": "登出",
-  "errorPage.heading": "哎呀！您的會議未未成功建立。",
+  "errorPage.heading": "糟糕! 您的會議未成功建立。",
   "errorPage.subheading": "請再試一次。如果問題持續發生，請洽詢您的 IT 系統管理員，以確保您擁有適當的權限。",
   "errorPage.back": "上一步",
   "errorPage.back.ariaLabel": "返回上一個畫面",

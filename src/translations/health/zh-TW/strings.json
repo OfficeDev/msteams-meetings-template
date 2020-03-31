@@ -1,7 +1,7 @@
 {
   "signin.logo": "登入標誌",
   "signin.header": "透過 Microsoft Teams 進行虛擬醫療保健造訪",
-  "signin.subheader.lead": "使用 Teams 線上會議將提供者和病人聚在一起。",
+  "signin.subheader.lead": "使用 Teams 線上會議將提供者和病患聚在一起。",
   "signin.subheader.signin": "使用您的工作帳戶登入 Microsoft Teams 以開始使用。",
   "signin.button": "登入",
   "signin.button.ariaLabel": "登入",
@@ -9,7 +9,7 @@
   "createLandingPage.create.meeting": "建立會議連結",
   "createLandingPage.create.meeting.ariaLabel": "建立會議連結",
   "createLandingPage.schedule.header": "設定您的虛擬造訪。",
-  "createLandingPage.subheader": "建立可與病人和同事共用的會議連結。",
+  "createLandingPage.subheader": "建立可與病患和同事共用的會議連結。",
   "meetingPage.header": "新會議",
   "meetingPage.create": "建立",
   "meetingPage.create.ariaLabel": "建立會議",

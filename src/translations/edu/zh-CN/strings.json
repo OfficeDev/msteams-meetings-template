@@ -19,7 +19,7 @@
   "copyMeetingPage.failed.copy": "复制失败",
   "copyMeetingPage.header": "会议已创建",
   "copyMeetingPage.teams.link": "加入 Microsoft Teams 会议",
-  "copyMeetingPage.conference.id": "会议 ID：{confId}",
+  "copyMeetingPage.conference.id": "会议 ID: {confId}",
   "copyMeetingPage.learn.more": "详细了解 Teams",
   "copyMeetingPage.copy": "复制",
   "copyMeetingPage.copy.ariaLabel": "复制会议 URL",
