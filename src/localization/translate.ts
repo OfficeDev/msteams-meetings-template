@@ -95,7 +95,7 @@ async function loadTranslations(sku: string, userLocale: string) {
     stringsModule = await import(`../translations/${sku}/${translationLocale}/strings.json`);
   } catch (e) {
     console.error(`Failed to load ${translationLocale} in ${sku}, falling back to en-US`);
-    stringsModule = await import(`../translations/${sku}/en-us/strings.json`);
+    stringsModule = await import(`../translations/${sku}/en-US/strings.json`);
   }
 
   return stringsModule.default;

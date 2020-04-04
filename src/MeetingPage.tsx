@@ -39,13 +39,13 @@ const boldStyle = { root: { fontWeight: FontWeights.semibold } };
 function formatDuration(duration: Duration) {
   let str = '';
   if (Math.floor(duration.asDays()) > 0) {
-    str += `${Math.floor(duration.asDays())}d `;
+    str += translate('meetingPage.duration.days', { days: Math.floor(duration.asDays()) });
   }
   if (duration.hours() > 0) {
-    str += `${duration.hours()}h `;
+    str += translate('meetingPage.duration.hours', { hours: duration.hours() });
   }
   if (duration.minutes() > 0) {
-    str += `${duration.minutes()}m `;
+    str += translate('meetingPage.duration.minutes', { minutes: duration.minutes() });
   }
   return str;
 }
@@ -91,12 +91,12 @@ function DateTimePicker(props: DateTimePickerProps) {
       shortMonths: localeData.monthsShort(),
       days: localeData.weekdays(),
       shortDays: localeData.weekdaysMin(),
-      goToToday: 'Go to today',
-      prevMonthAriaLabel: 'Go to previous month',
-      nextMonthAriaLabel: 'Go to next month',
-      prevYearAriaLabel: 'Go to previous year',
-      nextYearAriaLabel: 'Go to next year',
-      closeButtonAriaLabel: 'Close date picker'
+      goToToday: translate('datePicker.goToToday'),
+      prevMonthAriaLabel: translate('datePicker.previousMonth.ariaLabel'),
+      nextMonthAriaLabel: translate('datePicker.nextMonth.ariaLabel'),
+      prevYearAriaLabel: translate('datePicker.previousYear.ariaLabel'),
+      nextYearAriaLabel: translate('datePicker.nextYear.ariaLabel'),
+      closeButtonAriaLabel: translate('datePicker.close.ariaLabel'),
     };
   }
 
@@ -236,7 +236,7 @@ const mapStateToProps = (state: AppState) => ({
   validationFailures: {
     invalidTitle: hasValidSubject(state.meeting.inputMeeting)
       ? undefined
-      : 'Invalid subject'
+      : translate('meetingPage.invalidSubject.error')
   }
 });
 

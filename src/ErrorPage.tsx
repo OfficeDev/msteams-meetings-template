@@ -56,7 +56,11 @@ function ErrorPageComponent(props: ErrorPageProps) {
           childrenGap: 35
         }}
       >
-        <img className="splashImage" src={errorImage} alt="Error graphic" />
+        <img
+          className="splashImage"
+          src={errorImage}
+          alt={translate('errorPage.splash.altText')}
+          />
         <Text variant="xLargePlus" styles={boldStyle}>
           <FormattedMessage id="errorPage.heading" />
         </Text>
