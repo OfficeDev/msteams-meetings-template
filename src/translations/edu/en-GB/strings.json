@@ -1,5 +1,5 @@
 {
-  "signin.logo": "sign in logo",
+  "signin.logo": "Sign in logo",
   "signin.header": "Welcome to Microsoft Teams meetings",
   "signin.subheader.lead": "Bring educators and students together with online meetings in Teams.",
   "signin.subheader.signin": "Sign in to Microsoft Teams using your school account to get started.",
@@ -16,6 +16,10 @@
   "meetingPage.cancel": "Cancel",
   "meetingPage.cancel.ariaLabel": "Cancel",
   "meetingPage.title.input": "Add title",
+  "meetingPage.duration.days": "{days}d ",
+  "meetingPage.duration.hours": "{hours}h ",
+  "meetingPage.duration.minutes": "{minutes}m ",
+  "meetingPage.invalidSubject.error": "Invalid subject ",
   "copyMeetingPage.failed.copy": "Failed to copy",
   "copyMeetingPage.header": "Meeting created",
   "copyMeetingPage.teams.link": "Join Microsoft Teams Meeting",
@@ -25,10 +29,17 @@
   "copyMeetingPage.copy.ariaLabel": "Copy the meeting link",
   "header.signout.title": "Sign out",
   "header.signout.ariaLabel": "Sign out",
+  "errorPage.splash.altText": "Error graphic",
   "errorPage.heading": "Oops! Your meeting wasn't created successfully.",
   "errorPage.subheading": "Please try again. If the problem persists, check with your IT administrator to ensure you have the proper permissions.",
   "errorPage.back": "Back",
   "errorPage.back.ariaLabel": "Back to last screen",
   "errorPage.try.again": "Try again",
-  "errorPage.try.again.ariaLabel": "Try again"
+  "errorPage.try.again.ariaLabel": "Try again",
+  "datePicker.goToToday": "Go to today",
+  "datePicker.previousMonth.ariaLabel": "Go to previous month",
+  "datePicker.nextMonth.ariaLabel": "Go to next month",
+  "datePicker.previousYear.ariaLabel": "Go to previous year",
+  "datePicker.nextYear.ariaLabel": "Go to next year",
+  "datePicker.close.ariaLabel": "Close date picker"
 }
