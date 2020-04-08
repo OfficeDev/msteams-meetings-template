@@ -1,5 +1,5 @@
 {
-  "signin.logo": "Sign in logo",
+  "signin.logo": "Logg på-logo",
   "signin.header": "Velkomen til Microsoft Teams-møter",
   "signin.subheader.lead": "Kople lærar og studentar saman med nettmøte i Teams.",
   "signin.subheader.signin": "Logg på Microsoft Teams med skulekontoen din for å kome i gong.",
@@ -16,10 +16,10 @@
   "meetingPage.cancel": "Avbryt",
   "meetingPage.cancel.ariaLabel": "Avbryt",
   "meetingPage.title.input": "Legg til tittel",
-  "meetingPage.duration.days": "{days}d ",
-  "meetingPage.duration.hours": "{hours}h ",
-  "meetingPage.duration.minutes": "{minutes}m ",
-  "meetingPage.invalidSubject.error": "Invalid subject ",
+  "meetingPage.duration.days": "{days} dagar ",
+  "meetingPage.duration.hours": "{hours} timar ",
+  "meetingPage.duration.minutes": "{minutes} minutt ",
+  "meetingPage.invalidSubject.error": "Ikkje eit gyldig emne ",
   "copyMeetingPage.failed.copy": "Kan ikkje kopiere",
   "copyMeetingPage.header": "Møtet blei oppretta",
   "copyMeetingPage.teams.link": "Bli med i Microsoft Teams-møte",
@@ -29,7 +29,7 @@
   "copyMeetingPage.copy.ariaLabel": "Kopier koplinga til møtet",
   "header.signout.title": "Logg av",
   "header.signout.ariaLabel": "Logg av",
-  "errorPage.splash.altText": "Error graphic",
+  "errorPage.splash.altText": "Feil-grafikk",
   "errorPage.heading": "Uff! Møtet ditt blei ikkje oppretta.",
   "errorPage.subheading": "Prøv på nytt. Om problemet held fram, må du forsikre deg med IT-administratoren at du har dei rette løyva.",
   "errorPage.back": "Tilbake",
@@ -41,5 +41,5 @@
   "datePicker.nextMonth.ariaLabel": "Gå til neste månad",
   "datePicker.previousYear.ariaLabel": "Gå til førre år",
   "datePicker.nextYear.ariaLabel": "Gå til neste år",
-  "datePicker.close.ariaLabel": "Close date picker"
+  "datePicker.close.ariaLabel": "Lukk datoveljar"
 }

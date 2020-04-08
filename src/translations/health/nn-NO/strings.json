@@ -1,5 +1,5 @@
 {
-  "signin.logo": "Sign in logo",
+  "signin.logo": "Logg på-logo",
   "signin.header": "Virtuelle legebesøk gjennom Microsoft Teams",
   "signin.subheader.lead": "Kople tenesteytarar og pasientar saman med nettmøte i Teams.",
   "signin.subheader.signin": "Logg på Microsoft Teams med jobbkontoen din for å kome i gong.",
@@ -16,10 +16,10 @@
   "meetingPage.cancel": "Avbryt",
   "meetingPage.cancel.ariaLabel": "Avbryt",
   "meetingPage.title.input": "Legg til tittel",
-  "meetingPage.duration.days": "{days}d ",
-  "meetingPage.duration.hours": "{hours}h ",
-  "meetingPage.duration.minutes": "{minutes}m ",
-  "meetingPage.invalidSubject.error": "Invalid subject ",
+  "meetingPage.duration.days": "{days} dagar ",
+  "meetingPage.duration.hours": "{hours} timar ",
+  "meetingPage.duration.minutes": "{minutes} minutt ",
+  "meetingPage.invalidSubject.error": "Ikkje eit gyldig emne ",
   "copyMeetingPage.failed.copy": "Kan ikkje kopiere koplinga. Prøv på nytt om noen minutt.",
   "copyMeetingPage.header": "Møtet blei oppretta",
   "copyMeetingPage.teams.link": "Bli med i Microsoft Teams-møte",
@@ -35,11 +35,11 @@
   "errorPage.back.ariaLabel": "Tilbake til førige skjerm",
   "errorPage.try.again": "Prøv på nytt",
   "errorPage.try.again.ariaLabel": "Prøv på nytt",
-  "errorPage.splash.altText": "Error graphic",
+  "errorPage.splash.altText": "Feil-grafikk",
   "datePicker.goToToday": "Gå til i dag",
   "datePicker.previousMonth.ariaLabel": "Gå til førre månad",
   "datePicker.nextMonth.ariaLabel": "Gå til neste månad",
   "datePicker.previousYear.ariaLabel": "Gå til førre år",
   "datePicker.nextYear.ariaLabel": "Gå til neste år",
-  "datePicker.close.ariaLabel": "Close date picker"
+  "datePicker.close.ariaLabel": "Lukk datoveljar"
 }
