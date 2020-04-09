@@ -9,7 +9,7 @@
   "createLandingPage.create.meeting": "会議のリンクを作成する",
   "createLandingPage.create.meeting.ariaLabel": "会議のリンクを作成する",
   "createLandingPage.schedule.header": "仮想訪問を設定します。",
-  "createLandingPage.subheader": "患者や同僚と共有できる会議リンクを作成します。",
+  "createLandingPage.subheader": "患者や仕事仲間と共有できる会議のリンクを作成します。",
   "meetingPage.header": "新しい会議",
   "meetingPage.create": "作成",
   "meetingPage.create.ariaLabel": "会議を作成",

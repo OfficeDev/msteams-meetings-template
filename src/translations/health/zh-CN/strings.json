@@ -9,7 +9,7 @@
   "createLandingPage.create.meeting": "创建会议链接",
   "createLandingPage.create.meeting.ariaLabel": "创建会议链接",
   "createLandingPage.schedule.header": "设置您的虚拟访问。",
-  "createLandingPage.subheader": "创建可与病人和同事共享的会议链接。",
+  "createLandingPage.subheader": "创建一个可与患者和同事共享的会议链接。",
   "meetingPage.header": "新建会议",
   "meetingPage.create": "创建",
   "meetingPage.create.ariaLabel": "创建会议",
