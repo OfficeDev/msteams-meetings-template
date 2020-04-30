@@ -72,13 +72,26 @@ function CopyMeetingPageComponent(props: CopyMeetingPageProps) {
             id="copy"
             dangerouslySetInnerHTML={{ __html: props.meeting?.preview ?? '' }}
           />
-          <PrimaryButton
-            className="teamsButton copyButton"
-            onClick={() => props.onCopyToClipboard(props.meeting)}
-            ariaLabel={translate('copyMeetingPage.copy.ariaLabel')}
-          >
-            <FormattedMessage id="copyMeetingPage.copy" />
-          </PrimaryButton>
+
+          <Stack horizontal horizontalAlign="space-around" >
+
+            <PrimaryButton
+              className="teamsButton copyButton"
+              onClick={() => props.onCopyToClipboard(props.meeting)}
+              ariaLabel={translate('copyMeetingPage.copy.ariaLabel')}
+            >
+              <FormattedMessage id="copyMeetingPage.copy" />
+            </PrimaryButton>
+
+            <PrimaryButton 
+              className="teamsButton optionsButton"
+              onClick={() => window.open(props.meeting?.meetingOptionsUrl, '_blank')}
+              ariaLabel={translate('copyMeetingPage.options.ariaLabel')}
+              >
+              <FormattedMessage id="copyMeetingPage.options" />
+            </PrimaryButton>
+
+          </Stack>
         </Stack.Item>
       </Stack>
     </>

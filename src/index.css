@@ -267,7 +267,8 @@ div[class*="ms-ComboBox"]::after {
   margin-bottom: 1rem;
 }
 
-.copyButton {
+.copyButton
+.optionsButton {
   align-self: flex-end;
   margin-top: 1.6rem;
 }
