@@ -1,4 +1,5 @@
 # Starter pipeline
+
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
@@ -12,6 +13,11 @@ pool:
 steps:
   - script: yarn install
   - script: yarn build
+  - task: ComponentGovernanceComponentDetection@0
+    inputs:
+      scanType: 'LogOnly'
+      verbosity: 'Verbose'
+      alertWarningLevel: 'High'
   - task: CopyFiles@2
     inputs: 
       sourceFolder: 'build'
