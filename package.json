@@ -7,7 +7,7 @@
     "@uifabric/fluent-theme": "7.1.35",
     "axios": "0.19.2",
     "connected-react-router": "6.7.0",
-    "lodash": "4.17.13",
+    "lodash": "4.17.19",
     "moment": "2.24.0",
     "moment-timezone": "0.5.28",
     "msal": "1.2.1",
