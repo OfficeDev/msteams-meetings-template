@@ -2,6 +2,7 @@ import { Middleware } from 'redux';
 import { CREATE_MEETING_COMMAND, MEETING_CREATED_EVENT } from './actions';
 import { createMeetingService } from './service';
 import { push } from 'connected-react-router';
+import { saveMeeting } from '../openlearning/meetingWidget';
 
 export function createMeetingMiddleware(): Middleware {
   const service = createMeetingService();
@@ -23,7 +24,10 @@ export function createMeetingMiddleware(): Middleware {
     }
 
     if (action.type === MEETING_CREATED_EVENT) {
-      store.dispatch(push('/copyMeeting'));
+      saveMeeting(action.meeting).then(() => {
+        // TODO: display a different confirmation screen?
+        store.dispatch(push('/copyMeeting'));
+      });
     }
     next(action);
   };
