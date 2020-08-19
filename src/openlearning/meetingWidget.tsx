@@ -18,8 +18,10 @@ export const saveMeeting = (meeting: OnlineMeeting) => {
       if (reply) {
         if (reply.action === 'saved') {
           resolve();
+          window.removeEventListener("message", receiveMessage);
         } else if (reply.action === 'error') {
           reject(reply.error);
+          window.removeEventListener("message", receiveMessage);
         }
       }
     };
