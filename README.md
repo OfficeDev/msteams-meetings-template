@@ -5,11 +5,11 @@ languages:
 products:
 - office-teams
 - ms-graph
-description: "Microsoft Teams Meetings app for Learning Management Systems"
-urlFragment: "msteams-app-lms-meetings"
+description: "Microsoft Teams Meeting Link Template"
+urlFragment: "msteams-meetings-template"
 ---
 
-# Microsoft Teams Meetings App for Learning Management Systems (LMS)
+# Microsoft Teams Meeting Link Template
 
 <!-- 
 Guidelines on README format: https://review.docs.microsoft.com/help/onboard/admin/samples/concepts/readme-template?branch=master
@@ -19,17 +19,17 @@ Guidance on onboarding samples to docs.microsoft.com/samples: https://review.doc
 Taxonomies for products and languages: https://review.docs.microsoft.com/new-hope/information-architecture/metadata/taxonomies?branch=master
 -->
 
-Welcome to the embeddable Microsoft Teams meeting link creator. With it, Learning Management Systems and app developers can provide an easy way for their users to create Teams meeting links and share them directly with participants. 
+Welcome to the embeddable Microsoft Teams meeting link creator. With it, developers can provide an easy way, from within their solution, for users to create Teams meeting links and share them with participants.
 
 ![Screenshot of the solution](doc/Splash.gif)
 
-The app provides an easy interface where users can:
+The template provides an easy interface where users can:
 
-1) Sign in using their Microsoft account
+1) Sign in using their work or school account
 2) Create a Teams meeting link
-3) Copy the meeting information to share within their LMS
+3) Copy the meeting information to share with others
 
-Integrating this app template allows you to enable remote learning for your entire userbase by bringing the power of Microsoft Teams' online meetings to your users.
+Integrating this template allows you to enable scheduling directly from your platform, bringing the power of Microsoft Teams' online meetings to your users.
 
 ## Contents
 
@@ -66,14 +66,17 @@ You'll need to register an app through the following process:
 
     Copy the Application Id. This is the unique identifier for your app.
 
-7. Under **Manage** on the left-hand pane, click **Authentication**. Under **Redirect URIs**, click **Add URI** and enter the following URIs:
+7. Under **Manage** on the left-hand pane, click **Authentication**. 
+7. CLick **Add a platform** and select **Web**.
+7. Under **Redirect URIs**, enter the following URIs:
     * `http://localhost:3000/`
 
     On the same page, under **Implicit grant**, make sure that both **Access tokens** and **ID tokens** checkboxes are checked.
 
     Click **Save** to save your changes.
 
-7. Under **Manage** on the left-hand pane, click **API permissions** and then **Add a new permission**. Select **Microsoft Graph** and then **Delegated permissions**. Add the `OnlineMeetings.ReadWrite` (Read and create user's online meetings) permission.
+7. Under **Manage** on the left-hand pane, click **API permissions** and then **Add a  permission**. Select **Microsoft Graph** and then **Delegated permissions**. Add the following permissions:
+    * `OnlineMeetings.ReadWrite` (Read and create user's online meetings) permission.
 
 ### Update the configuration
 
@@ -143,6 +146,8 @@ Admins
 ### Do meetings that I schedule through this integration appear in my Outlook or Teams calendars?
 No, meetings scheduled through the app do not appear in the scheduler’s Outlook or Teams calendar.
 
+If you're a developer integrating this sample, you can create events that appear on the user's calendar using the [Create calendar event](https://docs.microsoft.com/en-us/graph/api/calendar-post-events?view=graph-rest-1.0&tabs=http) API. You may find this [example request](https://docs.microsoft.com/en-us/graph/api/calendar-post-events?view=graph-rest-1.0&tabs=http#example-2-create-and-enable-an-event-as-an-online-meeting) helpful.
+
 ### When will my Teams meeting expire?
 
 Meetings scheduled through the application are regular meetings and following [normal Teams meeting expiration timelines](https://docs.microsoft.com/en-us/microsoftteams/limits-specifications-teams) based on the date you enter when you create the meeting.
@@ -151,11 +156,11 @@ Meetings scheduled through the application are regular meetings and following [n
 
 Thoughts? Questions? Ideas? Share them with us on [Teams UserVoice](https://microsoftteams.uservoice.com/forums/555103-public)!
 
-Please report bugs and other code issues [here](https://github.com/OfficeDev/msteams-app-lms-meetings/issues/new).
+Please report bugs and other code issues [here](https://github.com/OfficeDev/msteams-meetings-template/issues/new).
 
 ## Legal notice
 
-Please read the license terms applicable to this app template [here](https://github.com/OfficeDev/msteams-app-lms-meetings/blob/master/LICENSE). In addition to these terms, by using this app template you agree to the following:
+Please read the license terms applicable to this template [here](https://github.com/OfficeDev/msteams-meetings-template/blob/master/LICENSE). In addition to these terms, by using this template you agree to the following:
 
 * You are responsible for complying with applicable privacy and security regulations related to use, collection and handling of any personal data by your app.  This includes complying with all internal privacy and security policies of your organization if your app is developed to be sideloaded internally within your organization.
 
