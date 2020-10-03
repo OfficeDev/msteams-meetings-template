@@ -6,7 +6,7 @@ import { meetingReducer } from './meeting-creator/reducers';
 
 export interface AppState {
   meeting: MeetingState;
-  router: History<History.PoorMansUnknown>;
+  router: History<unknown>;
 }
 
 export function createRootReducer(history: History) {
