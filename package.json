@@ -5,7 +5,7 @@
   "dependencies": {
     "@types/react-intl": "3.0.0",
     "@uifabric/fluent-theme": "7.1.35",
-    "axios": "0.19.2",
+    "axios": "0.21.1",
     "connected-react-router": "6.7.0",
     "lodash": "4.17.19",
     "moment": "2.24.0",
