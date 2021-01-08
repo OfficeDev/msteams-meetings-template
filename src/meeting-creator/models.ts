@@ -19,6 +19,7 @@ export interface OnlineMeeting {
   conferenceId: string;
   tollNumber: string;
   tollFreeNumber: string;
+  meetingOptionsUrl:string;
   preview: string;
 }
 

@@ -40,6 +40,15 @@ export function createMeetingService() {
           '%20'
         )
       );
+      
+      // Extract MeetingOptions URL using regex
+      var meetingOptionsUrl = '';
+      if (preview){
+        const re =preview.match("(https://teams.microsoft.com/meetingOptions/?.*)(?:\".+rel)");
+        if (re && re.length>1){
+          meetingOptionsUrl = re[1];
+        }
+      }
 
       const createdMeeting = {
         id: response.data.id,
@@ -54,6 +63,7 @@ export function createMeetingService() {
         tollFreeNumber: response.data.audioConferencing?.tollFreeNumber || '',
         dialinUrl: response.data.audioConferencing?.dialinUrl || '',
         videoTeleconferenceId: response.data.videoTeleconferenceId,
+        meetingOptionsUrl: meetingOptionsUrl || '',
         preview
       } as OnlineMeeting;
 
