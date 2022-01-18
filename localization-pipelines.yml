@@ -30,3 +30,6 @@ steps:
     outputDirectoryRoot: 'src/translations/'
     cultureMappingType: 'None'
     gitAction: 'COMMIT'
+#kdk  
+#authKey
+# https
