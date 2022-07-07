@@ -8,7 +8,7 @@
     "axios": "0.21.1",
     "connected-react-router": "6.7.0",
     "lodash": "4.17.19",
-    "moment": "2.24.0",
+    "moment": "2.29.4",
     "moment-timezone": "0.5.28",
     "msal": "1.2.1",
     "office-ui-fabric-react": "7.103.0",
